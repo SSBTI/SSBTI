@@ -39,3 +39,14 @@
 
 
 ![image-20210225100608988](README.assets/image-20210225100608988.png)
+
+
+
+## 브랜치 전략
+
+```
+feature/(기능이름)/(구역)
+```
+
+예시: feature/feed/fe
+
