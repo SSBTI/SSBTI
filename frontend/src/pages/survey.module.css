@@ -1,0 +1,71 @@
+.wrapper {
+  width:500px;
+  margin:auto;
+  padding-top:50px;
+}
+
+.QuestionGauge {
+  position: relative;
+  width: calc(100% - 60px);
+  height: 36px;
+  margin: auto auto 20px;
+}
+
+.GaugeLine {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1;
+  width: 100%;
+  height: 4px;
+  background-color:grey;
+  border-radius:2px;
+  margin: 16px 0;
+  opacity: 0.5;
+}
+
+.GaugeCircle {
+  position:absolute;
+  width: 32px;
+  height: 32px;
+  color: white;
+  background-color: grey;
+  z-index:2;
+  border-radius:50%;
+  font-size:18px;
+  text-align:center;
+  line-height: 30px;
+}
+
+.QuestionText {
+  padding: 20px 0 50px 0;
+  margin-top:30px;
+  margin-bottom: 40px;
+  text-align:center;
+  word-break: keep-all;
+  width: 100%;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.AnswerButton {
+  width: calc(100% - 180px);
+  margin-bottom: 36px;
+  margin-left: 90px;
+  margin-right:90px;
+  min-height: 60px;
+  font-size: 16px;
+  word-break: keep-all;
+  /* font-weight: 500; */
+  text-align: center;
+  border-radius:10px;
+  color:black;
+  outline:none;
+  border:none;
+  display:block;
+  padding:20px;
+}
+
+.AnswerButton:hover {
+  cursor:pointer;
+}
