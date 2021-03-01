@@ -65,12 +65,12 @@ function Survey() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.QuestionGauge}>
-        <div id="GaugeCircle" className={styles.GaugeCircle}><span>{Step}</span></div>
+        <div id="GaugeCircle" className={styles.GaugeCircle}><span>{Step+1}</span></div>
         <div className={styles.GaugeLine}></div>
       </div>
       <div className={styles.QuestionText}>{Questions[Step].question}</div>
-      <button className={styles.AnswerButton} onClick={()=>onAnswer(Former)}>{Questions[Step].answers[Former]}</button>
-      <button className={styles.AnswerButton} onClick={()=>onAnswer(Latter)}>{Questions[Step].answers[Latter]}</button>
+      <button className={styles.AnswerButton} onClick={()=>onAnswer(Former)}>A. {Questions[Step].answers[Former]}</button>
+      <button className={styles.AnswerButton} onClick={()=>onAnswer(Latter)}>B. {Questions[Step].answers[Latter]}</button>
     </div>
   );
 }
