@@ -17,6 +17,7 @@ public class MbtiResultDto {
     private String type;
     private String desc;
     private String name;
+    private String img;
     private List<MbtiSimpleDto> lovers;
     private List<MbtiSimpleDto> haters;
     private List<Product> products;
