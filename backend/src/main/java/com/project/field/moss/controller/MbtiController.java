@@ -2,7 +2,7 @@ package com.project.field.moss.controller;
 
 
 import com.project.field.moss.domain.Mbti;
-import com.project.field.moss.dto.MbtiDto;
+import com.project.field.moss.dto.MbtiResultDto;
 import com.project.field.moss.dto.MbtiInputDto;
 import com.project.field.moss.service.MbtiService;
 import lombok.Getter;
@@ -25,14 +25,14 @@ public class MbtiController {
 
     @GetMapping("/all")
     public ResponseEntity<List<?>> getAll(){
-        List<MbtiDto> result = mbtiService.getMbtiAll();
+        List<MbtiResultDto> result = mbtiService.getMbtiAll();
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/result")
-    public ResponseEntity<MbtiDto> getMbti(MbtiInputDto input){
-        MbtiDto result = mbtiService.getMbti(input);
+    public ResponseEntity<MbtiResultDto> getMbti(MbtiInputDto input){
+        MbtiResultDto result = mbtiService.getMbti(input);
         return ResponseEntity.ok().body(result);
     }
-
+    
 }
