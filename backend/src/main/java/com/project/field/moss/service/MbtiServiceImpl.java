@@ -39,6 +39,7 @@ public class MbtiServiceImpl implements MbtiService{
                 		.desc(mbti.getDesc())
                 		.type(mbti.getType().toString())
                 		.name(mbti.getName())
+                		.img(mbti.getImg())
                 		.build();
                 })
                 .collect(Collectors.toList());
@@ -92,6 +93,7 @@ public class MbtiServiceImpl implements MbtiService{
         				MbtiSimpleDto.builder()
                 		.type(list.get(i).getTo().getType().toString())
                 		.name(list.get(i).getTo().getName())
+                		.img(list.get(i).getTo().getImg())
                 		.build()
         				);
         	}else {
@@ -99,6 +101,7 @@ public class MbtiServiceImpl implements MbtiService{
         				MbtiSimpleDto.builder()
                 		.type(list.get(i).getTo().getType().toString())
                 		.name(list.get(i).getTo().getName())
+                		.img(list.get(i).getTo().getImg())
                 		.build()
         				);
         	}
@@ -108,6 +111,7 @@ public class MbtiServiceImpl implements MbtiService{
         		.desc(mbti.getDesc())
         		.type(mbti.getType().toString())
         		.name(mbti.getName())
+        		.img(mbti.getImg())
         		.haters(hater)
         		.lovers(lover)
         		.products(getRandProduct())
