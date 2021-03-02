@@ -9,4 +9,5 @@ import lombok.Setter;
 public class MbtiSimpleDto {
 	String type;
 	String name;
+	String img;
 }

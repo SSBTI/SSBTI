@@ -32,6 +32,9 @@ public class Mbti {
     @Column(name="count")
     @ColumnDefault("0")
     private int count;
+    
+    @Column(name="img")
+    private String img;
 
     @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
     private List<Relationship> fromMbtis = new ArrayList<>();
