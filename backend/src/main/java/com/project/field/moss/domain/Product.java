@@ -10,11 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 @Getter @Setter
 public class Product {
-	@Id
-	@Column(name="goods_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="product_id")
+    private Long id;
+
+    @Column(name="goods_id")
 	private String goodsId;
 	
 	
@@ -44,6 +50,7 @@ public class Product {
 	private String category;
 
 	@Column(name="ctg_rank")
+	@ColumnDefault("0")
 	private int ctgRank;
 	
 	@Column(name="review_grade")
@@ -55,7 +62,7 @@ public class Product {
 	@Column(name="goods_detail_url")
 	private String goodsDetailUrl;
 	
-	@Column(name="usp_desc")
+	@Column(name="usp_desc", columnDefinition="TEXT")
 	private String uspDesc;
 	
 	@Column(name="goods_prc_no")

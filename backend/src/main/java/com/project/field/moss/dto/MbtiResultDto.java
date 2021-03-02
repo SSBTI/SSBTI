@@ -16,8 +16,9 @@ import java.util.List;
 public class MbtiResultDto {
     private String type;
     private String desc;
-    private List<String> lovers;
-    private List<String> haters;
+    private String name;
+    private List<MbtiSimpleDto> lovers;
+    private List<MbtiSimpleDto> haters;
     private List<Product> products;
 
 }

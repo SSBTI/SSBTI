@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.project.field.moss.domain.Product;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, String>{
+public interface ProductRepository extends JpaRepository<Product, Long>{
 //	@Query("SELECT * FROM product ORDER BY random()")
 //	List<Product> findByRandom();
 	
