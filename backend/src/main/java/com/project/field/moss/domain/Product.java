@@ -37,8 +37,11 @@ public class Product {
 	@Column(name="grp_path")
 	private String grpPath;
 		
-	@Column(name="goods_opt_str")
-	private String goodsOptStr;
+	@Column(name="colors")
+	private String colors;
+	
+	@Column(name="category")
+	private String category;
 
 	@Column(name="ctg_rank")
 	private int ctgRank;
