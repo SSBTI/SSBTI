@@ -5,10 +5,16 @@ import Desc from '../components/result/Desc'
 import Title from '../components/result/Title'
 import Pair from '../components/result/Pair'
 import Recommend from '../components/result/Recommend'
+import { useRouter } from 'next/router';
 
 interface resultProps {}
 
 const result: React.FC<resultProps> = () => {
+    const router = useRouter();
+    const MBTI = router.query;
+    for(const [key,value] of Object.entries(MBTI)) {
+        MBTI[key] = Number(value);
+    }
     const title = "만능재주꾼 전자레인지"
     const description = [
         "무엇을 만드는 데 타고난 재능이 있어요",
