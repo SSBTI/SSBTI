@@ -55,18 +55,18 @@ public class MbtiServiceImpl implements MbtiService{
             sb.append("E");
         }
 
-        if (types.getNS() > 0) {
-            sb.append("N");
-        }
-        else {
+        if (types.getSN() > 0) {
             sb.append("S");
         }
+        else {
+            sb.append("N");
+        }
 
-        if (types.getFT() > 0) {
-            sb.append("F");
+        if (types.getTF() > 0) {
+            sb.append("T");
         }
         else {
-            sb.append("T");
+            sb.append("F");
         }
 
         if (types.getJP() > 0) {
