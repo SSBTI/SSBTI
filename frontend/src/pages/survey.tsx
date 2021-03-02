@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './survey.module.css';
 
@@ -57,6 +58,10 @@ function Survey() {
       GaugeCircle.style.left = `${GaugeCirclePos}px`;
     } else {
       console.log(changedMBTIscore);
+      Router.push({
+        pathname: '/result',
+        query: changedMBTIscore,
+      });
       // 얘를 결과창으로 보내주자
     }
     
