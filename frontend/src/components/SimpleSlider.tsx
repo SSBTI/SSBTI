@@ -32,7 +32,7 @@ const SimpleSlider: React.FC<SliderProps> = ({ product }) => {
       slidesToShow: 1,
       slidesToScroll: 1
       }
-    const products = product.map((pd, idx) => <div key={idx}><img src={pd.imgPath1} alt="" width="100" height="100" />
+    const products = product.map((pd, idx) => <div key={idx}><img src={pd.imgPath1} alt="" width="300" height="300" />
     </div>)
     return (
       <Slider {...settings}>

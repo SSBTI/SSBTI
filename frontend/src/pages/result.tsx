@@ -21,6 +21,7 @@ type mbtiResult = {
 
 function result() {
     const router = useRouter();
+    const [constructorHasRun, setConstructorHasRun] = useState(false);
     const MBTI = router.query;
     const score = [];
     let i = 0;
@@ -37,36 +38,25 @@ function result() {
         products: [{}]
     });
 
-    axios.get('http://localhost:8080/mbti/result', {
-        params: {
-            IE: score[0],
-            SN: score[1],
-            TF: score[2],
-            JP: score[3],
-        }
-    })
+    const constructor = () => {
+        if (constructorHasRun) return;
+        axios.get('http://localhost:8080/mbti/result', {
+            params: {
+                IE: score[0],
+                SN: score[1],
+                TF: score[2],
+                JP: score[3],
+            }
+        })
         .then((res) => {
             console.log(res.data);
             setMBTI(res.data);
         })
-        .catch((err) => { console.log(err) });
+        .catch((err) => { console.log(err) })
+        setConstructorHasRun(true);
+    };
+    constructor();
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8080/mbti/result', {
-    //         params: {
-    //             IE: score[0],
-    //             SN: score[1],
-    //             TF: score[2],
-    //             JP: score[3],
-    //         }
-    //     })
-    //         .then((res) => {
-    //             console.log(res.data);
-    //             setMBTI(res.data);
-    //         })
-    //         .catch((err) => { console.log(err) })
-    // }, []);
-    
     const description = mbtiResult.desc.split("|");
     const descriptions = description.map((str, idx) => <Desc desc={str} key={idx}/>)
     console.log('lover: ' + mbtiResult.lovers[0].name);
@@ -77,7 +67,7 @@ function result() {
             <Layout pageTitle="Result">
                 <div className={styles.wrapper}>
                     <Title name={mbtiResult.name} />
-                    <img src={mbtiResult.img} alt="" width="100" height="100" />
+                    <img src={mbtiResult.img} alt="" width="300" height="300" />
                     <ul>
                         {descriptions}
                     </ul>
