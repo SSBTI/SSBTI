@@ -2,10 +2,26 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from 'next/image'
 
 interface SliderProps {
-    product: string[]
+  product: [{
+    id: 0,
+    goodsId: '',
+    goodsNm: '',
+    mdlCode: '',
+    mdlNm: '',
+    salePrice: 0,
+    imgPath1: '',
+    grpPath: '',
+    colors: '',
+    category: '',
+    ctgRank: 1,
+    reviewGrade: 5,
+    reviewCount: 1,
+    goodsDetailUrl: '',
+    uspDesc: '',
+    goodsPrcNo: 0
+  }]
 }
 
 const SimpleSlider: React.FC<SliderProps> = ({ product }) => {
@@ -16,7 +32,8 @@ const SimpleSlider: React.FC<SliderProps> = ({ product }) => {
       slidesToShow: 1,
       slidesToScroll: 1
       }
-    const products = product.map((src, idx) => <div><Image src={src} alt="" width="100" height="100" key={idx}/></div>)
+    const products = product.map((pd, idx) => <div key={idx}><img src={pd.imgPath1} alt="" width="300" height="300" />
+    </div>)
     return (
       <Slider {...settings}>
         {products}
