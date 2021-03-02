@@ -7,11 +7,10 @@ const Header: React.FC<HeaderProps> = () => {
     return (
         <header style={{
             display: 'flex',
-            justifyContent: 'space-between'
+            justifyContent: 'center'
         }}>
-            <AppLink href="/" label="Home" />
             <nav>
-                <AppLink href="/result" label="Result" />
+                <AppLink href="/" label="Home" />
             </nav>
         </header>
     )

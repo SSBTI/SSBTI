@@ -1,5 +1,6 @@
 import React from 'react'
 import Link, { LinkProps } from 'next/link'
+import styles from '../styles/result.module.css'
 
 interface AppLinkProps extends LinkProps {
     label: string
@@ -8,7 +9,7 @@ interface AppLinkProps extends LinkProps {
 const AppLink: React.FC<AppLinkProps> = ({ href, label }) => {
     return (
         <Link href={href}>
-            <a>{label}</a>
+            <button className={styles.linkBtn}>{label}</button>
         </Link>
     )
 }
