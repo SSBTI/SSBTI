@@ -27,7 +27,9 @@
   "dependencies": {
     "next": "^10.0.7",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-slick": "^0.28.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
