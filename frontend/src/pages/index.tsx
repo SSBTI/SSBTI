@@ -1,6 +1,11 @@
 import Main from "./main";
 import Survey from "./survey";
+import Layout from '../components/Layout'
 
 export default function Home() {
-    return <Survey/>
+    return (
+        <Layout pageTitle="Home">
+            <Survey />
+        </Layout>
+    )
 }
