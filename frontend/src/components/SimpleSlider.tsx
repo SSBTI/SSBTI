@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
+import Image from './Image';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -30,10 +31,10 @@ const SimpleSlider: React.FC<SliderProps> = ({ product }) => {
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      useCSS: true
       }
-    const products = product.map((pd, idx) => <div key={idx}><img src={pd.imgPath1} alt="" width="300" height="300" />
-    </div>)
+  const products = product.map((pd, idx) => <Image key={idx} src={pd.imgPath1}/>)
     return (
       <Slider {...settings}>
         {products}
