@@ -6,6 +6,7 @@ import Title from '../components/result/Title'
 import Pair from '../components/result/Pair'
 import Recommend from '../components/result/Recommend'
 import Header from '../components/Header'
+import Image from '../components/Image'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
@@ -14,9 +15,32 @@ type mbtiResult = {
     desc: string,
     name: string,
     img: '',
-    lovers: [{}],
-    haters: [{}],
-    products: [{}]
+    lovers: [{
+        name: '',
+        img: ''
+    }],
+    haters: [{
+        name: '',
+        img: ''
+    }],
+    products: [{
+        id: 0,
+        goodsId: '',
+        goodsNm: '',
+        mdlCode: '',
+        mdlNm: '',
+        salePrice: 0,
+        imgPath1: '',
+        grpPath: '',
+        colors: '',
+        category: '',
+        ctgRank: 1,
+        reviewGrade: 5,
+        reviewCount: 1,
+        goodsDetailUrl: '',
+        uspDesc: '',
+        goodsPrcNo: 0
+      }]
 }
 
 function result() {
@@ -33,9 +57,32 @@ function result() {
         desc: '',
         name: '',
         img: '',
-        lovers: [{}],
-        haters: [{}],
-        products: [{}]
+        lovers: [{
+            name: '',
+            img: ''
+        }],
+        haters: [{
+            name: '',
+            img: ''
+        }],
+        products: [{
+            id: 0,
+            goodsId: '',
+            goodsNm: '',
+            mdlCode: '',
+            mdlNm: '',
+            salePrice: 0,
+            imgPath1: '',
+            grpPath: '',
+            colors: '',
+            category: '',
+            ctgRank: 1,
+            reviewGrade: 5,
+            reviewCount: 1,
+            goodsDetailUrl: '',
+            uspDesc: '',
+            goodsPrcNo: 0
+          }]
     });
 
     const constructor = () => {
@@ -67,7 +114,7 @@ function result() {
             <Layout pageTitle="Result">
                 <div className={styles.wrapper}>
                     <Title name={mbtiResult.name} />
-                    <img src={mbtiResult.img} alt="" width="300" height="300" />
+                    <Image src={mbtiResult.img} />
                     <ul>
                         {descriptions}
                     </ul>

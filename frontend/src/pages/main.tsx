@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './main.module.css';
+import styles from '../styles/main.module.css';
 import Router from 'next/router';
 
 function Main() {
