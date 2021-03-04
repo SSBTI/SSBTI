@@ -4,6 +4,14 @@
 >
 > TypeScript StyleGuide는 [Deep Dive](https://basarat.gitbook.io/typescript/styleguide)를 참고했습니다. 
 
+## CRUD 함수이름 형식
+
+1. C -> createXXX형식으로 작성
+2. R -> getXXX 형식으로 작성 (단, jpa에서는 find를 사용)
+3. U -> updateXXX 형식으로 작성
+4. D -> deleteXXX 형식으로 작성
+- axios보낼 때 함수 이름 및 내부 세션스토리지, 로컬스토리지 사용할 때 네이밍 컨벤션입니다.
+
 ## Variable & Function
 - 변수와 함수에는 `camelCase` 를 사용합니다.  
 
