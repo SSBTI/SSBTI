@@ -1,10 +1,18 @@
 # JAVA Naming Convention
 
 * NAVER의 캠퍼스 핵데이 java 코딩 컨벤션을 참고했습니다.  
+
 ## 파일 공통
 
 1. 파일 인코딩은 UTF-8 사용
 2. 새 줄 문자는 Windows형식의 CRLF 사용
+
+## CRUD 함수이름 형식
+
+1. C -> createXXX형식으로 작성
+2. R -> getXXX 형식으로 작성 (단, jpa에서는 find를 사용)
+3. U -> updateXXX 형식으로 작성
+4. D -> deleteXXX 형식으로 작성
 
 ## 이름
 
@@ -182,8 +190,8 @@
      > ```java
      > public boolean isValidExpression(String exp)
      > {
-     >  ...
-     >  return true;
+     > ...
+     > return true;
      > }
      > 
      > ```
@@ -192,8 +200,8 @@
      >
      > ```java
      > public boolean isValidExpression(String exp) {
-     >  ...
-     >  return true;
+     > ...
+     > return true;
      > }
      > ```
 
@@ -211,13 +219,13 @@
      >
      > ```java
      > if (line.startWith(WARNING_PREFIX)) {
-     >  return LogPattern.WARN;
+     > return LogPattern.WARN;
      > }
      > else if (line.startWith(DANGER_PREFIX)) {
-     >  return LogPattern.DANGER;
+     > return LogPattern.DANGER;
      > }
      > else {
-     >  return LogPattern.NORMAL;
+     > return LogPattern.NORMAL;
      > }
      > ```
      >
@@ -225,11 +233,11 @@
      >
      > ```java
      > if (line.startWith(WARNING_PREFIX)) {
-     >  return LogPattern.WARN;
+     > return LogPattern.WARN;
      > } else if (line.startWith(DANGER_PREFIX)) {
-     >  return LogPattern.NORMAL;
+     > return LogPattern.NORMAL;
      > } else {
-     >  return LogPattern.NORMAL;
+     > return LogPattern.NORMAL;
      > }
      > ```
 
@@ -255,14 +263,14 @@
      >
      > ```java
      > if (exp == null) {
-     >  return false;
+     > return false;
      > }
      > 
      > for (char ch : exp.toCharArray()) {
      > 
-     >  if (ch == 0) {
-     >      return false;
-     >  }
+     > if (ch == 0) {
+     >   return false;
+     > }
      > 
      > }
      > ```
@@ -296,9 +304,9 @@
      >
      > ```java
      > public boolen isAbnormalAccess (
-     >  User user, AccessLog log) {
+     > User user, AccessLog log) {
      > 
-     >  String message = user.getId() + "|" | log.getPrefix()
+     > String message = user.getId() + "|" | log.getPrefix()
      >         + "|" + SUFFIX;
      > }
      > ```
