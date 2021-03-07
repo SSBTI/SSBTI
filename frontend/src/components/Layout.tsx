@@ -1,19 +1,16 @@
-import React from 'react'
-import Head from 'next/head'
-import Footer from './Footer'
+import React from 'react';
+import Head from 'next/head';
+import Footer from './Footer';
 
-interface LayoutProps {
-    pageTitle: string
-}
-
-const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
+//  기본 레이아웃 (header + main + footer)
+function Layout(props) {
     return (
         <>
             <Head>
-                <title>SSBTI | {pageTitle}</title>
+                <title>SSBTI | {props.pageTitle}</title>
             </Head>
             <div>
-                <main>{children}</main>
+                <main>{props.children}</main>
                 <Footer />
             </div>
         </>

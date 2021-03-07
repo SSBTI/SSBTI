@@ -1,9 +1,8 @@
 import React from 'react';
 import AppLink from './AppLink';
 
-interface HeaderProps {}
-
-const Header: React.FC<HeaderProps> = () => {
+//  main으로 가는 버튼 포함하는 header
+function Header() {
     return (
         <header style={{
             display: 'flex',
@@ -13,7 +12,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <AppLink href="/" label="Home" />
             </nav>
         </header>
-    )
+    );
 }
 
 export default Header;
