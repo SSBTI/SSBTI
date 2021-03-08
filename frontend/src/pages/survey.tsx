@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import styles from './survey.module.css';
+import styles from '../styles/survey.module.css';
 
 type Question = {
   question: string;

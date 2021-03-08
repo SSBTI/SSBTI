@@ -1,16 +1,14 @@
-import React from 'react'
+import React from 'react';
+import styles from '../../styles/result.module.css';
 
-interface TitleProps {
-    name: string,
-}
-
-const Title: React.FC<TitleProps> = ({ name }) => {
+// 검사 결과 제목
+function Title(props) {
     return (
-        <div style={{ textAlign: 'center' }}>
-            <h1>당신은</h1>
-            <h1>"{name}"입니다.</h1>
+        <div className={styles.title}>
+            당신은<br/>
+            "{props.name}"입니다.
         </div>
-    )
+    );
 }
 
 export default Title

@@ -1,18 +1,15 @@
-import React from 'react'
-import Carousel from '../SimpleSlider'
+import React from 'react';
+import Carousel from '../SimpleSlider';
+import styles from '../../styles/result.module.css';
 
-interface RecommendProps {
-    name: string,
-    products: string[]
-}
-
-const Recommend: React.FC<RecommendProps> = ({ name, products }) => {
+//  유형별 추천하는 제품 목록
+function Recommend(props) {
     return (
-        <div>
-            <h2>{name}에게 추천하는 제품들</h2>
-            <Carousel product={products} />
+        <div style={{ textAlign: 'center' }}>
+            <div className={styles.pairTitle}>{props.name}에게 추천하는 제품들</div>
+            <Carousel product={props.products} />
         </div>
-    )
+    );
 }
 
 export default Recommend

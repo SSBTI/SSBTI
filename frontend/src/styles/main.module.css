@@ -1,12 +1,12 @@
 .wrapper {
   width: 500px;
   margin: auto;
-  padding-top:120px;
-  text-align:center;
+  padding-top: 120px;
+  text-align: center;
 }
 
 .title {
-  font-size:28px;
+  font-size: 28px;
   margin-bottom: 20px;
   font-weight: bold;
 }
@@ -14,13 +14,13 @@
 .description {
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .startButton {
   font-size: 14px;
   font-weight: bold;
-  background-color:grey;
+  background-color: grey;
   outline: none;
   border: none;
   border-radius: 5px;
@@ -29,5 +29,10 @@
 }
 
 .startButton:hover {
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.total {
+  font-size: 12px;
+  margin-top: 5px;
 }
