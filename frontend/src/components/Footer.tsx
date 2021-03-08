@@ -1,15 +1,13 @@
-import React from 'react'
-import styles from '../styles/result.module.css'
+import React from 'react';
+import styles from '../styles/result.module.css';
 
-
-interface FooterProps {}
-
-const Footer: React.FC<FooterProps> = () => {
+//  copyright 적어놓은 footer
+function Footer() {
     return (
         <footer className={styles.footer}>
             <p>&copy; MoSS {new Date().getFullYear()}</p>
         </footer>
-    )
+    );
 }
 
 export default Footer
