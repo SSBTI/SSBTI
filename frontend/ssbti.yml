@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ssbti-v1
+spec:
+  rules:
+    - host: v1.ssbti.192.168.49.2.sslip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssbti-v1
+                port:
+                  number: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssbti-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ssbti
+      tier: app
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: ssbti
+        tier: app
+        version: v1
+    spec:
+      containers:
+        - name: ssbti
+          image: jhw2621/ssbti
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+      imagePullSecrets:
+        - name: dockersecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssbti-v1
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    app: ssbti
+    tier: app
+    version: v1
