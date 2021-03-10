@@ -411,14 +411,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-### application.properties , you need to modify it
-/backend/admin/src/main/resources/application.properties
-/backend/monolithic_mbti/src/main/resources/application.properties
-/backend/review/src/main/resources/application.properties
+### application.properties
+/backend/admin/src/main/resources/
+/backend/monolithic_mbti/src/main/resources/
+/backend/review/src/main/resources/
 
-### application.yml file
-/backend/admin/src/main/resources/application.yml
-/backend/review/src/main/resources/application.yml
-/backend/monolithic_mbti/src/main/resources/application.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/java,java-web,code-java,windows,macos,linux,reactnative,react,vue,vuejs
