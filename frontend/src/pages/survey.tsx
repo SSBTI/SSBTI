@@ -8,9 +8,7 @@ type Question = {
   answers: string[];
 };
 
-type Questions = {
-  questions: Question[];
-}
+type Questions = Question[];
   
 function Survey() {
   
@@ -53,7 +51,7 @@ function Survey() {
     if(Step < last_step) {
       setStep(Step+1);
       //게이지 변경
-      const GaugeCircle = document.querySelector("#GaugeCircle");
+      const GaugeCircle:HTMLElement = document.querySelector("#GaugeCircle");
       const GaugeCirclePos = (Step+1)*440/12+10;
       GaugeCircle.style.left = `${GaugeCirclePos}px`;
     } else {
