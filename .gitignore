@@ -412,9 +412,9 @@ $RECYCLE.BIN/
 *.lnk
 
 ### application.properties
-/backend/admin/src/main/resources/
-/backend/monolithic_mbti/src/main/resources/
-/backend/review/src/main/resources/
+/backend/admin/src/resources/
+/backend/monolithic_mbti/src/resources/
+/backend/review/src/resources/
 
 
 # End of https://www.toptal.com/developers/gitignore/api/java,java-web,code-java,windows,macos,linux,reactnative,react,vue,vuejs
