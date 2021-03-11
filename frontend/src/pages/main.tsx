@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles/main.module.css';
 import Router from 'next/router';
 import List from '../components/ListMBTI';
+import AppLink from '../components/AppLink';
 
 function Main() {
   //api 만들어지면 몇명이 이용했는지 받아온다음 버튼에 출력
@@ -14,6 +15,9 @@ function Main() {
         테스트로 알아보기
         <div className={styles.total}>지금까지 20억 명이 참여했어요.</div>
       </button>
+      <div>
+        <AppLink href="/reviewBoard" label="ReviewCreate" />
+      </div>
     </div>
   );
 };

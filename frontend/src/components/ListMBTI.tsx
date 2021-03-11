@@ -24,11 +24,15 @@ function ListMBTI() {
         products: []
     }]);
 
+    const [constructorHasRun, setConstructorHasRun] = useState(false);
+
     // 모든 mbti 유형 불러와 setMBTI
     const constructor = () => {
-        axios.get('http://localhost:8080/mbti/all')
+        if (constructorHasRun) return;
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/mbti/all`)
         .then((res) => {
             setMBTI(res.data);
+            setConstructorHasRun(true);
         })
         .catch((err) => { console.log(err) })
     };
