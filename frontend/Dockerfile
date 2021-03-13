@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /usr/src/app
+WORKDIR /home/ubuntu/field-team3/frontend
 
 COPY package*.json ./
 
