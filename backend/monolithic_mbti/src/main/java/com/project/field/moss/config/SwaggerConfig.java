@@ -28,7 +28,7 @@ public class SwaggerConfig {
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder()
                 .title("Sub Project1 API")
-                .description("�׽�Ʈ")
+                .description("테스트")
                 .version("1.0.0")
                 .build();
     }
