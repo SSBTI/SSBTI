@@ -67,7 +67,7 @@ function Survey() {
   };
   return (
     <div className={styles.wrapper}>
-      <div>CI 테스트</div>
+      <div>CI 테스트2</div>
       <div className={styles.QuestionGauge}>
         <div id="GaugeCircle" className={styles.GaugeCircle}><span>{Step+1}</span></div>
         <div className={styles.GaugeLine}></div>
