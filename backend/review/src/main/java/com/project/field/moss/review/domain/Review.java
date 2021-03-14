@@ -25,6 +25,9 @@ public class Review {
     @Column
     private String title;
     
+    @Column
+    private String author;
+
     @Column(columnDefinition="TEXT")
     private String content;
     
