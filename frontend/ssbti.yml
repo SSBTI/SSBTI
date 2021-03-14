@@ -37,6 +37,7 @@ spec:
       containers:
         - name: ssbti
           image: jhw2621/ssbti
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /
