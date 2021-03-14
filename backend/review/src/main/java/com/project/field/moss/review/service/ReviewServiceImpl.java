@@ -110,4 +110,16 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 	}
 
+	@Override
+	public boolean deleteReviewById(Long no) {
+		reviewRepository.deleteById(no);
+		return true;
+	}
+
+	@Override
+	public ReviewResultDto updateReviewById(Long no, ReviewDto reviewDto) {
+		
+		return null;
+	}
+
 }

@@ -12,5 +12,7 @@ public interface ReviewService {
 	String getOnlyContent(String content);
 	List<ReviewResultDto> getReviewByPage(int page);
 	ReviewResultDto getReviewById(Long no);
+	boolean deleteReviewById(Long no);
+	ReviewResultDto updateReviewById(Long no, ReviewDto reviewDto);
 
 }
