@@ -123,7 +123,9 @@ function result() {
                     </ul>
                     <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
                     <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
-                    <Recommend name={mbtiResult.name} products={mbtiResult.products} />
+                    <div className={styles.recommend}>
+                        <Recommend name={mbtiResult.name} products={mbtiResult.products} />
+                    </div>
                 </div>
             </Layout>
         </div>

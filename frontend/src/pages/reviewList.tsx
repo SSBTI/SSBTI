@@ -8,6 +8,7 @@ import Router from 'next/router';
 function ReviewList() {
     type review = {
         id: number,
+        author: string,
         title: string,
         content: string,
         img: [string]
@@ -17,6 +18,7 @@ function ReviewList() {
     
     const [reviewList, setList] = useState<Array<review>>([{
         id: 0,
+        author: '관리자',
         title: '[삼성 노트북] 이온 2020 리뷰',
         content: '안녕하세요 반갑습니다 오늘은 삼성의 노트북 이온을 리뷰하려고 합니다 이온은 가벼운 무게와 우수한 성능 세련된 디자인을 장점으로 꼽을 수 있는데요 특히 베젤이 얇아 작은 사이즈이지만 화면이 정말 넓다는 것을 느낄 수 있습니다',
         img: ['https://ssafyprojectbucket.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20210218_092007883.jpg']

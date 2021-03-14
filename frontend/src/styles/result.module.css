@@ -1,6 +1,6 @@
 .wrapper {
   width: 500px;
-  margin: auto;
+  margin: 50px auto;
 }
 
 .linkBtn {
@@ -14,10 +14,11 @@
   display: block;
   margin: 10px auto;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .footer {
-  margin-top: 100px;
+  margin-top: 50px;
   text-align: center;
 }
 
@@ -55,4 +56,15 @@
   border: none;
   background-color: #00ff0000;
   cursor: pointer;
+}
+
+.hr {
+  margin-bottom: 20px;
+  border: none;
+  border-top: 1px solid lightgrey;
+  width: 100%;
+}
+
+.recommend {
+  margin-bottom: 100px;
 }
