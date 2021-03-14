@@ -28,16 +28,16 @@ public class Review {
     @Column(columnDefinition="TEXT")
     private String content;
     
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name="item_id")
-//	public Collection<Image> image = new ArrayList<>();
-//
-//	public void addImage(final Image img) {
-//		image.add(img);
-//	}
-//	
-//	public void removeImage(final Image img) {
-//		image.remove(img);
-//		img.setItem(null);
-//	}
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="item_id")
+	public Collection<Image> image = new ArrayList<>();
+
+	public void addImage(final Image img) {
+		image.add(img);
+	}
+	
+	public void removeImage(final Image img) {
+		image.remove(img);
+		img.setReview(null);
+	}
 }
