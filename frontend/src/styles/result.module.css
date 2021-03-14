@@ -13,6 +13,7 @@
   border: none;
   display: block;
   margin: 10px auto;
+  font-weight: bold;
 }
 
 .footer {
@@ -48,4 +49,10 @@
 .goodsDesc {
   font-size: 14px;
   margin-bottom: 15px;
+}
+
+.headerIcon {
+  border: none;
+  background-color: #00ff0000;
+  cursor: pointer;
 }

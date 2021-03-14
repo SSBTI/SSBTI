@@ -15,7 +15,7 @@ function ListMBTI() {
     }
 
     const [mbti, setMBTI] = useState<Array<mbtiObj>>([{
-                type: '',
+        type: '',
         desc: '',
         name: '',
         img: '',
@@ -29,12 +29,12 @@ function ListMBTI() {
     // 모든 mbti 유형 불러와 setMBTI
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/mbti/all`)
-        .then((res) => {
-            setMBTI(res.data);
-            setConstructorHasRun(true);
-        })
-        .catch((err) => { console.log(err) })
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/mbti/all`)
+            .then((res) => {
+                setMBTI(res.data);
+                setConstructorHasRun(true);
+            })
+            .catch((err) => { console.log(err) });
     };
     constructor();
 

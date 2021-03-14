@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Layout from '../components/Layout';
 
 const Editor = dynamic(
   () => import('../components/review/Board/editor'),
@@ -9,7 +10,9 @@ const Editor = dynamic(
 function reviewBoard() {
   return (
     <div>
-      <Editor />
+      <Layout pageTitle="Board">
+        <Editor />
+      </Layout>
     </div>
   )
 }

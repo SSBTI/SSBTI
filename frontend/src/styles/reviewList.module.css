@@ -1,0 +1,71 @@
+.wrapper {
+  width: 500px;
+  margin: auto;
+  padding: 10px;
+}
+
+.menuIcon {
+  float: right;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.listArea {
+  width: 400px;
+  height: 1500px;
+  margin: 10px auto;
+}
+
+.total {
+  font-size: 12px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.listTitle {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.listContent {
+  margin-top: 10px;
+}
+
+.listText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  vertical-align: top;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  color: grey;
+  width: 280px;
+  font-size: 12px;
+}
+
+.listImg {
+  float: right;
+  margin-top: -100px;
+}
+
+.hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid lightgrey;
+}
+
+.a {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.a:visited {
+  color: black;
+}

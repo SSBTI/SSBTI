@@ -16,7 +16,7 @@ function Main() {
         <div className={styles.total}>지금까지 20억 명이 참여했어요.</div>
       </button>
       <div>
-        <AppLink href="/reviewBoard" label="ReviewCreate" />
+        <AppLink href="/reviewList" label="삼성 제품 리뷰 보러가기" />
       </div>
     </div>
   );
