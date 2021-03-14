@@ -1,5 +1,9 @@
 package com.project.field.moss.review.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.field.moss.review.domain.Review;
 import com.project.field.moss.review.dto.Response;
 import com.project.field.moss.review.dto.ReviewDto;
+import com.project.field.moss.review.dto.ReviewResultDto;
 import com.project.field.moss.review.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,8 +30,9 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	
 	@GetMapping("/{page}")
-	public Object getReview(@PathVariable("page")Long no) {
-		return "5개씩 잘라서 페이지로 보내줌";
+	public ResponseEntity<List<?>> getReview(@PathVariable("page")int page) {
+		List<ReviewResultDto> result = reviewService.getReviewByPage(page); 
+		return ResponseEntity.ok().body(result);
 	}
 	
 	@PatchMapping("/detail/{no}")
@@ -40,7 +47,7 @@ public class ReviewController {
 	
 	@PostMapping
 	public ResponseEntity<Response> createReview(ReviewDto reviewDto) {
-		
+		//reviewService.createReview(reviewDto);
 		return ResponseEntity.ok().body(new Response("데이터 저장했습니다링"));
 	}
 	

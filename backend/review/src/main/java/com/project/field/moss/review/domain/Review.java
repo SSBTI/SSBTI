@@ -2,6 +2,7 @@ package com.project.field.moss.review.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,11 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +37,8 @@ public class Review {
     private String content;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="item_id")
-	public Collection<Image> image = new ArrayList<>();
+	@JoinColumn(name="review_id")
+	public List<Image> image = new ArrayList<>();
 
 	public void addImage(final Image img) {
 		image.add(img);
