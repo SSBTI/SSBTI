@@ -11,5 +11,6 @@ public interface ReviewService {
 	String[] getImageFilePath(String content);
 	String getOnlyContent(String content);
 	List<ReviewResultDto> getReviewByPage(int page);
+	ReviewResultDto getReviewById(Long no);
 
 }

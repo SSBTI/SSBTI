@@ -3,6 +3,7 @@ package com.project.field.moss.review.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -69,6 +70,7 @@ public class ReviewServiceImpl implements ReviewService{
 			ReviewResultDto dto = new ReviewResultDto();
 			dto.setAuthor(temp.get(i).getAuthor());
 			dto.setContent(temp.get(i).getContent());
+			dto.setTitle(temp.get(i).getTitle());
 			
 			String[] img = new String[temp.get(i).getImage().size()];
 			
@@ -76,12 +78,36 @@ public class ReviewServiceImpl implements ReviewService{
 				img[j] = temp.get(i).getImage().get(j).getFilePath();
 			}
 			dto.setImg(img);
-			dto.setTitle(temp.get(i).getTitle());
 			
 			result.add(dto);
 		}
 		
 		return result;
+	}
+
+	@Override
+	public ReviewResultDto getReviewById(Long no) {
+		Optional<Review> opt = reviewRepository.findById(no);
+		
+		if(opt.isPresent()) {
+			Review review = opt.get();
+			ReviewResultDto result = new ReviewResultDto();
+			
+			result.setAuthor(review.getAuthor());
+			result.setContent(review.getContent());
+			result.setTitle(review.getTitle());
+			
+			String[] img = new String[review.getImage().size()];
+			
+			for(int j=0; j<img.length; ++j) {
+				img[j] = review.getImage().get(j).getFilePath();
+			}
+			result.setImg(img);
+			
+			return result;
+		}else {
+			return null;
+		}
 	}
 
 }

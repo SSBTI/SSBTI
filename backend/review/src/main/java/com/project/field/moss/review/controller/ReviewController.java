@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,8 +53,13 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/detail/{no}")
-	public Object getAllReviews(@PathVariable("no")int page) {
-		return "getMapping";
+	public ResponseEntity<ReviewResultDto> getAllReviews(@PathVariable("no")Long no) {
+		ReviewResultDto result = reviewService.getReviewById(no);
+		
+		if(result==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok().body(result);
 	}
 	
 	
