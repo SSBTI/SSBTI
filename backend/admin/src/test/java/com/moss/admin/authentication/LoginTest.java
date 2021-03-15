@@ -1,4 +1,4 @@
-package com.moss.admin.login;
+package com.moss.admin.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moss.admin.commons.AuthRequest;
@@ -60,6 +60,7 @@ public class LoginTest {
         //then
         result
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken").exists())
                 .andDo(print());
     }
 

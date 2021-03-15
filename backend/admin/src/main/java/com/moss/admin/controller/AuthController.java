@@ -40,9 +40,8 @@ public class AuthController {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUserId(), authRequest.getPassword())
         );
-        final UserDetails user = userDetailsService.loadUserByUsername(authRequest.getUserId());
-        final String token = jwtProvider.generateToken(user);
         logger.info("로그인 성공");
+        final String token = jwtProvider.generateToken(authRequest.getUserId());
         return ResponseEntity.ok().body(new AuthResponse(token));
     }
 
