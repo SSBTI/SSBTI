@@ -111,9 +111,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public boolean deleteReviewById(Long no) {
+	public void deleteReviewById(Long no) {
 		reviewRepository.deleteById(no);
-		return true;
 	}
 
 	@Override
