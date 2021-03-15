@@ -9,6 +9,7 @@ import Header from '../components/Header';
 import Image from '../components/Image';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import Chat from '../components/result/Chat';
 
 type mbtiResult = {
     type: string,
@@ -111,6 +112,15 @@ function result() {
     const description = mbtiResult.desc.split("|");
     const descriptions = description.map((str, idx) => <Desc desc={str} key={idx} />);
 
+    const [isChat, setChat] = useState<Boolean>(false);
+
+    const closeChat = () => {
+        setChat(false);
+    };
+
+    const openChat = () => {
+        setChat(true);
+    };
     return (
         <div>
             <Header />
@@ -126,6 +136,15 @@ function result() {
                     <div className={styles.recommend}>
                         <Recommend name={mbtiResult.name} products={mbtiResult.products} />
                     </div>
+
+                    {!isChat ? (
+                        <button className={styles.chatBtn} onClick={openChat}>
+                            {mbtiResult.name}끼리 채팅하기
+                        </button>
+                    ) : null}
+                    {isChat ? (
+                        <Chat />
+                    ) : null}
                 </div>
             </Layout>
         </div>

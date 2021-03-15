@@ -4,6 +4,7 @@ import MenuIcon from 'mdi-react/MenuIcon';
 import axios from 'axios';
 import Layout from '../components/Layout';
 import Router from 'next/router';
+import Menu from '../components/review/List/Menu';
 
 function ReviewList() {
     type review = {
@@ -69,10 +70,22 @@ function ReviewList() {
         </div>
     );
 
+    const [isMenu, setMenu] = useState<Boolean>(false);
+
+    const closeMenu = () => {
+        setMenu(false);
+    };
+
+    const showMenu = () => {
+        setMenu(true);
+    };
+
     return (
         <div className={styles.wrapper}>
             <Layout pageTitle="List">
-                <MenuIcon className={styles.menuIcon} />
+                <button className={styles.menuIcon} onClick={showMenu}>
+                    <MenuIcon />
+                </button>
                 <div className={styles.title}>
                     삼성 제품 리뷰
                 </div>
@@ -83,6 +96,8 @@ function ReviewList() {
                     {list}
                 </div>
             </Layout>
+
+            <Menu isOpen={isMenu} close={closeMenu}/>
         </div>
     );
 }

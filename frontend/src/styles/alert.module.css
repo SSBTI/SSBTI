@@ -28,6 +28,7 @@
   color: white;
   background-color: black;
   border: none;
+  outline: none;
   border-radius: 5px;
   float: right;
   margin-top: 10px;

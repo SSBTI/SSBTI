@@ -8,6 +8,9 @@
   float: right;
   margin-top: 10px;
   cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: #00ff0000;
 }
 
 .title {
@@ -68,4 +71,58 @@
 
 .a:visited {
   color: black;
+}
+
+.menuWrapper {
+  width: 500px;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.modal {
+  animation-duration: 0.3s;
+  animation-name: slidein;
+  float: right;
+  position: relative;
+  width: 250px;
+  height: 500px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: black;
+}
+
+@keyframes slidein {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 250px;
+  }
+}
+
+.menuBtn {
+  font-weight: bold;
+  color: white;
+  background-color: #00ff0000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+}
+
+.closeBtn {
+  color: white;
+  background-color: #00ff0000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  float: right;
 }

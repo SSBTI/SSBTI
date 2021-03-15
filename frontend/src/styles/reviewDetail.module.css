@@ -58,8 +58,16 @@
   float: right;
   margin-left: 10px;
   border: none;
+  outline: none;
+  cursor: pointer;
   padding: 5px;
-  color: white;
-  background-color: black;
+  background-color: #00ff0000;
   border-radius: 5px;
+}
+
+.bottomLine {
+  margin-top: 100px;
+  border: none;
+  border-top: 1px solid lightgrey;
+  width: 100%;
 }
