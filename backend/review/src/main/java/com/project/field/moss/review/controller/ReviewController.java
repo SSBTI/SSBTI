@@ -37,9 +37,9 @@ public class ReviewController {
 	}
 	
 	@PatchMapping("/detail/{no}")
-	public ResponseEntity<ReviewResultDto> updateReview(@PathVariable("no")Long no, ReviewDto reviewDto) {
-		ReviewResultDto result = reviewService.updateReviewById(no, reviewDto);
-		return ResponseEntity.ok().body(result);
+	public ResponseEntity updateReview(@PathVariable("no")Long no, ReviewDto reviewDto) {
+		reviewService.updateReviewById(no, reviewDto);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/detail/{no}")

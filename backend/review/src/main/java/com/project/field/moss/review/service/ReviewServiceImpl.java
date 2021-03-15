@@ -31,6 +31,8 @@ public class ReviewServiceImpl implements ReviewService{
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	private final ReviewRepository reviewRepository;
+	private final ImageRepository imageRepository;
+	
 	private final String splitString = "%!rn!qns!wk!%";
 	private final String outerRegexString = "!\\[(.*?)\\]\\((.*?)\\)"; // ![]() 문자열 찾기
 	private final String innerRegexString = "\\((.*?)\\)"; // () 내부에 있는 문자열 찾기
@@ -118,9 +120,31 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public ReviewResultDto updateReviewById(Long no, ReviewDto reviewDto) {
+	public void updateReviewById(Long no, ReviewDto reviewDto) {
+		Review review = reviewRepository.findById(no).get();
 		
-		return null;
+		List<Image> img = review.getImage();
+		for(int i=0; i<img.size(); ++i) {
+			imageRepository.delete(img.get(i));
+			
+//			review.removeImage(img.get(i));
+		}
+		
+		review.setTitle(reviewDto.getTitle());
+		String[] filePath = getImageFilePath(reviewDto.getContent());
+		
+		
+		for(int i=0; i<filePath.length; ++i) {
+			Image image = new Image(review, filePath[i]);
+			
+			review.addImage(image);
+		}
+		
+		review.setContent(getOnlyContent(reviewDto.getContent()));
+		reviewRepository.save(review);
+		
+		
+//		return null;
 	}
 
 	@Override

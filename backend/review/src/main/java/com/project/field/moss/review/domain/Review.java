@@ -43,9 +43,9 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade={CascadeType.PERSIST}, orphanRemoval = true)
 	@JoinColumn(name="review_id")
-	public List<Image> image = new ArrayList<>();
+	private List<Image> image = new ArrayList<>();
 
 	public void addImage(final Image img) {
 		image.add(img);
