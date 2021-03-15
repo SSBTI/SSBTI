@@ -19,9 +19,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Api(tags = {"1. Authentication"})
 @RestController
@@ -51,6 +55,7 @@ public class AuthController {
         return ResponseEntity.ok().body("Valid Token");
     }
 
+    //로그인 실패 에러 처리
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponse> badCredentialsExceptionHandler(BadCredentialsException e){
         ErrorResponse error = new ErrorResponse(e.getMessage(), "bad.credential.exception");
@@ -58,11 +63,21 @@ public class AuthController {
         return new ResponseEntity<ErrorResponse>(error, HttpStatus.UNAUTHORIZED);
     }
 
+    //로그인 실패 에러 처리
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorResponse> usernameNotFoundExceptionHandler(UsernameNotFoundException e){
         ErrorResponse error = new ErrorResponse(e.getMessage(), "username.not.found.exception");
         logger.info("존재하지 않는 사용자");
         return new ResponseEntity<ErrorResponse>(error, HttpStatus.UNAUTHORIZED);
+    }
+
+    //ID, Pwd 검증시 에러 처리
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        Map<String, String> errorResponse = new HashMap<>();
+        e.getBindingResult().getAllErrors()
+                .forEach(error->errorResponse.put(((FieldError) error).getField(), error.getDefaultMessage()));
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
 }

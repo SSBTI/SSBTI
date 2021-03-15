@@ -79,4 +79,20 @@ public class LoginTest {
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("ID, PWD 검증")
+    void  validate_ID_PWD() throws Exception{
+        //given
+        AuthRequest authRequest = new AuthRequest("admin123", " ");
+        String content = mapper.writeValueAsString(authRequest);
+        //when
+        ResultActions result = mockMvc.perform(post("/api/admin/login")
+                .content(content)
+                .contentType(MediaType.APPLICATION_JSON));
+        //then
+        result
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
 }
