@@ -5,7 +5,6 @@ import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.CachingUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,16 +30,19 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-        String username = null;
-        String jwt = null;
 
-        if(authHeader != null && authHeader.startsWith("Bearer ")){
-            jwt = authHeader.substring(7, authHeader.length());
-            try{
-                username = jwtProvider.extractUsername(jwt);
-            }catch (JwtException e){
-                logger.info(String.format("[%s] 유효하지 않은 토큰 접근", request.getHeader("Referer")));
-            }
+        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String username = null;
+        String jwt = authHeader.substring(7, authHeader.length());
+
+        try{
+            username = jwtProvider.extractUsername(jwt);
+        }catch (JwtException e){
+            logger.info(String.format("[%s] 유효하지 않은 토큰 접근", request.getHeader("Referer")));
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
