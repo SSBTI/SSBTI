@@ -1,9 +1,13 @@
 package com.project.field.moss.review.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -12,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.project.field.moss.review.domain.Image;
 import com.project.field.moss.review.domain.Review;
 import com.project.field.moss.review.dto.ReviewDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
@@ -23,39 +28,36 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ReviewServiceImpl implements ReviewService{
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	private final ReviewRepository reviewRepository;
-	private final ImageRepository imageRepository;
 	private final String splitString = "%!rn!qns!wk!%";
+	private final String outerRegexString = "!\\[(.*?)\\]\\((.*?)\\)"; // ![]() 문자열 찾기
+	private final String innerRegexString = "\\((.*?)\\)"; // () 내부에 있는 문자열 찾기
+	
+	private final Pattern outerPattern = Pattern.compile(outerRegexString);
+	private final Pattern innerPattern = Pattern.compile(innerRegexString);
 	
 	@Override
-	public boolean createReview(ReviewDto reviewDto) {
+	public void createReview(ReviewDto reviewDto) {
 		Review review = new Review();
 		
 		review.setTitle(reviewDto.getTitle());
 		review.setAuthor("관리자");
-		
-		
-		String[] imagePath = getImageFilePath(reviewDto.getContent());
-		
-		return false;
-	}
 
-	@Override
-	public String[] getImageFilePath(String content) {
-		String[] temp = content.split("!\\[");
+		Date date = java.util.Calendar.getInstance().getTime();
+		review.setCreateDate(date);
+
+		String[] filePath = getImageFilePath(reviewDto.getContent());
 		
-		ArrayList<String> arr = new ArrayList<>();
-		for(int i=0; i<temp.length; ++i) {
+		for(int i=0; i<filePath.length; ++i) {
+			Image image = new Image(review, filePath[i]);
 			
+			review.addImage(image);
 		}
-		return null;
-	}
-
-	@Override
-	public String getOnlyContent(String content) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		review.setContent(getOnlyContent(reviewDto.getContent()));
+		reviewRepository.save(review);
 	}
 
 	@Override
@@ -119,6 +121,47 @@ public class ReviewServiceImpl implements ReviewService{
 	public ReviewResultDto updateReviewById(Long no, ReviewDto reviewDto) {
 		
 		return null;
+	}
+
+	@Override
+	public String[] getImageFilePath(String content) {
+		List<String> arr = new ArrayList<>();
+		
+		Matcher matcher = outerPattern.matcher(content);
+		
+		while(matcher.find()) {
+			String totalFilePath = content.substring(matcher.start(0), matcher.end(0));
+			Matcher innerMatcher = innerPattern.matcher(totalFilePath);
+			
+			if(innerMatcher.find()) {
+				arr.add(totalFilePath.substring(innerMatcher.start(0)+1, innerMatcher.end(0)-1));
+			}
+		}
+		
+		return arr.toArray(new String[0]);
+	}
+
+	@Override
+	public String getOnlyContent(String content) {
+		String[] allFilePath = getAllFilePath(content);
+		for(int i=0; i<allFilePath.length; ++i) {
+			content = content.replace(allFilePath[i], splitString);
+		}
+		
+		return content;
+	}
+
+	@Override
+	public String[] getAllFilePath(String content) {
+		List<String> arr = new ArrayList<>();
+		
+		Matcher matcher = outerPattern.matcher(content);
+		
+		while(matcher.find()) {
+			arr.add(content.substring(matcher.start(0), matcher.end(0)));
+		}
+		
+		return arr.toArray(new String[0]);
 	}
 
 }

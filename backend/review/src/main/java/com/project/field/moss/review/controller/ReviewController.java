@@ -50,7 +50,7 @@ public class ReviewController {
 	
 	@PostMapping
 	public ResponseEntity<Response> createReview(ReviewDto reviewDto) {
-		//reviewService.createReview(reviewDto);
+		reviewService.createReview(reviewDto);
 		return ResponseEntity.ok().body(new Response("데이터 저장했습니다링"));
 	}
 	

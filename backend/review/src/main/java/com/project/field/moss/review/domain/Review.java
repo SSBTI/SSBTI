@@ -2,6 +2,7 @@ package com.project.field.moss.review.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +38,10 @@ public class Review {
 
     @Column(columnDefinition="TEXT")
     private String content;
+    
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="review_id")

@@ -7,8 +7,9 @@ import com.project.field.moss.review.dto.ReviewDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
 
 public interface ReviewService {
-	boolean createReview(ReviewDto reviewDto);
+	void createReview(ReviewDto reviewDto);
 	String[] getImageFilePath(String content);
+	String[] getAllFilePath(String content);
 	String getOnlyContent(String content);
 	List<ReviewResultDto> getReviewByPage(int page);
 	ReviewResultDto getReviewById(Long no);
