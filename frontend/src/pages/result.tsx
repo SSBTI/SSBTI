@@ -90,7 +90,7 @@ function result() {
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get('https://25mj28lwx3.execute-api.us-east-2.amazonaws.com/test', {
+        axios.get('https://pkl7xls62b.execute-api.us-east-2.amazonaws.com/test', {
             params: {
                 IE: score[0],
                 SN: score[1],
