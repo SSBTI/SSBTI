@@ -1,4 +1,4 @@
-package com.project.field.moss.config;
+package com.project.field.moss.review.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

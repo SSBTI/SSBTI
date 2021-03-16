@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /usr/src/app
+WORKDIR /home/jenkins/workspace/ssbti/frontend
 
 COPY package*.json ./
 
