@@ -75,6 +75,8 @@ public class ReviewServiceImpl implements ReviewService{
 			dto.setAuthor(temp.get(i).getAuthor());
 			dto.setContent(temp.get(i).getContent());
 			dto.setTitle(temp.get(i).getTitle());
+			dto.setNo(temp.get(i).getId());
+			dto.setTime(dateFormat.format(temp.get(i).getCreateDate()));
 			
 			String[] img = new String[temp.get(i).getImage().size()];
 			
@@ -100,7 +102,8 @@ public class ReviewServiceImpl implements ReviewService{
 			result.setAuthor(review.getAuthor());
 			result.setContent(review.getContent());
 			result.setTitle(review.getTitle());
-			
+			result.setNo(review.getId());
+			result.setTime(dateFormat.format(review.getCreateDate()));
 			String[] img = new String[review.getImage().size()];
 			
 			for(int j=0; j<img.length; ++j) {
