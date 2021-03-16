@@ -1,0 +1,39 @@
+.wrapper {
+    height: 300px;
+    border-radius: 5px;
+    background-color: lightgrey;
+}
+
+.closeBtn {
+    padding: 2px;
+    float: right;
+    border: none;
+    outline: none;
+    background-color: #00ff0000;
+    cursor: pointer;
+}
+
+.body {
+    height: 265px;
+    overflow-y: auto;
+}
+
+.inputWrapper {
+    padding: 5px;
+}
+
+.input {
+    width: 92%;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 5px;
+    outline: none;
+}
+
+.commentBtn {
+    margin-top: -30px;
+    float: right;
+    border: none;
+    outline: none;
+    background-color: #00ff0000;
+    cursor: pointer;
+}
