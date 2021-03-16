@@ -45,6 +45,7 @@ public class ReviewController {
 	@DeleteMapping("/detail/{no}")
 	public ResponseEntity deleteReview(@PathVariable("no")Long no) {
 		reviewService.deleteReviewById(no);
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

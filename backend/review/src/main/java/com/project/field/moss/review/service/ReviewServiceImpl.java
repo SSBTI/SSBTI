@@ -116,34 +116,11 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public void deleteReviewById(Long no) {
-		reviewRepository.deleteById(no);
+		//reviewRepository.deleteById(no);
 	}
 
 	@Override
 	public void updateReviewById(Long no, ReviewDto reviewDto) {
-		Review review = reviewRepository.findById(no).get();
-		
-		List<Image> img = review.getImage();
-		for(int i=0; i<img.size(); ++i) {
-			imageRepository.delete(img.get(i));
-			
-//			review.removeImage(img.get(i));
-		}
-		
-		review.setTitle(reviewDto.getTitle());
-		String[] filePath = getImageFilePath(reviewDto.getContent());
-		
-		
-		for(int i=0; i<filePath.length; ++i) {
-			Image image = new Image(review, filePath[i]);
-			
-			review.addImage(image);
-		}
-		
-		review.setContent(getOnlyContent(reviewDto.getContent()));
-		reviewRepository.save(review);
-		
-		
 //		return null;
 	}
 
