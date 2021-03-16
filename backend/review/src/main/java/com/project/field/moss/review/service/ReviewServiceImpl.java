@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.project.field.moss.review.domain.Image;
 import com.project.field.moss.review.domain.Review;
 import com.project.field.moss.review.dto.ReviewDto;
+import com.project.field.moss.review.dto.ReviewInputDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
 import com.project.field.moss.review.repository.ImageRepository;
 import com.project.field.moss.review.repository.ReviewRepository;
@@ -53,9 +54,7 @@ public class ReviewServiceImpl implements ReviewService{
 		String[] filePath = getImageFilePath(reviewDto.getContent());
 		
 		for(int i=0; i<filePath.length; ++i) {
-			Image image = new Image(review, filePath[i]);
-			
-			review.addImage(image);
+			review.addImage(Image.builder().filePath(filePath[i]).review(review).build());
 		}
 		
 		review.setContent(getOnlyContent(reviewDto.getContent()));
@@ -120,11 +119,6 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void updateReviewById(Long no, ReviewDto reviewDto) {
-//		return null;
-	}
-
-	@Override
 	public String[] getImageFilePath(String content) {
 		List<String> arr = new ArrayList<>();
 		
@@ -163,6 +157,33 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		
 		return arr.toArray(new String[0]);
+	}
+
+	@Override
+	public Review updateReviewById(Long no, ReviewInputDto reviewInputDto) {
+		final Optional<Review> opt = reviewRepository.findById(no);
+		Review review = opt.get();
+		review.updateReview(reviewInputDto);
+		
+		reviewRepository.save(review);
+		return review;
+	}
+
+	@Override
+	public ReviewInputDto getReviewInputDto(ReviewDto reviewDto, Long no) {
+		final Optional<Review> opt = reviewRepository.findById(no);
+		Review review = opt.get();
+	
+		ArrayList<Image> arr = new ArrayList<>();
+		String[] filePath =getImageFilePath(reviewDto.getContent());
+		
+		for(int i=0; i<arr.size(); ++i) {
+			arr.add(Image.builder().filePath(filePath[i]).review(review).build());
+		}
+		
+		String content = getOnlyContent(reviewDto.getContent());
+		
+		return new ReviewInputDto(reviewDto.getTitle(), content, arr);
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,10 +26,11 @@ public class Image {
 	@Column(columnDefinition = "TEXT")
 	private String filePath;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(name="review_id")
 	private Review review;
 	
+	@Builder
 	public Image(Review review, String filePath) {
 		this.review = review;
 		this.filePath = filePath;
