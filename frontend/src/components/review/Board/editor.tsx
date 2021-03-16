@@ -9,36 +9,45 @@ import Alert from '../../Alert';
 
 function TuiEditor() {
     const editorRef = useRef<Editor>();
-    var title = '';
+    const [title, setTitle] = useState<string>('');
+
+    const onChange = (e: any) => {
+        setTitle(e.target.value);
+    }
     
     const createReview = () => {
-        setAlert(true);
+        const editorInstance = editorRef.current.getInstance();
+        const htmlContext = editorInstance.getHtml();
 
-        // const editorInstance = editorRef.current.getInstance();
-        // const htmlContext = editorInstance.getHtml();
+        console.log(htmlContext);
 
-        // axios.post(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, {
-        //     title: title,
-        //     content: htmlContext
-        // })
-        //     .then((res) => {
-        //         setAlert(true);
-        // })
-        // .catch((err) => { console.log(err) })
+        axios.post(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, null, {
+            params: {
+                title: title,
+                content: htmlContext
+            }
+        })
+        .then((res) => {
+            setAlert(true);
+        })
+        .catch((err) => { console.log(err) })
     };
 
     const [isAlert, setAlert] = useState<Boolean>(false);
 
     const closeAlert = () => {
         setAlert(false);
-        Router.push('/reviewList');
+        Router.push({
+            pathname: '/reviewList',
+            query: { page: 1 }
+        });
     };
 
     return (
         <div className={styles.boardWrapper}>
             <label className={styles.titleLabel}>제목 </label>
             <div className={styles.inputWrapper}>
-                <input type="text" className={styles.titleInput} value={title}></input>
+                <input type="text" className={styles.titleInput} value={title} onChange={onChange}></input>
             </div>
             <label className={styles.contentLabel}>본문</label>
             <div className={styles.contentEditor}>

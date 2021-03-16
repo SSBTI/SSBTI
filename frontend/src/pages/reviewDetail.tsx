@@ -12,7 +12,7 @@ import Menu from '../components/review/List/Menu';
 
 function reviewDetail() {
     const router = useRouter();
-    const id = router.query;
+    const id = router.query.id;
     const [constructorHasRun, setConstructorHasRun] = useState(false);
 
     type review = {
@@ -25,10 +25,10 @@ function reviewDetail() {
 
     const [reviewDetail, setDetail] = useState<review>({
         id: 0,
-        author: '관리자',
-        title: '[삼성 노트북] 이온 2020 리뷰',
-        content: ['안녕하세요 반갑습니다.<br/> 오늘은 삼성의 노트북 이온을 리뷰하려고 합니다.<br/> 이온은 가벼운 무게와 우수한 성능 세련된 디자인을 장점으로 꼽을 수 있는데요,<br/> 특히 베젤이 얇아 작은 사이즈이지만 화면이 정말 넓다는 것을 느낄 수 있습니다.'],
-        img: ['https://ssafyprojectbucket.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20210218_092007883.jpg']
+        author: '',
+        title: '',
+        content: [''],
+        img: ['']
     });
 
     const constructor = () => {
@@ -38,6 +38,7 @@ function reviewDetail() {
             let data = res.data;
             data.content = data.content.split(process.env.NEXT_PUBLIC_SEPARATOR);
             setDetail(data);
+            console.log(data);
         })
         .catch((err) => { console.log(err) });
         setConstructorHasRun(true);
@@ -63,13 +64,11 @@ function reviewDetail() {
     };
 
     const deleteReview = () => {
-        setAlert(true);
-        
-        // axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${id}`)
-        // .then((res) => {
-        //     setAlert(true);
-        // })
-        // .catch((err) => { console.log(err) });
+        axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${id}`)
+        .then((res) => {
+            setAlert(true);
+        })
+        .catch((err) => { console.log(err) });
     };
 
     const [isMenu, setMenu] = useState<Boolean>(false);

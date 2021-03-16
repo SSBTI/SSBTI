@@ -2,10 +2,12 @@ import React from 'react';
 import styles from '../styles/main.module.css';
 import Router from 'next/router';
 import List from '../components/ListMBTI';
-import AppLink from '../components/AppLink';
 
 function Main() {
-  //api 만들어지면 몇명이 이용했는지 받아온다음 버튼에 출력
+  // 리뷰 목록 조회 시 첫 페이지 번호
+  const page = 1;
+
+  //api 만들어지면 몇명이 이용했는지 받아온 다음 버튼에 출력
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>SSBTI 테스트</div>
@@ -16,7 +18,12 @@ function Main() {
         <div className={styles.total}>지금까지 20억 명이 참여했어요.</div>
       </button>
       <div>
-        <AppLink href="/reviewList" label="삼성 제품 리뷰 보러가기" />
+        <button className={styles.startButton} onClick={()=>Router.push({
+          pathname: '/reviewList',
+          query: { page: 1 }
+        })}>
+          삼성 제품 리뷰 보러가기
+        </button>
       </div>
     </div>
   );

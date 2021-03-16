@@ -18,26 +18,33 @@ function TuiEditor() {
     
     const [reviewUpdate, setUpdate] = useState<review>({
         id: 0,
-        author: '관리자',
-        title: '[삼성 노트북] 이온 2020 리뷰',
-        content: '안녕하세요 반갑습니다<br /> 오늘은 삼성의 노트북 이온을 리뷰하려고 합니다<br /> 이온은 가벼운 무게와 우수한 성능 세련된 디자인을 장점으로 꼽을 수 있는데요<br /> 특히 베젤이 얇아 작은 사이즈이지만 화면이 정말 넓다는 것을 느낄 수 있습니다 <br /> ![image](https://ssafyprojectbucket.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20210218_092007883.jpg)',
+        author: '',
+        title: '',
+        content: '',
     });
 
+    const onChange = (e: any) => {
+        setUpdate({
+            id: reviewUpdate.id,
+            author: reviewUpdate.author,
+            title: e.target.value,
+            content: reviewUpdate.content
+        });
+    }
+
     const updateReview = () => {
-        setAlert(true);
+        const editorInstance = editorRef.current.getInstance();
+        const htmlContext = editorInstance.getHtml();
 
-        // const editorInstance = editorRef.current.getInstance();
-        // const htmlContext = editorInstance.getHtml();
-
-        // axios.put(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, {
-        //     id: reviewUpdate.id,
-        //     title: reviewUpdate.title,
-        //     content: htmlContext
-        // })
-        //     .then((res) => {
-        //         setAlert(true);
-        // })
-        // .catch((err) => { console.log(err) })
+        axios.put(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, {
+            id: reviewUpdate.id,
+            title: reviewUpdate.title,
+            content: htmlContext
+        })
+            .then((res) => {
+                setAlert(true);
+        })
+        .catch((err) => { console.log(err) })
     };
 
     const [constructorHasRun, setConstructorHasRun] = useState(false);
@@ -75,7 +82,7 @@ function TuiEditor() {
         <div className={styles.boardWrapper}>
             <label className={styles.titleLabel}>제목 </label>
             <div className={styles.inputWrapper}>
-                <input type="text" className={styles.titleInput} value={reviewUpdate.title}></input>
+                <input type="text" className={styles.titleInput} value={reviewUpdate.title} onChange={onChange}></input>
             </div>
             <label className={styles.contentLabel}>본문</label>
             <div className={styles.contentEditor}>

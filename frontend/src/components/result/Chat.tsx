@@ -5,41 +5,23 @@ import SendIcon from 'mdi-react/SendCircleOutlineIcon';
 import axios from 'axios';
 
 function Chat(props) {
-    const [state, setComment] = useState({
-        comment: '',
-        comments: ''
-    });
+    const [comment, setComment] = useState<string>('');
     const [nickname, setNickname] = useState('[랜덤한 닉네임]');
     const [constructorHasRun, setConstructorHasRun] = useState(false);
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(``)
-        .then((res) => {
-            setNickname('['+res.data+']');
-        })
-        .catch((err) => {
-            console.log(err);
-            setComment({comment: '', comments: nickname});
-        });
+        setComment(nickname);
         setConstructorHasRun(true);
     }
     constructor();
 
-    const sendChat = () => {
-        axios.post(``, {
-            nickname: nickname,
-            comment: state.comments,
-        })
-        .then((res) => {
-            setComment({comment: '', comments: ''});
-        })
-        .catch((err) => { console.log(err); })
-            
+    const sendChat = () => {            
     };
 
-    const handleChange = (event) => {
-    };
+    const onChange = (e: any) => {
+        setComment(e.target.value);
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -52,8 +34,8 @@ function Chat(props) {
 
             </div>
             <div className={styles.inputWrapper}>
-                <input className={styles.input} value={state.comments}
-                onChange={handleChange} type="text"></input>
+                <input className={styles.input} value={comment}
+                onChange={onChange} type="text"></input>
             </div>
             <button className={styles.commentBtn} onClick={sendChat}>
                 <SendIcon />

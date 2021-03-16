@@ -61,3 +61,17 @@
 .recommend {
   margin-bottom: 100px;
 }
+
+.btnWrapper {
+  text-align: center;
+}
+
+.chatBtn {
+  outline: none;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}

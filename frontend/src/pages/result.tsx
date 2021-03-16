@@ -139,12 +139,14 @@ function result() {
                     </div>
 
                     {!isChat ? (
-                        <button className={styles.chatBtn} onClick={openChat}>
-                            {mbtiResult.name}끼리 채팅하기
-                        </button>
+                        <div className={styles.btnWrapper}>
+                            <button className={styles.chatBtn} onClick={openChat}>
+                                {mbtiResult.name}끼리 채팅하기
+                            </button>
+                        </div>
                     ) : null}
                     {isChat ? (
-                        <Chat />
+                        <Chat close={closeChat}/>
                     ) : null}
                 </div>
             </Layout>
