@@ -182,7 +182,7 @@ public class ReviewServiceImpl implements ReviewService{
 		ArrayList<Image> arr = new ArrayList<>();
 		String[] filePath =getImageFilePath(reviewDto.getContent());
 		
-		for(int i=0; i<arr.size(); ++i) {
+		for(int i=0; i<filePath.length; ++i) {
 			arr.add(Image.builder().filePath(filePath[i]).review(review).build());
 		}
 		
