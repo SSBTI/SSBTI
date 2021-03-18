@@ -26,21 +26,10 @@ type mbtiResult = {
     }],
     products: [{
         id: 0,
-        goodsId: '',
-        goodsNm: '',
-        mdlCode: '',
-        mdlNm: '',
-        salePrice: 0,
         imgPath1: '',
-        grpPath: '',
-        colors: '',
-        category: '',
-        ctgRank: 1,
-        reviewGrade: 5,
-        reviewCount: 1,
         goodsDetailUrl: '',
         uspDesc: '',
-        goodsPrcNo: 0
+        goodsNm: ''
     }],
     count: 0,
     total: 0
@@ -72,21 +61,10 @@ function result() {
         }],
         products: [{
             id: 0,
-            goodsId: '',
-            goodsNm: '',
-            mdlCode: '',
-            mdlNm: '',
-            salePrice: 0,
             imgPath1: '',
-            grpPath: '',
-            colors: '',
-            category: '',
-            ctgRank: 1,
-            reviewGrade: 5,
-            reviewCount: 1,
             goodsDetailUrl: '',
             uspDesc: '',
-            goodsPrcNo: 0
+            goodsNm: ''
         }],
         count: 0,
         total: 0
