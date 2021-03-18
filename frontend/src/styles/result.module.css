@@ -75,3 +75,13 @@
   color: white;
   cursor: pointer;
 }
+
+.statistics {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.bold {
+  font-weight: bold;
+  display: inline-block;
+}

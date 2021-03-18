@@ -41,7 +41,9 @@ type mbtiResult = {
         goodsDetailUrl: '',
         uspDesc: '',
         goodsPrcNo: 0
-      }]
+    }],
+    count: 0,
+    total: 0
 }
 
 //  검사 결과
@@ -85,7 +87,9 @@ function result() {
             goodsDetailUrl: '',
             uspDesc: '',
             goodsPrcNo: 0
-        }]
+        }],
+        count: 0,
+        total: 0
     });
 
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
@@ -112,6 +116,7 @@ function result() {
     //  유형에 맞는 설명 split
     const description = mbtiResult.desc.split("|");
     const descriptions = description.map((str, idx) => <Desc desc={str} key={idx} />);
+    const ratio = Math.ceil((mbtiResult.count / mbtiResult.total)*100);
 
     const [isChat, setChat] = useState<Boolean>(false);
 
@@ -122,12 +127,13 @@ function result() {
     const openChat = () => {
         setChat(true);
     };
+
     return (
         <div>
             <Header />
             <Layout pageTitle="Result">
                 <div className={styles.wrapper}>
-                    <Title name={mbtiResult.name} />
+                    <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
                     <Image src={mbtiResult.img} />
                     <ul>
                         {descriptions}
