@@ -91,7 +91,7 @@ function result() {
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_MBTI_RESULT_API}/mbti/result`, {
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_RESULT_API}/test`, {
             params: {
                 IE: score[0],
                 SN: score[1],
@@ -146,7 +146,7 @@ function result() {
                         </div>
                     ) : null}
                     {isChat ? (
-                        <Chat close={closeChat}/>
+                        <Chat close={closeChat} type={mbtiResult.type}/>
                     ) : null}
                 </div>
             </Layout>
