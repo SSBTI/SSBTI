@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.field.moss.review.domain.Review;
 import com.project.field.moss.review.dto.Response;
 import com.project.field.moss.review.dto.ReviewDto;
+import com.project.field.moss.review.dto.ReviewInputDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
 import com.project.field.moss.review.service.ReviewService;
 
@@ -36,9 +38,10 @@ public class ReviewController {
 		return ResponseEntity.ok().body(result);
 	}
 	
-	@PatchMapping("/detail/{no}")
+	@PutMapping("/detail/{no}")
 	public ResponseEntity updateReview(@PathVariable("no")Long no, ReviewDto reviewDto) {
-		reviewService.updateReviewById(no, reviewDto);
+		ReviewInputDto dto = reviewService.getReviewInputDto(reviewDto, no);
+		Review review = reviewService.updateReviewById(no, dto);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

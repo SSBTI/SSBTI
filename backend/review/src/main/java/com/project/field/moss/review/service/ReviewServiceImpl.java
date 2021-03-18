@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.project.field.moss.review.domain.Image;
 import com.project.field.moss.review.domain.Review;
 import com.project.field.moss.review.dto.ReviewDto;
+import com.project.field.moss.review.dto.ReviewInputDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
 import com.project.field.moss.review.repository.ImageRepository;
 import com.project.field.moss.review.repository.ReviewRepository;
@@ -34,8 +35,8 @@ public class ReviewServiceImpl implements ReviewService{
 	private final ImageRepository imageRepository;
 	
 	private final String splitString = "%!rn!qns!wk!%";
-	private final String outerRegexString = "!\\[(.*?)\\]\\((.*?)\\)"; // ![]() 문자열 찾기
-	private final String innerRegexString = "\\((.*?)\\)"; // () 내부에 있는 문자열 찾기
+	private final String outerRegexString = "<img(.*?)>"; //<img> 문자열 찾기
+	private final String innerRegexString = "src=\"(.*?)\""; // src="" 문자열 찾기
 	
 	private final Pattern outerPattern = Pattern.compile(outerRegexString);
 	private final Pattern innerPattern = Pattern.compile(innerRegexString);
@@ -53,9 +54,8 @@ public class ReviewServiceImpl implements ReviewService{
 		String[] filePath = getImageFilePath(reviewDto.getContent());
 		
 		for(int i=0; i<filePath.length; ++i) {
-			Image image = new Image(review, filePath[i]);
-			
-			review.addImage(image);
+			review.addImage(Image.builder().filePath(filePath[i]).review(review).build());
+			System.out.println("안녕?");
 		}
 		
 		review.setContent(getOnlyContent(reviewDto.getContent()));
@@ -75,6 +75,8 @@ public class ReviewServiceImpl implements ReviewService{
 			dto.setAuthor(temp.get(i).getAuthor());
 			dto.setContent(temp.get(i).getContent());
 			dto.setTitle(temp.get(i).getTitle());
+			dto.setNo(temp.get(i).getId());
+			dto.setTime(dateFormat.format(temp.get(i).getCreateDate()));
 			
 			String[] img = new String[temp.get(i).getImage().size()];
 			
@@ -100,7 +102,8 @@ public class ReviewServiceImpl implements ReviewService{
 			result.setAuthor(review.getAuthor());
 			result.setContent(review.getContent());
 			result.setTitle(review.getTitle());
-			
+			result.setNo(review.getId());
+			result.setTime(dateFormat.format(review.getCreateDate()));
 			String[] img = new String[review.getImage().size()];
 			
 			for(int j=0; j<img.length; ++j) {
@@ -116,12 +119,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public void deleteReviewById(Long no) {
-		//reviewRepository.deleteById(no);
-	}
-
-	@Override
-	public void updateReviewById(Long no, ReviewDto reviewDto) {
-//		return null;
+		reviewRepository.deleteById(no);
 	}
 
 	@Override
@@ -132,13 +130,14 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		while(matcher.find()) {
 			String totalFilePath = content.substring(matcher.start(0), matcher.end(0));
+			System.out.println(totalFilePath+"????");
 			Matcher innerMatcher = innerPattern.matcher(totalFilePath);
 			
 			if(innerMatcher.find()) {
-				arr.add(totalFilePath.substring(innerMatcher.start(0)+1, innerMatcher.end(0)-1));
+				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-1));
 			}
 		}
-		
+		System.out.println(arr.toString()+"ㅋ");
 		return arr.toArray(new String[0]);
 	}
 
@@ -163,6 +162,33 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		
 		return arr.toArray(new String[0]);
+	}
+
+	@Override
+	public Review updateReviewById(Long no, ReviewInputDto reviewInputDto) {
+		final Optional<Review> opt = reviewRepository.findById(no);
+		Review review = opt.get();
+		review.updateReview(reviewInputDto);
+		
+		reviewRepository.save(review);
+		return review;
+	}
+
+	@Override
+	public ReviewInputDto getReviewInputDto(ReviewDto reviewDto, Long no) {
+		final Optional<Review> opt = reviewRepository.findById(no);
+		Review review = opt.get();
+	
+		ArrayList<Image> arr = new ArrayList<>();
+		String[] filePath =getImageFilePath(reviewDto.getContent());
+		
+		for(int i=0; i<arr.size(); ++i) {
+			arr.add(Image.builder().filePath(filePath[i]).review(review).build());
+		}
+		
+		String content = getOnlyContent(reviewDto.getContent());
+		
+		return new ReviewInputDto(reviewDto.getTitle(), content, arr);
 	}
 
 }
