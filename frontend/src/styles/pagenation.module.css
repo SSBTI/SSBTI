@@ -13,3 +13,10 @@
   vertical-align: top;
   display: inline-block;
 }
+
+.disabled {
+  border: none;
+  outline: none;
+  color: lightgrey;
+  background-color: #00ff0000;
+}

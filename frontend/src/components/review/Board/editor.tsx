@@ -18,7 +18,11 @@ function TuiEditor() {
     const createReview = () => {
         const editorInstance = editorRef.current.getInstance();
         const htmlContext = editorInstance.getHtml();
-
+        
+        if (title.length==0 || htmlContext.length==0) {
+            setEmptyAlert(true);
+            return;
+        }
         console.log(htmlContext);
 
         axios.post(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, null, {
@@ -34,10 +38,15 @@ function TuiEditor() {
     };
 
     const [isAlert, setAlert] = useState<Boolean>(false);
+    const [isEmpty, setEmptyAlert] = useState<Boolean>(false);
 
     const closeAlert = () => {
         setAlert(false);
         moveToList();
+    };
+
+    const closeEmptyAlert = () => {
+        setEmptyAlert(false);
     };
 
     const moveToList = () => {
@@ -68,6 +77,7 @@ function TuiEditor() {
             <button className={styles.writeBtn} onClick={moveToList}>목록</button>
         
             <Alert content="작성이 완료되었습니다." isOpen={isAlert} close={closeAlert}/>
+            <Alert content="제목과 내용은 필수입니다." isOpen={isEmpty} close={closeEmptyAlert}/>
         </div>
     );
 }

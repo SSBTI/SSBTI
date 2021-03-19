@@ -7,13 +7,13 @@ function Pagination(props) {
 
     return (
         <div className={styles.wrapper}>
-            <button className={styles.arrowBtn} onClick={props.moveToLeft}>
+            <button className={props.now==1? styles.disabled : styles.arrowBtn} onClick={props.moveToLeft}>
                 <LeftIcon />
             </button>
             <div className={styles.pageNum}>
                 {props.now}
             </div>
-            <button className={styles.arrowBtn} onClick={props.moveToRight}>
+            <button className={props.now==props.total? styles.disabled : styles.arrowBtn} onClick={props.moveToRight}>
                 <RightIcon />
             </button>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/reviewList.module.css';
 import MenuIcon from 'mdi-react/MenuIcon';
 import axios from 'axios';
@@ -39,9 +39,19 @@ function ReviewList() {
 
     const router = useRouter();
     const page = router.query.page;
+    const [total, setTotal] = useState<number>(0);
+
+    useEffect(() => {
+        getPageData(page);
+    }, [page]);
 
     const constructor = () => {
         if (constructorHasRun) return;
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/page`)
+        .then((res) => {
+            setTotal(Math.ceil(res.data.pageTotal/5));
+        })
+        .catch((err) => { console.log(err) });
         getPageData(page);
         setConstructorHasRun(true);
     }
@@ -59,12 +69,15 @@ function ReviewList() {
     const len = reviewList.length;
 
     const list = reviewList.map((li, idx) =>
-        <div key={idx} className={styles.listWrapper}>
+        <div key={idx}>
             <a className={styles.a} onClick={() => routeToDetail(li.no)}>
                 <div className={styles.listItem}>
                     <div className={styles.listTitle}>{li.title}</div>
-                    <div className={styles.listContent}>
-                        <div className={styles.listText}>{li.content}</div>
+                    <div>
+                        <div className={styles.textDisplay}>
+                            <div dangerouslySetInnerHTML={{ __html: li.content }}
+                                className={styles.listText}></div>
+                        </div>
                         <img src={li.img[0]} width="100" alt=""
                             className={styles.listImg} />
                     </div>
@@ -101,7 +114,7 @@ function ReviewList() {
 
     const moveToRight = () => {
         let int = parseInt(page[0], 10);
-        if (int < 10) {
+        if (int < total) {
             int += 1;
             Router.push({
                 pathname: '/reviewList',
@@ -125,7 +138,7 @@ function ReviewList() {
                     </div>
                     {list}
                 </div>
-                <Pagination now={page} moveToLeft={moveToLeft} moveToRight={moveToRight}/>
+                <Pagination now={page} total={total} moveToLeft={moveToLeft} moveToRight={moveToRight}/>
             </Layout>
 
             <Menu isOpen={isMenu} close={closeMenu}/>

@@ -39,10 +39,6 @@
   height: 100px;
 }
 
-.listContent {
-  margin-top: 10px;
-}
-
 .listText {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -56,9 +52,13 @@
   font-size: 12px;
 }
 
+.textDisplay {
+  display: inline-block;
+  vertical-align: top;
+}
+
 .listImg {
-  float: right;
-  margin-top: -50px;
+  margin-top: -20px;
 }
 
 .hr {
