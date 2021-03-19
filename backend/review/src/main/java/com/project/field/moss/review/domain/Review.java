@@ -63,9 +63,7 @@ public class Review {
 		this.title = reviewInputDto.getTitle();
 		this.content = reviewInputDto.getContent();
 		this.image.clear();
-		for(Image img:reviewInputDto.getImage()) {
-			this.image.add(img);
-		}
+		this.image.addAll(reviewInputDto.getImage());
 //		this.image = reviewInputDto.getImage();
 	}
 }
