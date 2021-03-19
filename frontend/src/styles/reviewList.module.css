@@ -1,0 +1,132 @@
+.wrapper {
+  width: 500px;
+  margin: auto;
+  padding: 10px;
+}
+
+.menuIcon {
+  float: right;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: #00ff0000;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.listArea {
+  width: 400px;
+  height: 700px;
+  margin: 10px auto;
+}
+
+.total {
+  font-size: 12px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.listTitle {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.listItem {
+  height: 100px;
+}
+
+.listText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  vertical-align: top;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  color: grey;
+  width: 280px;
+  font-size: 12px;
+}
+
+.textDisplay {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.listImg {
+  margin-top: -20px;
+}
+
+.hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid lightgrey;
+}
+
+.a {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.a:visited {
+  color: black;
+}
+
+.menuWrapper {
+  width: 500px;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.modal {
+  animation-duration: 0.3s;
+  animation-name: slidein;
+  float: right;
+  position: relative;
+  width: 250px;
+  height: 500px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: black;
+}
+
+@keyframes slidein {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 250px;
+  }
+}
+
+.menuBtn {
+  font-weight: bold;
+  color: white;
+  background-color: #00ff0000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+}
+
+.closeBtn {
+  color: white;
+  background-color: #00ff0000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  float: right;
+}

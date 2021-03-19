@@ -1,0 +1,22 @@
+.wrapper {
+  text-align: center;
+}
+
+.arrowBtn {
+  border: none;
+  outline: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+}
+
+.pageNum {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.disabled {
+  border: none;
+  outline: none;
+  color: lightgrey;
+  background-color: #00ff0000;
+}

@@ -9,6 +9,7 @@ import Header from '../components/Header';
 import Image from '../components/Image';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import Chat from '../components/result/Chat';
 
 type mbtiResult = {
     type: string,
@@ -25,22 +26,13 @@ type mbtiResult = {
     }],
     products: [{
         id: 0,
-        goodsId: '',
-        goodsNm: '',
-        mdlCode: '',
-        mdlNm: '',
-        salePrice: 0,
         imgPath1: '',
-        grpPath: '',
-        colors: '',
-        category: '',
-        ctgRank: 1,
-        reviewGrade: 5,
-        reviewCount: 1,
         goodsDetailUrl: '',
         uspDesc: '',
-        goodsPrcNo: 0
-      }]
+        goodsNm: ''
+    }],
+    count: 0,
+    total: 0
 }
 
 //  검사 결과
@@ -69,28 +61,19 @@ function result() {
         }],
         products: [{
             id: 0,
-            goodsId: '',
-            goodsNm: '',
-            mdlCode: '',
-            mdlNm: '',
-            salePrice: 0,
             imgPath1: '',
-            grpPath: '',
-            colors: '',
-            category: '',
-            ctgRank: 1,
-            reviewGrade: 5,
-            reviewCount: 1,
             goodsDetailUrl: '',
             uspDesc: '',
-            goodsPrcNo: 0
-        }]
+            goodsNm: ''
+        }],
+        count: 0,
+        total: 0
     });
 
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get('https://pkl7xls62b.execute-api.us-east-2.amazonaws.com/test', {
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/test`, {
             params: {
                 IE: score[0],
                 SN: score[1],
@@ -101,6 +84,7 @@ function result() {
         .then((res) => {
             console.log(res.data)
             setMBTI(res.data);
+            setConstructorHasRun(true);
         })
         .catch((err) => { console.log(err) })
         setConstructorHasRun(true);
@@ -110,20 +94,44 @@ function result() {
     //  유형에 맞는 설명 split
     const description = mbtiResult.desc.split("|");
     const descriptions = description.map((str, idx) => <Desc desc={str} key={idx} />);
+    const ratio = Math.ceil((mbtiResult.count / mbtiResult.total)*100);
+
+    const [isChat, setChat] = useState<Boolean>(false);
+
+    const closeChat = () => {
+        setChat(false);
+    };
+
+    const openChat = () => {
+        setChat(true);
+    };
 
     return (
         <div>
             <Header />
             <Layout pageTitle="Result">
                 <div className={styles.wrapper}>
-                    <Title name={mbtiResult.name} />
+                    <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
                     <Image src={mbtiResult.img} />
                     <ul>
                         {descriptions}
                     </ul>
                     <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
                     <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
-                    <Recommend name={mbtiResult.name} products={mbtiResult.products} />
+                    <div className={styles.recommend}>
+                        <Recommend name={mbtiResult.name} products={mbtiResult.products} />
+                    </div>
+
+                    {!isChat ? (
+                        <div className={styles.btnWrapper}>
+                            <button className={styles.chatBtn} onClick={openChat}>
+                                {mbtiResult.name}끼리 채팅하기
+                            </button>
+                        </div>
+                    ) : null}
+                    {isChat ? (
+                        <Chat close={closeChat} type={mbtiResult.type}/>
+                    ) : null}
                 </div>
             </Layout>
         </div>

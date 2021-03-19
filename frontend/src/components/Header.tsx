@@ -1,5 +1,7 @@
 import React from 'react';
-import AppLink from './AppLink';
+import HomeIcon from 'mdi-react/HomeIcon';
+import Router from 'next/router';
+import styles from '../styles/result.module.css';
 
 //  main으로 가는 버튼 포함하는 header
 function Header() {
@@ -9,7 +11,9 @@ function Header() {
             justifyContent: 'center'
         }}>
             <nav>
-                <AppLink href="/" label="Home" />
+                <button className={styles.headerIcon} onClick={() => Router.push('/')}>
+                    <HomeIcon />
+                </button>
             </nav>
         </header>
     );
