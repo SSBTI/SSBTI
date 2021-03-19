@@ -16,18 +16,20 @@ function reviewDetail() {
 
     type review = {
         no: number,
-        author: string,
         title: string,
+        author: string,
+        img: [string],
         content: [string],
-        img: [string]
+        time: string
     }
 
     const [reviewDetail, setDetail] = useState<review>({
         no: 0,
-        author: '',
         title: '',
+        author: '',
+        img: [''],
         content: [''],
-        img: ['']
+        time: ''
     });
 
     const constructor = () => {
@@ -99,6 +101,9 @@ function reviewDetail() {
                     </div>
                     <div className={styles.author}>
                         {reviewDetail.author}
+                    </div>
+                    <div className={styles.time}>
+                        {reviewDetail.time}
                     </div>
                     <hr className={styles.hr}/>
                     {content}
