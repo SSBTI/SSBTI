@@ -35,6 +35,10 @@
   font-size: 18px;
 }
 
+.listItem {
+  height: 100px;
+}
+
 .listContent {
   margin-top: 10px;
 }
@@ -54,7 +58,7 @@
 
 .listImg {
   float: right;
-  margin-top: -100px;
+  margin-top: -50px;
 }
 
 .hr {

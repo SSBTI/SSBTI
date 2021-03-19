@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import MenuIcon from 'mdi-react/MenuIcon';
 import styles from '../styles/reviewDetail.module.css';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import DeleteIcon from 'mdi-react/TrashCanOutlineIcon';
 import UpdateIcon from 'mdi-react/EditOutlineIcon';
 import Alert from '../components/Alert';
@@ -12,11 +11,11 @@ import Menu from '../components/review/List/Menu';
 
 function reviewDetail() {
     const router = useRouter();
-    const id = router.query.id;
+    const no = router.query.no;
     const [constructorHasRun, setConstructorHasRun] = useState(false);
 
     type review = {
-        id: number,
+        no: number,
         author: string,
         title: string,
         content: [string],
@@ -24,7 +23,7 @@ function reviewDetail() {
     }
 
     const [reviewDetail, setDetail] = useState<review>({
-        id: 0,
+        no: 0,
         author: '',
         title: '',
         content: [''],
@@ -33,12 +32,11 @@ function reviewDetail() {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${id}`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${no}`)
         .then((res) => {
             let data = res.data;
             data.content = data.content.split(process.env.NEXT_PUBLIC_SEPARATOR);
             setDetail(data);
-            console.log(data);
         })
         .catch((err) => { console.log(err) });
         setConstructorHasRun(true);
@@ -60,11 +58,18 @@ function reviewDetail() {
 
     const closeAlert = () => {
         setAlert(false);
-        Router.push('/reviewList');
+        moveToList();
     };
 
+    const moveToList = () => {
+        Router.push({
+            pathname: '/reviewList',
+            query: { page: 1 }
+        });
+    }
+
     const deleteReview = () => {
-        axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${id}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${no}`)
         .then((res) => {
             setAlert(true);
         })
@@ -101,10 +106,16 @@ function reviewDetail() {
                     <button className={styles.detailBtn} onClick={deleteReview}>
                         <DeleteIcon size='20'/>
                     </button>
-                    <button className={styles.detailBtn} onClick={() => Router.push('/reviewUpdate')}>
+                    <button className={styles.detailBtn} onClick={() => Router.push({
+                        pathname: '/reviewUpdate',
+                        query: {
+                            no: no
+                        }
+                    })}>
                         <UpdateIcon size='20'/>
                     </button>
                 </div>
+                <button className={styles.listBtn} onClick={moveToList}>목록</button>
                 <hr className={styles.bottomLine}/>
             </Layout>
             <Alert content="삭제가 완료되었습니다." isOpen={isAlert} close={closeAlert}/>

@@ -66,8 +66,17 @@
 }
 
 .bottomLine {
-  margin-top: 100px;
+  margin-top: 20px;
   border: none;
   border-top: 1px solid lightgrey;
   width: 100%;
+}
+
+.listBtn {
+  margin-top: 50px;
+  margin-left: 47%;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
 }

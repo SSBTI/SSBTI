@@ -3,27 +3,27 @@ import styles from '../styles/reviewList.module.css';
 import MenuIcon from 'mdi-react/MenuIcon';
 import axios from 'axios';
 import Layout from '../components/Layout';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Menu from '../components/review/List/Menu';
-import { useRouter } from 'next/router';
+import Pagination from '../components/review/List/Pagination';
 
 function ReviewList() {
     type review = {
-        id: number,
+        no: number,
         author: string,
         title: string,
         content: string,
-        img: [string]
+        img: [string],
     }
 
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     
     const [reviewList, setList] = useState<Array<review>>([{
-        id: 0,
+        no: 0,
         author: '',
         title: '',
         content: '',
-        img: ['']
+        img: [''],
     }]);
 
     const getPageData = (page) => {
@@ -47,11 +47,11 @@ function ReviewList() {
     }
     constructor();
 
-    const routeToDetail = (id: number) => {
+    const routeToDetail = (no: number) => {
         Router.push({
             pathname: '/reviewDetail',
             query: {
-                id: 1
+                no: no
             }
         });
     };
@@ -60,12 +60,14 @@ function ReviewList() {
 
     const list = reviewList.map((li, idx) =>
         <div key={idx} className={styles.listWrapper}>
-            <a className={styles.a} onClick={() => routeToDetail(li.id)}>
-                <div className={styles.listTitle}>{li.title}</div>
-                <div className={styles.listContent}>
-                    <div className={styles.listText}>{li.content}</div>
-                    <img src={li.img[0]} width="100" alt=""
-                        className={styles.listImg} />
+            <a className={styles.a} onClick={() => routeToDetail(li.no)}>
+                <div className={styles.listItem}>
+                    <div className={styles.listTitle}>{li.title}</div>
+                    <div className={styles.listContent}>
+                        <div className={styles.listText}>{li.content}</div>
+                        <img src={li.img[0]} width="100" alt=""
+                            className={styles.listImg} />
+                    </div>
                 </div>
             </a>
             {
@@ -86,6 +88,28 @@ function ReviewList() {
         setMenu(true);
     };
 
+    const moveToLeft = () => {
+        let int = parseInt(page[0], 10);
+        if (int > 1) {
+            int -= 1;
+            Router.push({
+                pathname: '/reviewList',
+                query: { page: int }
+            })
+        }
+    }
+
+    const moveToRight = () => {
+        let int = parseInt(page[0], 10);
+        if (int < 10) {
+            int += 1;
+            Router.push({
+                pathname: '/reviewList',
+                query: { page: int }
+            })
+        }
+    }
+
     return (
         <div className={styles.wrapper}>
             <Layout pageTitle="List">
@@ -101,6 +125,7 @@ function ReviewList() {
                     </div>
                     {list}
                 </div>
+                <Pagination now={page} moveToLeft={moveToLeft} moveToRight={moveToRight}/>
             </Layout>
 
             <Menu isOpen={isMenu} close={closeMenu}/>

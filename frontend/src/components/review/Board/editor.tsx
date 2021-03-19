@@ -37,11 +37,15 @@ function TuiEditor() {
 
     const closeAlert = () => {
         setAlert(false);
+        moveToList();
+    };
+
+    const moveToList = () => {
         Router.push({
             pathname: '/reviewList',
             query: { page: 1 }
         });
-    };
+    }
 
     return (
         <div className={styles.boardWrapper}>
@@ -61,7 +65,7 @@ function TuiEditor() {
                 />
             </div>
             <button className={styles.writeBtn} onClick={createReview}>작성</button>
-            <button className={styles.writeBtn} onClick={()=> Router.push('/reviewList')}>목록</button>
+            <button className={styles.writeBtn} onClick={moveToList}>목록</button>
         
             <Alert content="작성이 완료되었습니다." isOpen={isAlert} close={closeAlert}/>
         </div>

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from '../../../styles/reviewBoard.module.css';
@@ -9,26 +9,32 @@ import Alert from '../../Alert';
 
 function TuiEditor() {
     const editorRef = useRef<Editor>();
-    type review = {
-        id: number,
-        author: string,
+    type reviewResult = {
+        no: number,
         title: string,
+        author: string,
+        img: string[],
         content: string,
+        time: string
     }
-    
-    const [reviewUpdate, setUpdate] = useState<review>({
-        id: 0,
-        author: '',
+
+    const [reviewUpdate, setUpdate] = useState<reviewResult>({
+        no: 0,
         title: '',
+        author: '',
+        img: [],
         content: '',
+        time: ''
     });
 
     const onChange = (e: any) => {
         setUpdate({
-            id: reviewUpdate.id,
-            author: reviewUpdate.author,
+            no: reviewUpdate.no,
             title: e.target.value,
-            content: reviewUpdate.content
+            author: reviewUpdate.author,
+            img: reviewUpdate.img,
+            content: reviewUpdate.content,
+            time: reviewUpdate.time
         });
     }
 
@@ -36,38 +42,55 @@ function TuiEditor() {
         const editorInstance = editorRef.current.getInstance();
         const htmlContext = editorInstance.getHtml();
 
-        axios.put(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, {
-            id: reviewUpdate.id,
-            title: reviewUpdate.title,
-            content: htmlContext
+        console.log(htmlContext);
+
+        axios.put(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${no}`, null, {
+            params: {
+                title: reviewUpdate.title,
+                content: htmlContext
+            }
         })
-            .then((res) => {
-                setAlert(true);
+        .then((res) => {
+            setAlert(true);
         })
         .catch((err) => { console.log(err) })
     };
 
     const [constructorHasRun, setConstructorHasRun] = useState(false);
 
+    const router = useRouter();
+    const no = router.query.no;
+
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${reviewUpdate.id}`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${no}`)
         .then((res) => {
-            let data = res.data;
-            data.content = data.content.split(process.env.NEXT_PUBLIC_SEPARATOR);
-            setUpdate(data);
-            let content = data.map((d, idx) => {
-                d.content[idx] + d.img[idx];
+            setUpdate(res.data);
+
+            let arr = [];
+            let data: reviewResult = res.data;
+            
+            arr = data.content.split(process.env.NEXT_PUBLIC_SEPARATOR);
+            let htmlTag = '';
+            let last = arr.length-1;
+            
+            arr.map((d, idx) => {
+                if(idx != last)
+                    htmlTag += d + '<img src="' + data.img[idx] + '" alt="image">';
+                else
+                    htmlTag += d;
             });
             const editorInstance = editorRef.current.getInstance();
-            editorInstance.setHtml(content);
-            setConstructorHasRun(true);
+            if (htmlTag.length != 0){
+                editorInstance.setHtml(htmlTag);
+            }
         })
         .catch((err) => {
             console.log(err);
             const editorInstance = editorRef.current.getInstance();
             editorInstance.setHtml(reviewUpdate.content);
         })
+        setConstructorHasRun(true);
     };
     constructor();
     
@@ -75,8 +98,15 @@ function TuiEditor() {
 
     const closeAlert = () => {
         setAlert(false);
-        Router.push('/reviewList');
+        moveToList();
     };
+
+    const moveToList = () => {
+        Router.push({
+            pathname: '/reviewList',
+            query: { page: 1 }
+        });
+    }
 
     return (
         <div className={styles.boardWrapper}>
@@ -95,7 +125,7 @@ function TuiEditor() {
                     ref={editorRef}
                 />
             </div>
-            <button className={styles.writeBtn} onClick={()=> Router.push('/reviewList')}>목록</button>
+            <button className={styles.writeBtn} onClick={moveToList}>목록</button>
             <button className={styles.writeBtn} onClick={updateReview}>수정</button>
         
             <Alert content="수정이 완료되었습니다." isOpen={isAlert} close={closeAlert}/>
