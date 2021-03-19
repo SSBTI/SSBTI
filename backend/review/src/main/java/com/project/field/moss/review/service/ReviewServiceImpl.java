@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.field.moss.review.domain.Image;
 import com.project.field.moss.review.domain.Review;
+import com.project.field.moss.review.dto.ReviewCountDto;
 import com.project.field.moss.review.dto.ReviewDto;
 import com.project.field.moss.review.dto.ReviewInputDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
@@ -189,6 +190,12 @@ public class ReviewServiceImpl implements ReviewService{
 		String content = getOnlyContent(reviewDto.getContent());
 		
 		return new ReviewInputDto(reviewDto.getTitle(), content, arr);
+	}
+
+	@Override
+	public ReviewCountDto getCountAllReviews() {
+		Long result = reviewRepository.count();
+		return ReviewCountDto.builder().pageTotal(result).build();
 	}
 
 }

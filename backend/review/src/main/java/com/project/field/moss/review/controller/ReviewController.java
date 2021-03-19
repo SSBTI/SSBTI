@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.field.moss.review.domain.Review;
 import com.project.field.moss.review.dto.Response;
+import com.project.field.moss.review.dto.ReviewCountDto;
 import com.project.field.moss.review.dto.ReviewDto;
 import com.project.field.moss.review.dto.ReviewInputDto;
 import com.project.field.moss.review.dto.ReviewResultDto;
@@ -68,5 +69,11 @@ public class ReviewController {
 		return ResponseEntity.ok().body(result);
 	}
 	
+	@GetMapping("/page")
+	public ResponseEntity<ReviewCountDto> getCountAllReviews(){
+		ReviewCountDto result = reviewService.getCountAllReviews();
+		
+		return ResponseEntity.ok().body(result);
+	}
 	
 }
