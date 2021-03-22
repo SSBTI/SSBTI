@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/result.module.css';
 import Layout from '../components/Layout';
 import Desc from '../components/result/Desc';
@@ -10,6 +10,7 @@ import Image from '../components/Image';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import Chat from '../components/result/Chat';
+import Share from '../components/Share';
 
 type mbtiResult = {
     type: string,
@@ -37,9 +38,22 @@ type mbtiResult = {
 
 //  검사 결과
 function result() {
+    //카카오 공유를 위한 script 추가
+    useEffect(()=> {
+        const script = document.createElement('script')
+        script.src= 'https://developers.kakao.com/sdk/js/kakao.js'
+        script.async =true
+        document.body.appendChild(script)
+
+        return () => {
+            document.body.removeChild(script)
+        }
+    }, [])
+
     const router = useRouter();
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     const MBTI = router.query;
+
     const score = [];
     let i = 0;
     for(const [key, value] of Object.entries(MBTI)) {
@@ -132,6 +146,8 @@ function result() {
                     {isChat ? (
                         <Chat close={closeChat} type={mbtiResult.type}/>
                     ) : null}
+
+                    <Share/>
                 </div>
             </Layout>
         </div>
