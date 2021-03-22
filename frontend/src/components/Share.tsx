@@ -3,9 +3,9 @@ import styles from '../styles/share.module.css';
 import Swal from 'sweetalert2';
 
 function Share() {
-  useEffect(() => {
-    createKakaoButton()
-  }, [])
+  // useEffect(() => {
+  //   createKakaoButton()
+  // }, [])
   //링크 복사기능
   const CopyLink = () => {
     const urlText = document.createElement('textarea');
@@ -30,7 +30,7 @@ function Share() {
     let shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url + "&title=" + title;
     window.open(shareURL);
   }
-  const createKakaoButton = () => {
+  const sendKakaoLink = () => {
     // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
     if (window["Kakao"]) {
       const kakao = window["Kakao"]
@@ -40,9 +40,9 @@ function Share() {
         
         kakao.init(`${process.env.NEXT_PUBLIC_KAKAO_KEY}`)
       }
-      kakao.Link.createDefaultButton({
+      kakao.Link.sendDefault({
         // Render 부분 id=kakao-link-btn 을 찾아 그부분에 렌더링을 합니다
-        container: '#kakao-link-btn',
+        // container: '#kakao-link-btn',
         objectType: 'feed',
         content: {
           title: 'SSBTI 결과',
@@ -76,7 +76,7 @@ function Share() {
          사람들에게 결과를 공유해 보세요!
       </div>
       <div className={styles.shareButtons}>
-        <button id="kakao-link-btn" className={styles.shareButton}>
+        <button id="kakao-link-btn" className={styles.shareButton} onClick={()=>sendKakaoLink()}>
           <img src="/icons/kakaolink_btn_medium.png" alt="" className={styles.shareButtonImg}/>
         </button>
         <button id="naver-link-btn" className={styles.shareButton} onClick={()=>NaverShare()}>
