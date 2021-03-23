@@ -26,7 +26,7 @@
 
 .body {
   margin-left: 10px;
-  height: 238px;
+  height: 38px;
   width: 475px;
   overflow-y: auto;
 }
@@ -76,4 +76,8 @@
 .nickname {
   font-weight: bold;
   display: inline-block;
+}
+
+.none {
+  display: none;
 }

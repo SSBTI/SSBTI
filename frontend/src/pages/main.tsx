@@ -26,7 +26,7 @@ function Main() {
     axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/land`)
     .then((res) => {
       const list = res.data;
-      setMBTI(list.slice(0, 15));
+      setMBTI(list.slice(0, 16));
       setTotal(list.slice(16));
       setConstructorHasRun(true);
     })
