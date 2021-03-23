@@ -141,7 +141,7 @@ function result() {
                             {mbtiResult.name}끼리 채팅하기
                         </button>
                     </div>}
-                    <Chat isChat={isChat} close={closeChat} type={mbtiResult.type} />
+                    {isChat && <Chat close={closeChat} type={mbtiResult.type} />}
                 </div>
             </Layout>
         </div>
