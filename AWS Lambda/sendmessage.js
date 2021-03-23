@@ -17,8 +17,8 @@ exports.handler = async event => {  // api gateway로 요청이 들어오면 실
     endpoint: event.requestContext.domainName + '/' + event.requestContext.stage
   });
   
-  // connect 후 {"action":"sendmessage", "data":"{보내고 싶은 내용}","roomID":"{roomID}"} 의 형태로 보내면 동일한 roomID의 사람들에게 보내고 싶은 용을 전달 
-  const postData = JSON.parse(event.body).data;
+  // connect 후 {"action":"sendmessage", "data":"{보내고 싶은 내용}","roomId":"{roomId}"} 의 형태로 보내면 동일한 roomID의 사람들에게 보내고 싶은 용을 전달 
+  const postData = JSON.stringify({"id":event.requestContext.connectionId, "msg":JSON.parse(event.body).data, "nickname":JSON.parse(event.body).nickname});
 
   // 연결되어 있는 클라이언트에 내용을 전달하는 부분
   const postCalls = connectionData.Items.map(async ({ connectionId, roomId }) => {
@@ -29,7 +29,7 @@ exports.handler = async event => {  // api gateway로 요청이 들어오면 실
         await apigwManagementApi.postToConnection({ ConnectionId: connectionId, Data: postData }).promise();
       } catch (e) {
         if (e.statusCode === 410) {
-          console.log(`Found stale connection, deleting ${ connectionId }`);
+          console.log(`Found stale connection, deleting ${connectionId}`);
           await ddb.delete({ TableName: TABLE_NAME, Key: { connectionId } }).promise();
         } else {
           throw e;

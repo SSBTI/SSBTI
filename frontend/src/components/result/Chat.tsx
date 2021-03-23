@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styles from '../../styles/chat.module.css';
 import CloseIcon from 'mdi-react/CloseIcon';
 import SendIcon from 'mdi-react/SendCircleOutlineIcon';
+import axios from 'axios';
 
 var ws: WebSocket;
 
@@ -19,22 +20,25 @@ function Chat(props) {
     const bodyRef = useRef(null);
 
     const constructor = () => {
-        if (constructorHasRun) return;
-        ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
-        ws.onopen = (e) => {
-            console.log(e);
-            ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
-        };
-        ws.onmessage = (e) => {
-            console.log(JSON.parse(e.data));
-            updateChat(JSON.parse(e.data));
-        };
+        if (constructorHasRun) return;          
+            ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
+            ws.onopen = (e) => {
+                console.log(e);
+                ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
+                axios.get('https://lxo44gok6l.execute-api.ap-northeast-2.amazonaws.com/language_generator')
+                    .then(res => setNickname(res.data))
+                    .catch(err => console.log(err))
+            };
+            ws.onmessage = (e) => {
+                console.log(JSON.parse(e.data));
+                updateChat(JSON.parse(e.data));
+            }
         setConstructorHasRun(true);
     }
     constructor();
 
     const sendChat = () => {
-        ws.send(`{ "action": "sendmessage", "data": "${comment}", "roomId": "${props.type}" }`)
+        ws.send(`{ "action": "sendmessage", "data": "${comment}", "roomId": "${props.type}", "nickname":"${nickname}" }`)
         setComment('');
     };
 
@@ -47,8 +51,8 @@ function Chat(props) {
             sendChat();
     };
 
-    const updateChat = (data: {id: string, msg: string}) => {
-        setChat(chat => [...chat, { nickname: data.id, msg: data.msg }]);
+    const updateChat = (data: {nickname: string, msg: string}) => {
+        setChat(chat => [...chat, { nickname: data.nickname, msg: data.msg }]);
         scrollToBottom();
     };
 

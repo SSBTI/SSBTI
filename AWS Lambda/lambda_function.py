@@ -1,4 +1,4 @@
-import json, pymysql
+import json, sys, pymysql
 
 
 def lambda_handler(event, context):
@@ -36,6 +36,16 @@ def lambda_handler(event, context):
     curs.execute(sql4)
     products = curs.fetchall()
     
+    sql5 = f"select type, count from mbti"
+    curs.execute(sql5)
+    counts = curs.fetchall()
+    
+    total = 0
+    for i in counts:
+        total += i[1]
+        if i[0] == mbti:
+            count = i[1]
+    
     conn.commit()
     conn.close()
     
@@ -46,6 +56,7 @@ def lambda_handler(event, context):
         temp['goodsDetailUrl'] = product[4]
         temp['imgPath1'] = product[9]
         temp['uspDesc'] = product[15]
+        temp['goodsNm'] = product[6]
         product_list.append(temp)
     
     
@@ -57,6 +68,8 @@ def lambda_handler(event, context):
     response['name'] = result[0][4]
     response['products'] = product_list
     response['type'] = result[0][5]
+    response['total'] = total
+    response['count'] = count
     
     return {
         'statusCode': 200,
