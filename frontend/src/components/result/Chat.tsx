@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from '../../styles/chat.module.css';
 import CloseIcon from 'mdi-react/CloseIcon';
 import SendIcon from 'mdi-react/SendCircleOutlineIcon';
@@ -67,7 +67,7 @@ function Chat(props) {
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={ props.isChat ? styles.wrapper : styles.none }>
             <div className={styles.header}>
                 <div className={styles.notice}>현재 {total}명 참여 중</div>
                 <button className={styles.closeBtn} onClick={props.close}>

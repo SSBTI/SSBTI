@@ -98,12 +98,12 @@ function result() {
         .then((res) => {
             console.log(res.data)
             setMBTI(res.data);
-            setConstructorHasRun(true);
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) });
         setConstructorHasRun(true);
     };
-    constructor();
+    if((Object.keys(MBTI).length > 0))
+        constructor();
 
     //  유형에 맞는 설명 split
     const description = mbtiResult.desc.split("|");
@@ -136,18 +136,12 @@ function result() {
                         <Recommend name={mbtiResult.name} products={mbtiResult.products} />
                     </div>
 
-                    {!isChat ? (
-                        <div className={styles.btnWrapper}>
-                            <button className={styles.chatBtn} onClick={openChat}>
-                                {mbtiResult.name}끼리 채팅하기
-                            </button>
-                        </div>
-                    ) : null}
-                    {isChat ? (
-                        <Chat close={closeChat} type={mbtiResult.type}/>
-                    ) : null}
-
-                    <Share/>
+                    {!isChat && <div className={styles.btnWrapper}>
+                        <button className={styles.chatBtn} onClick={openChat}>
+                            {mbtiResult.name}끼리 채팅하기
+                        </button>
+                    </div>}
+                    <Chat isChat={isChat} close={closeChat} type={mbtiResult.type} />
                 </div>
             </Layout>
         </div>
