@@ -21,18 +21,21 @@ function Chat(props) {
 
     const constructor = () => {
         if (constructorHasRun) return;          
-            ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
-            ws.onopen = (e) => {
-                console.log(e);
-                ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
-                axios.get('https://lxo44gok6l.execute-api.ap-northeast-2.amazonaws.com/language_generator')
-                    .then(res => setNickname(res.data))
-                    .catch(err => console.log(err))
-            };
-            ws.onmessage = (e) => {
-                console.log(JSON.parse(e.data));
-                updateChat(JSON.parse(e.data));
-            }
+        ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
+        ws.onopen = (e) => {
+            console.log(e);
+            ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
+            axios.get('https://lxo44gok6l.execute-api.ap-northeast-2.amazonaws.com/language_generator')
+                .then(res => setNickname(res.data))
+                .catch(err => console.log(err))
+        };
+        ws.onmessage = (e) => {
+            console.log(JSON.parse(e.data));
+            updateChat(JSON.parse(e.data));
+        };
+        ws.onclose = (e) => {
+            console.log(e);
+        };
         setConstructorHasRun(true);
     }
     constructor();
@@ -66,11 +69,16 @@ function Chat(props) {
         bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
     };
 
+    const closeChat = () => {
+        ws.close();
+        props.close();
+    }
+
     return (
-        <div className={ props.isChat ? styles.wrapper : styles.none }>
+        <div className={styles.wrapper}>
             <div className={styles.header}>
                 <div className={styles.notice}>현재 {total}명 참여 중</div>
-                <button className={styles.closeBtn} onClick={props.close}>
+                <button className={styles.closeBtn} onClick={closeChat}>
                     <CloseIcon size='18'/>
                 </button>
             </div>
