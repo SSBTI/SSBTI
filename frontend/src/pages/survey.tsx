@@ -56,10 +56,32 @@ function Survey() {
       GaugeCircle.style.left = `${GaugeCirclePos}px`;
     } else {
       console.log(changedMBTIscore);
-      Router.push({
-        pathname: '/result',
-        query: changedMBTIscore,
-      });
+      let MBTI = '';
+      if(changedMBTIscore['IE'] > 0) {
+        MBTI += 'I'
+      } else {
+        MBTI += 'E'
+      }
+      if(changedMBTIscore['SN'] > 0) {
+        MBTI += 'S'
+      } else {
+        MBTI += 'N'
+      }
+      if(changedMBTIscore['TF'] > 0) {
+        MBTI += 'T'
+      } else {
+        MBTI += 'F'
+      }
+      if(changedMBTIscore['JP'] > 0) {
+        MBTI += 'J'
+      } else {
+        MBTI += 'P'
+      }
+      Router.push(
+        '/result',
+        `/result/${MBTI}`,
+        changedMBTIscore,
+      );
       // 얘를 결과창으로 보내주자
     }
     
