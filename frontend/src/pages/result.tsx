@@ -52,8 +52,31 @@ function result() {
 
     const router = useRouter();
     const [constructorHasRun, setConstructorHasRun] = useState(false);
-    const MBTI = router.query;
-
+    let MBTI = router.query;
+    const mbtiname = router.asPath.slice(8,12);
+    if(Object.keys(MBTI).length == 0) {
+        if(mbtiname[0] == 'I') {
+            MBTI["IE"] = 1;
+        } else {
+            MBTI["IE"] = -1;
+        }
+        if(mbtiname[1] == 'I') {
+            MBTI["SN"] = 1;
+        } else {
+            MBTI["SN"] = -1;
+        }
+        if(mbtiname[2] == 'I') {
+            MBTI["TF"] = 1;
+        } else {
+            MBTI["TF"] = -1;
+        }
+        if(mbtiname[3] == 'I') {
+            MBTI["JP"] = 1;
+        } else {
+            MBTI["JP"] = -1;
+        }
+    }
+    
     const score = [];
     let i = 0;
     for(const [key, value] of Object.entries(MBTI)) {
