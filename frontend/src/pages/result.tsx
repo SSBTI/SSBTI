@@ -53,8 +53,10 @@ function result() {
     const router = useRouter();
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     let MBTI = router.query;
+    console.log(typeof(MBTI))
     const mbtiname = router.asPath.slice(8,12);
     if(Object.keys(MBTI).length == 0) {
+        let MBTI = {IE:0,SN:0,TF:0,JP:0};
         if(mbtiname[0] == 'I') {
             MBTI["IE"] = 1;
         } else {
