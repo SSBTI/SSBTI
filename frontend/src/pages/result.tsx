@@ -142,6 +142,7 @@ function result() {
                         </button>
                     </div>}
                     {isChat && <Chat close={closeChat} type={mbtiResult.type} />}
+                    <Share/>
                 </div>
             </Layout>
         </div>
