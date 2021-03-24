@@ -13,7 +13,7 @@ function Chat(props) {
     }
 
     const [comment, setComment] = useState<string>('');
-    const [nickname, setNickname] = useState('[랜덤한 닉네임]');
+    const [nickname, setNickname] = useState('');
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     const [chat, setChat] = useState<chatData[]>([]);
     const [total, setTotal] = useState<number>(0);

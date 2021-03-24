@@ -5,7 +5,7 @@ import styles from '../styles/result.module.css';
 function Footer() {
     return (
         <footer className={styles.footer}>
-            <p>&copy; MoSS {new Date().getFullYear()}</p>
+            <p className={styles.p}>&copy; MoSS {new Date().getFullYear()}</p>
         </footer>
     );
 }

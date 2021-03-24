@@ -66,19 +66,20 @@
 }
 
 .bottomLine {
-  margin-top: 20px;
   border: none;
   border-top: 1px solid lightgrey;
   width: 100%;
 }
 
 .listBtn {
-  margin-top: 50px;
+  margin-top: 10px;
   margin-left: 47%;
   border: none;
   border-radius: 5px;
   color: white;
   background-color: black;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .time {
