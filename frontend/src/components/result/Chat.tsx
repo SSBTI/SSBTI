@@ -20,7 +20,7 @@ function Chat(props) {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get('https://pkl7xls62b.execute-api.us-east-2.amazonaws.com/chatlog', {
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/chatlog`, {
             params: {
                 type: props.type
             }
@@ -90,6 +90,7 @@ function Chat(props) {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
+                <div className={styles.notice}>{props.name}의 방</div>
                 <button className={styles.closeBtn} onClick={closeChat}>
                     <CloseIcon size='18'/>
                 </button>
