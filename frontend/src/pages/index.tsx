@@ -1,5 +1,6 @@
 import Main from "./main";
-import Layout from '../components/Layout';
+import Survey from "./survey";
+import Layout from '../components/Layout'
 
 export default function Home() {
     return (
