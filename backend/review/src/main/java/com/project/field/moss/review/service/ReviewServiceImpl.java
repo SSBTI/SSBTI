@@ -36,8 +36,8 @@ public class ReviewServiceImpl implements ReviewService{
 	private final ImageRepository imageRepository;
 	
 	private final String splitString = "%!rn!qns!wk!%";
-	private final String outerRegexString = "<img(.*?)>"; //<img> 문자열 찾기
-	private final String innerRegexString = "src=\"(.*?)\""; // src="" 문자열 찾기
+	private final String outerRegexString = "!\\[(.*?)\\]\\((.*?)\\)"; //![]()
+	private final String innerRegexString = "\\((.*?)\\)"; // ()안의 주소만 가져오기
 	
 	private final Pattern outerPattern = Pattern.compile(outerRegexString);
 	private final Pattern innerPattern = Pattern.compile(innerRegexString);
@@ -56,7 +56,6 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		for(int i=0; i<filePath.length; ++i) {
 			review.addImage(Image.builder().filePath(filePath[i]).review(review).build());
-			System.out.println("안녕?");
 		}
 		
 		review.setContent(getOnlyContent(reviewDto.getContent()));
@@ -131,14 +130,12 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		while(matcher.find()) {
 			String totalFilePath = content.substring(matcher.start(0), matcher.end(0));
-			System.out.println(totalFilePath+"????");
 			Matcher innerMatcher = innerPattern.matcher(totalFilePath);
 			
 			if(innerMatcher.find()) {
-				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-1));
+				arr.add(totalFilePath.substring(innerMatcher.start(0)+1, innerMatcher.end(0)-1));
 			}
 		}
-		System.out.println(arr.toString()+"ㅋ");
 		return arr.toArray(new String[0]);
 	}
 
