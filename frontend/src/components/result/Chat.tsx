@@ -20,7 +20,21 @@ function Chat(props) {
     const bodyRef = useRef(null);
 
     const constructor = () => {
-        if (constructorHasRun) return;          
+        if (constructorHasRun) return;
+        axios.get('https://pkl7xls62b.execute-api.us-east-2.amazonaws.com/chatlog', {
+            params: {
+                type: props.type
+            }
+        })
+        .then((res) => {
+            const logs = res.data;
+            const logs_len = logs.length
+            for (var i = 0; i < logs_len; i++) {
+                updateChat(logs[i]);
+            }
+        })
+        .catch((err) => console.log(err));
+
         ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
         ws.onopen = (e) => {
             console.log(e);
