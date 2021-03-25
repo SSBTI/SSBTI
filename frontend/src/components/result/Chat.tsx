@@ -13,15 +13,14 @@ function Chat(props) {
     }
 
     const [comment, setComment] = useState<string>('');
-    const [nickname, setNickname] = useState('[랜덤한 닉네임]');
+    const [nickname, setNickname] = useState('');
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     const [chat, setChat] = useState<chatData[]>([]);
-    const [total, setTotal] = useState<number>(0);
     const bodyRef = useRef(null);
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get('https://pkl7xls62b.execute-api.us-east-2.amazonaws.com/chatlog', {
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/chatlog`, {
             params: {
                 type: props.type
             }
@@ -39,7 +38,7 @@ function Chat(props) {
         ws.onopen = (e) => {
             console.log(e);
             ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
-            axios.get('https://lxo44gok6l.execute-api.ap-northeast-2.amazonaws.com/language_generator')
+            axios.get(`${process.env.NEXT_PUBLIC_NICKNAME_API}/language_generator`)
                 .then(res => setNickname(res.data))
                 .catch(err => console.log(err))
         };
@@ -91,7 +90,7 @@ function Chat(props) {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
-                <div className={styles.notice}>현재 {total}명 참여 중</div>
+                <div className={styles.notice}>{props.name}의 방</div>
                 <button className={styles.closeBtn} onClick={closeChat}>
                     <CloseIcon size='18'/>
                 </button>
