@@ -8,6 +8,8 @@ import DeleteIcon from 'mdi-react/TrashCanOutlineIcon';
 import UpdateIcon from 'mdi-react/EditOutlineIcon';
 import Alert from '../components/Alert';
 import Menu from '../components/review/List/Menu';
+import WriteCmt from '../components/review/Comment/commentWrite';
+import ListCmt from '../components/review/Comment/commentList';
 
 function reviewDetail() {
     const router = useRouter();
@@ -43,7 +45,8 @@ function reviewDetail() {
         .catch((err) => { console.log(err) });
         setConstructorHasRun(true);
     }
-    constructor();
+    if(no != undefined)
+        constructor();
 
     const content = reviewDetail.content.map((str, idx) =>
         <div key={idx} className={styles.contentArea}>
@@ -120,8 +123,11 @@ function reviewDetail() {
                         <UpdateIcon size='20'/>
                     </button>
                 </div>
-                <button className={styles.listBtn} onClick={moveToList}>목록</button>
+
+                <ListCmt />
+                <WriteCmt />
                 <hr className={styles.bottomLine}/>
+                <button className={styles.listBtn} onClick={moveToList}>목록</button>
             </Layout>
             <Alert content="삭제가 완료되었습니다." isOpen={isAlert} close={closeAlert}/>
             <Menu isOpen={isMenu} close={closeMenu}/>

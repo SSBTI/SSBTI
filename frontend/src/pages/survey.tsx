@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import styles from '../styles/survey.module.css';
 
 type Question = {
@@ -37,7 +37,6 @@ function Survey() {
     
     // mbti 점수 변경
     const type = Questions[Step].type;
-    const BeforeTypeScore = MBTIscore[type];
     const changedMBTIscore = {...MBTIscore};
     if(pick === Former) {
       changedMBTIscore[type] += 1;
