@@ -78,7 +78,7 @@ function ReviewList() {
                             <div dangerouslySetInnerHTML={{ __html: li.content }}
                                 className={styles.listText}></div>
                         </div>
-                        <img src={li.img[0]} width="100" height="100" alt=""
+                        <img src={li.img[0]} width="100" alt=""
                             className={styles.listImg} />
                     </div>
                 </div>
