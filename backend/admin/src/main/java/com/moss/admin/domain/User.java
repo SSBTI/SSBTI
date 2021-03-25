@@ -2,6 +2,7 @@ package com.moss.admin.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,8 +12,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
-@Builder
+@Getter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,7 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
+
 
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -39,17 +41,22 @@ public class JwtProvider {
     }
 
     public String generateToken(UserDetails user) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, user.getUsername());
+        String userRole = user.getAuthorities().stream().findAny()
+                .orElseThrow().getAuthority();
+        if(userRole.startsWith("ROLE_")){
+            userRole = userRole.substring(5, userRole.length());
+        }
+        return createToken(user.getUsername(), userRole);
     }
 
-    public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username);
+    public String generateToken(String username, String userRole) {
+        return createToken(username, userRole);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject)
+    private String createToken(String subject, String userRole) {
+        return Jwts.builder()
+                .claim("role", userRole)
+                .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();

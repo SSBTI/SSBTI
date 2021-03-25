@@ -30,7 +30,6 @@ import java.util.Map;
 @Api(tags = {"1. Authentication"})
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin")
 public class AuthController {
 
     private final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -45,7 +44,8 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(authRequest.getUserId(), authRequest.getPassword())
         );
         logger.info("로그인 성공");
-        final String token = jwtProvider.generateToken(authRequest.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUserId());
+        final String token = jwtProvider.generateToken(userDetails);
         return ResponseEntity.ok().body(new AuthResponse(token));
     }
 
