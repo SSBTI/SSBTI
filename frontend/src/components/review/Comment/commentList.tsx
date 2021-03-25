@@ -3,7 +3,7 @@ import styles from '../../../styles/commentList.module.css';
 
 function commentList() {
     type comment = {
-        author: strting,
+        author: string,
         time: string,
         content: string,
     }
