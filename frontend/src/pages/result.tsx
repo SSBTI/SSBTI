@@ -63,17 +63,17 @@ function result() {
         } else {
             MBTI["IE"] = '-1';
         }
-        if(mbtiname[1] == 'I') {
+        if(mbtiname[1] == 'S') {
             MBTI["SN"] = '1';
         } else {
             MBTI["SN"] = '-1';
         }
-        if(mbtiname[2] == 'I') {
+        if(mbtiname[2] == 'T') {
             MBTI["TF"] = '1';
         } else {
             MBTI["TF"] = '-1';
         }
-        if(mbtiname[3] == 'I') {
+        if(mbtiname[3] == 'J') {
             MBTI["JP"] = '1';
         } else {
             MBTI["JP"] = '-1';
