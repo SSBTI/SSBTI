@@ -53,7 +53,7 @@ public class AuthenticationFilter extends ZuulFilter {
         String ip = request.getHeader("X-FORWARDED-FOR")!=null?request.getHeader("X-FORWARDED-FOR"):request.getRemoteAddr();
 
         if(jwt == null || !jwt.startsWith("Bearer ")){
-            logger.info(String.format(FilterComponents.logFormat, ip, "invalidate token"));
+            logger.info(String.format(FilterComponents.logFormat, ip, "invalid token"));
             throw new ZuulException("invalid token", 401, "invalid token");
         }
 
@@ -67,10 +67,9 @@ public class AuthenticationFilter extends ZuulFilter {
             throw new ZuulException(e, 400, e.getMessage());
         }
         catch (JwtException e){
-            logger.info(FilterComponents.logFormat, ip, e.getMessage());
+            logger.info(String.format("[ %s ] : %s", e.getMessage(), ip));
             throw new ZuulException(e, 401, e.getMessage());
         }
-        context.addZuulRequestHeader("Authorization", jwt);
         return null;
     }
 }

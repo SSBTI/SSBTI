@@ -32,11 +32,11 @@ public class ErrorFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         RequestContext context = RequestContext.getCurrentContext();
-        ZuulException e = (ZuulException) context.getThrowable();
-        e.printStackTrace();
-        logger.error("Exception was thrown: {}", e.getMessage());
+        Throwable t = context.getThrowable();
+        logger.error("Exception was thrown: {}", t.getMessage());
         context.set("sendErrorFilter.ran");
-        context.setResponseStatusCode(401);
+        ZuulException e = (ZuulException)t;
+        context.setResponseStatusCode(e.nStatusCode);
         return null;
     }
 }
