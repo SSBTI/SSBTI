@@ -12,6 +12,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
+import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.KubeConfig;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -49,8 +50,9 @@ public class RegisterTask implements Runnable{
 
         try {
             //ToDo try/catch 어떻게 처리하지?
-            ApiClient apiClient = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(KUBECONFIG_PATH))).build();
-            Configuration.setDefaultApiClient(apiClient.setVerifyingSsl(false));
+//            ApiClient apiClient = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(KUBECONFIG_PATH))).build();
+            ApiClient apiClient = Config.defaultClient();
+            Configuration.setDefaultApiClient(apiClient);
 
             CoreV1Api api = new CoreV1Api();
             V1ServiceList list = api.listServiceForAllNamespaces(null, null, null, null, null, null, null, null, null, null);
