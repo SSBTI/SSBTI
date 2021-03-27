@@ -40,7 +40,7 @@ public class LoginTest {
     @BeforeEach
     void init(){
         User user = User.builder()
-                .userId("admin123")
+                .userId("admin321")
                 .password(passwordEncoder.encode("12345"))
                 .role(UserRole.ADMIN)
                 .build();
@@ -51,10 +51,10 @@ public class LoginTest {
     @DisplayName("로그인 성공시 토큰과 200반환")
     void login_success() throws Exception{
         //given
-        AuthRequest authRequest = new AuthRequest("admin123", "12345");
+        AuthRequest authRequest = new AuthRequest("admin321", "12345");
         String content = mapper.writeValueAsString(authRequest);
         //when
-        ResultActions result = mockMvc.perform(post("/api/admin/login")
+        ResultActions result = mockMvc.perform(post("/login")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON));
         //then
@@ -68,10 +68,10 @@ public class LoginTest {
     @DisplayName("로그인 실패시 401반환")
     void login_fail() throws Exception{
         //given
-        AuthRequest authRequest = new AuthRequest("admin123", "1245");
+        AuthRequest authRequest = new AuthRequest("admin321", "1245");
         String content = mapper.writeValueAsString(authRequest);
         //when
-        ResultActions result = mockMvc.perform(post("/api/admin/login")
+        ResultActions result = mockMvc.perform(post("/login")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON));
         //then
@@ -87,7 +87,7 @@ public class LoginTest {
         AuthRequest authRequest = new AuthRequest("admin123", " ");
         String content = mapper.writeValueAsString(authRequest);
         //when
-        ResultActions result = mockMvc.perform(post("/api/admin/login")
+        ResultActions result = mockMvc.perform(post("/login")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON));
         //then
