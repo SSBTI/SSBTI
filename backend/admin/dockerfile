@@ -1,0 +1,6 @@
+FROM adoptopenjdk/openjdk11:latest
+COPY build/libs/*.jar admin.jar
+
+EXPOSE 20003
+
+ENTRYPOINT ["java", "-jar", "admin.jar"]
