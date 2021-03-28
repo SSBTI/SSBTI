@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11:latest
 COPY build/libs/*.jar eureka.jar
 
-EXPOSE 20001
+EXPOSE 8181
 
 ENTRYPOINT ["java", "-jar", "eureka.jar"]
