@@ -28,11 +28,11 @@ function SimpleSlider(props) {
   //  추천 상품 리스트의 각 요소 mapping
   const products = props.product.map((pd, idx) =>
     <div key={idx}>
-      <a href={url(pd.goodsDetailUrl)}>
-        <Image src={pd.imgPath1} />
+      <a href={url(pd.goods_detail_url)}>
+        <Image src={pd.img_path1} />
       </a>
-      <h4>{pd.goodsNm}</h4>
-      <div className={styles.goodsDesc}>{desc(pd.uspDesc)}</div>
+      <h4>{pd.goods_nm}</h4>
+      <div className={styles.goodsDesc}>{desc(pd.usp_desc)}</div>
     </div>
   );
 

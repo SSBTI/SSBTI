@@ -25,15 +25,16 @@ type mbtiResult = {
         name: '',
         img: ''
     }],
-    products: [{
-        id: 0,
-        imgPath1: '',
-        goodsDetailUrl: '',
-        uspDesc: '',
-        goodsNm: ''
-    }],
     count: 0,
     total: 0
+}
+
+type productData = {
+    "id": number,
+    "goods_detail_url": string,
+    "goods_nm": string,
+    "img_path1": string,
+    "usp_desc": string,
 }
 
 //  검사 결과
@@ -98,16 +99,11 @@ function result() {
             name: '',
             img: ''
         }],
-        products: [{
-            id: 0,
-            imgPath1: '',
-            goodsDetailUrl: '',
-            uspDesc: '',
-            goodsNm: ''
-        }],
         count: 0,
         total: 0
     });
+
+    const [products, setProd] = useState<productData[]>([]);
 
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
@@ -121,10 +117,17 @@ function result() {
             }
         })
         .then((res) => {
-            console.log(res.data)
+            console.log(res.data);
             setMBTI(res.data);
         })
         .catch((err) => { console.log(err) });
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/randomProduct`)
+        .then((res) => {
+            res.data.forEach(element => {
+                setProd(products => [...products, element]);
+            });
+        })
+        .catch((err) => console.log(err));
         setConstructorHasRun(true);
     };
     if((Object.keys(MBTI).length > 0))
@@ -158,7 +161,7 @@ function result() {
                     <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
                     <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
                     <div className={styles.recommend}>
-                        <Recommend name={mbtiResult.name} products={mbtiResult.products} />
+                        <Recommend name={mbtiResult.name} products={products} />
                     </div>
 
                     {!isChat && <div className={styles.btnWrapper}>
