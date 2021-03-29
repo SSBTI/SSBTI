@@ -38,8 +38,8 @@ public class AuthenticationFilter extends ZuulFilter {
         String path = context.getRequest().getRequestURI();
         String type = context.getRequest().getMethod();
 
-        if("POST".equals(type) && "/api/admin/login".equals(path)) return false;
-        if("GET".equals(type) && path.contains("/api/reviews")) return false;
+        if("POST".equals(type) && "/admin/login".equals(path)) return false;
+        if("GET".equals(type) && path.contains("/review")) return false;
 
         return true;
     }
@@ -64,10 +64,11 @@ public class AuthenticationFilter extends ZuulFilter {
             String userRole = tokenProvider.extractUserAuthority(token);
         }
         catch (IllegalArgumentException e){
+            logger.info(String.format(FilterComponents.logFormat, e.getMessage(), ip));
             throw new ZuulException(e, 400, e.getMessage());
         }
         catch (JwtException e){
-            logger.info(String.format("[ %s ] : %s", e.getMessage(), ip));
+            logger.info(String.format(FilterComponents.logFormat, e.getMessage(), ip));
             throw new ZuulException(e, 401, e.getMessage());
         }
         return null;
