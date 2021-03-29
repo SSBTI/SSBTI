@@ -45,7 +45,7 @@ public class JwtTokenVerifiyTest {
     @BeforeEach
     void init(){
         User user = User.builder()
-                .userId("admin123")
+                .userId("admin321")
                 .password(passwordEncoder.encode("kim0580"))
                 .role(UserRole.ADMIN)
                 .build();
@@ -56,10 +56,10 @@ public class JwtTokenVerifiyTest {
     @DisplayName("토큰이 유효하면 200 반환")
     void verifyValidatedToken() throws Exception{
         //given
-        String token = "Bearer " + jwtProvider.generateToken("admin123", "ROLE_ADMIN");
+        String token = "Bearer " + jwtProvider.generateToken("admin321", "ROLE_ADMIN");
 
         //when
-        ResultActions result = mockMvc.perform(get("/api/admin/authentication")
+        ResultActions result = mockMvc.perform(get("/authentication")
                 .header("Authorization", token));
 
         //then
@@ -72,10 +72,10 @@ public class JwtTokenVerifiyTest {
     @DisplayName("토큰이 유효하지 않으면 401 반환")
     void verifyInvalidatedToken() throws Exception{
         //given
-        String token = "Bearer " + jwtProvider.generateToken("admin123", "ROLE_ADMIN");
+        String token = "Bearer " + jwtProvider.generateToken("admin321", "ROLE_ADMIN");
         token += "s";
         //when
-        ResultActions result = mockMvc.perform(get("/api/admin/authentication")
+        ResultActions result = mockMvc.perform(get("/authentication")
                 .header("Authorization", token));
 
         //then

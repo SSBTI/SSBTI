@@ -16,6 +16,8 @@ import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.KubeConfig;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,6 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterTask implements Runnable{
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final String EUREKA_SERVER_PATH;
     private final String KUBECONFIG_PATH;
@@ -50,8 +54,9 @@ public class RegisterTask implements Runnable{
 
         try {
             //ToDo try/catch 어떻게 처리하지?
-//            ApiClient apiClient = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(KUBECONFIG_PATH))).build();
-            ApiClient apiClient = Config.defaultClient();
+            //ApiClient apiClient = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(KUBECONFIG_PATH))).build();
+            //ApiClient apiClient = Config.defaultClient();
+            ApiClient apiClient = ClientBuilder.cluster().build();
             Configuration.setDefaultApiClient(apiClient);
 
             CoreV1Api api = new CoreV1Api();
@@ -96,7 +101,7 @@ public class RegisterTask implements Runnable{
                 }
             }
         }catch (Exception e){
-
+            logger.info(e.getMessage());
         }
     }
 }
