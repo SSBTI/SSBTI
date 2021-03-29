@@ -102,7 +102,6 @@ public class RegisterTask implements Runnable{
             }
         }catch (Exception e){
             logger.info(e.getMessage());
-            e.printStackTrace();
         }
     }
 }
