@@ -1,0 +1,89 @@
+.wrapper {
+  width: 500px;
+  margin: auto;
+  padding: 10px;
+}
+
+.menuIcon {
+  float: right;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #00ff0000;
+  border: none;
+  outline: none;
+}
+
+.hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid lightgrey;
+  width: 100%;
+}
+
+.detailArea {
+  padding: 10px;
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.author {
+  margin-top: 10px;
+  font-size: 12px;
+  color: grey;
+}
+
+.contentArea {
+  margin: 20px 0;
+}
+
+.content {
+  font-size: 14px;
+  line-height: 200%;
+}
+
+.imgWrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.img {
+  margin: 20px;
+}
+
+.detailBtn {
+  float: right;
+  margin-left: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 5px;
+  background-color: #00ff0000;
+  border-radius: 5px;
+}
+
+.bottomLine {
+  border: none;
+  border-top: 1px solid lightgrey;
+  width: 100%;
+}
+
+.listBtn {
+  margin-top: 10px;
+  margin-left: 47%;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.time {
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: grey;
+}

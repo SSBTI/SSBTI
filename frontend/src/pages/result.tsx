@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/result.module.css';
 import Layout from '../components/Layout';
 import Desc from '../components/result/Desc';
@@ -9,6 +9,8 @@ import Header from '../components/Header';
 import Image from '../components/Image';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import Chat from '../components/result/Chat';
+import Share from '../components/Share';
 
 type mbtiResult = {
     type: string,
@@ -23,31 +25,61 @@ type mbtiResult = {
         name: '',
         img: ''
     }],
-    products: [{
-        id: 0,
-        goodsId: '',
-        goodsNm: '',
-        mdlCode: '',
-        mdlNm: '',
-        salePrice: 0,
-        imgPath1: '',
-        grpPath: '',
-        colors: '',
-        category: '',
-        ctgRank: 1,
-        reviewGrade: 5,
-        reviewCount: 1,
-        goodsDetailUrl: '',
-        uspDesc: '',
-        goodsPrcNo: 0
-      }]
+    count: 0,
+    total: 0
+}
+
+type productData = {
+    "id": number,
+    "goods_detail_url": string,
+    "goods_nm": string,
+    "img_path1": string,
+    "usp_desc": string,
 }
 
 //  검사 결과
 function result() {
+    //카카오 공유를 위한 script 추가
+    useEffect(()=> {
+        const script = document.createElement('script')
+        script.src= 'https://developers.kakao.com/sdk/js/kakao.js'
+        script.async =true
+        document.body.appendChild(script)
+
+        return () => {
+            document.body.removeChild(script)
+        }
+    }, [])
+
     const router = useRouter();
     const [constructorHasRun, setConstructorHasRun] = useState(false);
-    const MBTI = router.query;
+    let MBTI = router.query;
+    
+    const mbtiname = router.asPath.slice(8,12);
+    
+    if(Object.keys(MBTI).length == 0) {
+        MBTI = {IE:'0',SN:'0',TF:'0',JP:'0'};
+        if(mbtiname[0] == 'I') {
+            MBTI["IE"] = '1';
+        } else {
+            MBTI["IE"] = '-1';
+        }
+        if(mbtiname[1] == 'S') {
+            MBTI["SN"] = '1';
+        } else {
+            MBTI["SN"] = '-1';
+        }
+        if(mbtiname[2] == 'T') {
+            MBTI["TF"] = '1';
+        } else {
+            MBTI["TF"] = '-1';
+        }
+        if(mbtiname[3] == 'J') {
+            MBTI["JP"] = '1';
+        } else {
+            MBTI["JP"] = '-1';
+        }
+    }
     const score = [];
     let i = 0;
     for(const [key, value] of Object.entries(MBTI)) {
@@ -67,30 +99,16 @@ function result() {
             name: '',
             img: ''
         }],
-        products: [{
-            id: 0,
-            goodsId: '',
-            goodsNm: '',
-            mdlCode: '',
-            mdlNm: '',
-            salePrice: 0,
-            imgPath1: '',
-            grpPath: '',
-            colors: '',
-            category: '',
-            ctgRank: 1,
-            reviewGrade: 5,
-            reviewCount: 1,
-            goodsDetailUrl: '',
-            uspDesc: '',
-            goodsPrcNo: 0
-        }]
+        count: 0,
+        total: 0
     });
+
+    const [products, setProd] = useState<productData[]>([]);
 
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get('http://localhost:8080/mbti/result', {
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/test`, {
             params: {
                 IE: score[0],
                 SN: score[1],
@@ -99,30 +117,60 @@ function result() {
             }
         })
         .then((res) => {
+            console.log(res.data);
             setMBTI(res.data);
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) });
+        axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/randomProduct`)
+        .then((res) => {
+            res.data.forEach(element => {
+                setProd(products => [...products, element]);
+            });
+        })
+        .catch((err) => console.log(err));
         setConstructorHasRun(true);
     };
-    constructor();
+    if((Object.keys(MBTI).length > 0))
+        constructor();
 
     //  유형에 맞는 설명 split
     const description = mbtiResult.desc.split("|");
     const descriptions = description.map((str, idx) => <Desc desc={str} key={idx} />);
+    const ratio = Math.ceil((mbtiResult.count / mbtiResult.total)*100);
+
+    const [isChat, setChat] = useState<Boolean>(false);
+
+    const closeChat = () => {
+        setChat(false);
+    };
+
+    const openChat = () => {
+        setChat(true);
+    };
 
     return (
         <div>
             <Header />
             <Layout pageTitle="Result">
                 <div className={styles.wrapper}>
-                    <Title name={mbtiResult.name} />
+                    <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
                     <Image src={mbtiResult.img} />
                     <ul>
                         {descriptions}
                     </ul>
                     <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
                     <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
-                    <Recommend name={mbtiResult.name} products={mbtiResult.products} />
+                    <div className={styles.recommend}>
+                        <Recommend name={mbtiResult.name} products={products} />
+                    </div>
+
+                    {!isChat && <div className={styles.btnWrapper}>
+                        <button className={styles.chatBtn} onClick={openChat}>
+                            {mbtiResult.name}끼리 채팅하기
+                        </button>
+                    </div>}
+                    {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
+                    <Share/>
                 </div>
             </Layout>
         </div>
