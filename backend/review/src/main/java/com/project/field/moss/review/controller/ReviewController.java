@@ -28,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins = { "*" })
 @RestController
-@RequestMapping("review")
 @RequiredArgsConstructor
 public class ReviewController {
 	private final ReviewService reviewService;
