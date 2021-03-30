@@ -6,13 +6,13 @@ function ListMBTI(props) {
 
     //  mbti 유형별 요소 mapping
     const list = props.mbti.map((li, idx) => <div key={idx} className={styles.mbtiDiv}>
-        <img src={li.img} width="80"></img>
+        <img src={li.img} className={styles.mbtiDiv__img}></img>
         <div style={{ fontSize: '12px', fontWeight: 'bold' }}>{li.type}</div>
         <div style={{ fontSize: '10px' }}>{li.percent}</div>
     </div>);
 
     return (
-        <div style={{ marginBottom: '50px'}}>
+        <div className={styles.mbtiList}>
             {list}
         </div>
     );

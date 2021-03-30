@@ -1,32 +1,46 @@
+
+
 .wrapper {
-  width: 500px;
+  max-width: 500px;
+  width: 95%;
+  height:875px;
   margin: auto;
-  padding-top: 120px;
+  margin-top: 1vh;
+  padding-top: 3vh;
   text-align: center;
+  position: relative;
+  background-color: white;
+  border: 3px solid #f23363;
+  border-radius:15px;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 32px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
 .description {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   margin-bottom: 50px;
 }
 
 .startButton {
-  font-size: 14px;
-  font-weight: bold;
-  background-color: grey;
+  font-size: 18px;
+  /* font-weight: bold; */
+  font-family: CookieRun-Regular;
+  width: 66%;
+  background-color: #f23363;
   outline: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   color: white;
-  padding: 10px 20px 10px 20px;
-  margin-bottom: 20px;
+  padding: 4% 8% 4% 8%;
+  
+  position: absolute;
+  bottom:3vh;
+  right: 17%;
 }
 
 .startButton:hover {
@@ -36,4 +50,22 @@
 .total {
   font-size: 12px;
   margin-top: 5px;
+}
+
+@media (max-width: 550px) {
+  .wrapper {
+    height:86vh;
+  }
+  .title {
+    font-size:20px;
+    margin-bottom:1vh;
+  }
+  .description {
+    font-size:14px;
+    margin-bottom:2vh;
+  }
+  .startButton {
+    font-size:2vh;
+    
+  }
 }
