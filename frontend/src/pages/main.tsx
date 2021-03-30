@@ -45,12 +45,12 @@ function Main() {
         <div className={styles.total}>지금까지 {total} 명이 참여했어요.</div>
       </button>
       <div>
-        <button className={styles.startButton} onClick={()=>Router.push({
+        {/* <button className={styles.startButton} onClick={()=>Router.push({
           pathname: '/reviewList',
           query: { page: 1 }
         })}>
           삼성 제품 리뷰 보러가기
-        </button>
+        </button> */}
       </div>
     </div>
   );
