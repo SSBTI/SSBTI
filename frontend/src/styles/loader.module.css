@@ -13,10 +13,12 @@
   width: 80%;
   /* margin:auto; */
   height: 80vh;
+  max-width: 500px;
+  max-height:500px;
 }
 
 .loader__title {
-  margin-top:2vh;
+  margin-top:10vh;
   color:white;
   font-family: 'CookieRun-Regular';
   font-size:35px;
