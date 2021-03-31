@@ -1,6 +1,15 @@
 .wrapper {
-  width: 500px;
-  margin: 50px auto;
+  box-sizing:border-box;
+  max-width: 500px;
+  width: 95%;
+  margin: auto;
+  margin-top: 2vh;
+  padding: 1vh;
+  position:relative;
+  text-align: center;
+  background-color: white;
+  border: 3px solid #f23363;
+  border-radius:15px;
 }
 
 .linkBtn {
@@ -18,15 +27,24 @@
 }
 
 .footer {
-  margin-top: 50px;
+  margin-top: 2vh;
   text-align: center;
+  width: 100%;
 }
 
 .mbtiDiv {
-  width: 100px;
+  width: 20%;
   display: inline-block;
   margin: 5px;
   margin-bottom: 10px;
+}
+
+.mbtiDiv__img {
+  width: 95px;
+}
+
+.mbtiList {
+  margin-bottom:3vh;
 }
 
 .title {
@@ -37,7 +55,9 @@
 }
 
 .li {
-  font-size: 14px;
+  font-size: 18px;
+  text-align:left;
+  margin-bottom:2vh;
 }
 
 .pairTitle {
@@ -59,7 +79,7 @@
 }
 
 .recommend {
-  margin-bottom: 100px;
+  margin-bottom: 10vh;
 }
 
 .btnWrapper {
@@ -71,7 +91,9 @@
   border: none;
   padding: 5px;
   border-radius: 5px;
-  background-color: black;
+  background-color: #f23363;
+  font-size:18px;
+  font-family: 'CookieRun-Regular';
   color: white;
   cursor: pointer;
 }
@@ -92,4 +114,25 @@
 
 .p {
   margin: 16px auto;
+}
+
+/* 젤 긴 폰 */
+@media (width <= 540px) and (700px <= height <= 830px) {
+  .mbtiDiv__img {
+    width: 62px;
+  }
+}
+
+/* 중간 긴 폰 */
+@media (width <= 540px) and ( 570px <= height <= 700px) {
+  .mbtiDiv__img {
+    width: 50px;
+  }
+}
+
+/* 젤 짧은 폰 */
+@media (width <= 540px) and (height <= 570px) {
+  .mbtiDiv__img {
+    width: 10vw;
+  }
 }
