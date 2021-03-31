@@ -1,6 +1,15 @@
 .wrapper {
-  width: 500px;
-  margin: 50px auto;
+  box-sizing:border-box;
+  max-width: 500px;
+  width: 95%;
+  margin: auto;
+  margin-top: 2vh;
+  padding: 1vh;
+  position:relative;
+  text-align: center;
+  background-color: white;
+  border: 3px solid #f23363;
+  border-radius:15px;
 }
 
 .linkBtn {
@@ -46,7 +55,9 @@
 }
 
 .li {
-  font-size: 14px;
+  font-size: 18px;
+  text-align:left;
+  margin-bottom:2vh;
 }
 
 .pairTitle {
@@ -68,7 +79,7 @@
 }
 
 .recommend {
-  margin-bottom: 100px;
+  margin-bottom: 10vh;
 }
 
 .btnWrapper {
@@ -80,7 +91,9 @@
   border: none;
   padding: 5px;
   border-radius: 5px;
-  background-color: black;
+  background-color: #f23363;
+  font-size:18px;
+  font-family: 'CookieRun-Regular';
   color: white;
   cursor: pointer;
 }

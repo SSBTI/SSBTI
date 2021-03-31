@@ -1,0 +1,31 @@
+.loader {
+  left:0;
+  top:0;
+  position: fixed;
+	width: 100vw;
+	height: 100vh;
+  background: rgb(0,0,0,0.95);
+  text-align:center;
+  z-index: 999;
+}
+
+.loader__img {
+  width: 80%;
+  /* margin:auto; */
+  height: 80vh;
+}
+
+.loader__title {
+  margin-top:2vh;
+  color:white;
+  font-family: 'CookieRun-Regular';
+  font-size:35px;
+  text-align:center;
+  width:100%;
+}
+
+@media (width <= 560px) {
+  .loader__title {
+    font-size:25px;
+  }
+}
