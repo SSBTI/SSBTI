@@ -3,6 +3,7 @@ package com.moss.zuul.filter.pre;
 import com.moss.zuul.filter.commons.FilterComponents;
 import com.moss.zuul.filter.commons.ZuulFilterType;
 import com.moss.zuul.filter.commons.ZuulHeaderType;
+import com.moss.zuul.security.AuthorizationPolicy;
 import com.moss.zuul.security.JwtProvider;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthenticationFilter extends ZuulFilter {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final JwtProvider tokenProvider;
+    private final AuthorizationPolicy authorizationPolicy;
 
     @Override
     public String filterType() {
@@ -38,11 +40,7 @@ public class AuthenticationFilter extends ZuulFilter {
         String path = context.getRequest().getRequestURI();
         String type = context.getRequest().getMethod();
 
-        if("POST".equals(type) && "/admin/login".equals(path)) return false;
-        if("GET".equals(type) && path.contains("/review")) return false;
-        if("GET".equals(type) && path.contains("swagger")) return false;
-        if(path.contains("api-docs")) return false;
-        return true;
+        return !authorizationPolicy.authenticateRequest(type, path);
     }
 
     @Override
