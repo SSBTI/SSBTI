@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import React, {  useState } from 'react';
 import styles from '../styles/survey.module.css';
+import Layout from '../components/Layout';
 
 type Question = {
   question: string;
@@ -51,8 +52,8 @@ function Survey() {
       setStep(Step+1);
       //게이지 변경
       const GaugeCircle:HTMLElement = document.querySelector("#GaugeCircle");
-      const GaugeCirclePos = (Step+1)*440/12+10;
-      GaugeCircle.style.left = `${GaugeCirclePos}px`;
+      const GaugeCirclePos = (Step+2)*8;
+      GaugeCircle.style.left = `${GaugeCirclePos}%`;
     } else {
       console.log(changedMBTIscore);
       let MBTI = '';
@@ -87,15 +88,19 @@ function Survey() {
     
   };
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.QuestionGauge}>
-        <div id="GaugeCircle" className={styles.GaugeCircle}><span>{Step+1}</span></div>
-        <div className={styles.GaugeLine}></div>
+    <Layout pageTitle="Survey">
+      <div className={styles.wrapper}>
+        <div className={styles.QuestionGauge}>
+          <div id="GaugeCircle" className={styles.GaugeCircle}><span>{Step+1}</span></div>
+          <div className={styles.GaugeLine}></div>
+        </div>
+        <div className={styles.QuestionText}>{Questions[Step].question}</div>
+        <div className={styles.AnswerButtons}>
+          <button className={styles.AnswerButton} onClick={()=>onAnswer(Former)}>{Questions[Step].answers[Former]}</button>
+          <button className={styles.AnswerButton} onClick={()=>onAnswer(Latter)}>{Questions[Step].answers[Latter]}</button>
+        </div>
       </div>
-      <div className={styles.QuestionText}>{Questions[Step].question}</div>
-      <button className={styles.AnswerButton} onClick={()=>onAnswer(Former)}>A. {Questions[Step].answers[Former]}</button>
-      <button className={styles.AnswerButton} onClick={()=>onAnswer(Latter)}>B. {Questions[Step].answers[Latter]}</button>
-    </div>
+    </Layout>
   );
 }
 

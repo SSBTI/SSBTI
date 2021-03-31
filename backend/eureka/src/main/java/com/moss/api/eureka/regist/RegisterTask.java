@@ -7,13 +7,12 @@ import com.netflix.appinfo.InstanceInfo;
 import com.netflix.appinfo.LeaseInfo;
 import com.netflix.appinfo.MyDataCenterInfo;
 import io.kubernetes.client.openapi.ApiClient;
+import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.openapi.models.V1ServiceList;
 import io.kubernetes.client.util.ClientBuilder;
-import io.kubernetes.client.util.Config;
-import io.kubernetes.client.util.KubeConfig;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
@@ -24,7 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,23 +51,27 @@ public class RegisterTask implements Runnable{
         factory.setHttpClient(client);
         RestTemplate restTemplate = new RestTemplate(factory);
 
+
+        V1ServiceList list = null;
         try {
             //ToDo try/catch 어떻게 처리하지?
-            //ApiClient apiClient = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(KUBECONFIG_PATH))).build();
-            //ApiClient apiClient = Config.defaultClient();
             ApiClient apiClient = ClientBuilder.cluster().build();
             Configuration.setDefaultApiClient(apiClient);
 
             CoreV1Api api = new CoreV1Api();
-            V1ServiceList list = api.listServiceForAllNamespaces(null, null, null, null, null, null, null, null, null, null);
-            for (V1Service service : list.getItems()) {
+            list = api.listServiceForAllNamespaces(null, null, null, null, null, null, null, null, null, null);
+        }catch (IOException | ApiException e) {
+            logger.error(e.getMessage());
+            return;
+        }
 
-                String appName = service.getMetadata().getName();
-                String hostname = service.getSpec().getClusterIP();
-                String ip = service.getSpec().getClusterIP();
-                int port = service.getSpec().getPorts().get(0).getPort();
+        for (V1Service service : list.getItems()) {
+            String appName = service.getMetadata().getName();
+            String hostname = service.getSpec().getClusterIP();
+            String ip = service.getSpec().getClusterIP();
+            int port = service.getSpec().getPorts().get(0).getPort();
 
-                InstanceInfo instance = InstanceInfo.Builder.newBuilder()
+            InstanceInfo instance = InstanceInfo.Builder.newBuilder()
                         .setAppNameForDeser(appName)
                         .setInstanceId(String.format("%s:%s:%d", hostname, appName, port))
                         .setHostName(hostname)
@@ -85,23 +88,21 @@ public class RegisterTask implements Runnable{
                         .setLeaseInfo(LeaseInfo.Builder.newBuilder().setDurationInSecs(10).build())
                         .build();
 
-                RegisterForm reg = new RegisterForm(instance);
-                reg.setPort(port, true);
-                Map<String, Object> map = new HashMap<>();
-                map.put("instance", reg);
+            RegisterForm reg = new RegisterForm(instance);
+            reg.setPort(port, true);
+            Map<String, Object> map = new HashMap<>();
+            map.put("instance", reg);
 
+            try{
                 ObjectMapper mapper = new ObjectMapper();
                 String body = mapper.writeValueAsString(map);
-
-                if (body != null) {
-                    HttpHeaders httpHeaders = new HttpHeaders();
-                    httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-                    HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
-                    restTemplate.postForObject(EUREKA_SERVER_PATH + appName, request, String.class);
-                }
+                HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
+                restTemplate.postForObject(EUREKA_SERVER_PATH + appName, request, String.class);
+            }catch (IOException e){
+                logger.error(e.getMessage());
             }
-        }catch (Exception e){
-            logger.info(e.getMessage());
         }
     }
 }

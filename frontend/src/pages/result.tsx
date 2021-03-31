@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Chat from '../components/result/Chat';
 import Share from '../components/Share';
+import Loader from '../components/loader';
 
 type mbtiResult = {
     type: string,
@@ -52,6 +53,7 @@ function result() {
     }, [])
 
     const router = useRouter();
+    const [isLoading,setIsLoading] = useState(true);
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     let MBTI = router.query;
     
@@ -108,6 +110,7 @@ function result() {
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
+        console.log(score)
         axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/test`, {
             params: {
                 IE: score[0],
@@ -126,12 +129,14 @@ function result() {
             res.data.forEach(element => {
                 setProd(products => [...products, element]);
             });
+            setIsLoading(false);
         })
         .catch((err) => console.log(err));
         setConstructorHasRun(true);
     };
     if((Object.keys(MBTI).length > 0))
         constructor();
+        
 
     //  유형에 맞는 설명 split
     const description = mbtiResult.desc.split("|");
@@ -149,31 +154,34 @@ function result() {
     };
 
     return (
-        <div>
+        <Layout pageTitle="Result">
+            {  
+                function() {
+                    if(isLoading) return <Loader/>
+                }()
+            }
             <Header />
-            <Layout pageTitle="Result">
-                <div className={styles.wrapper}>
-                    <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
-                    <Image src={mbtiResult.img} />
-                    <ul>
-                        {descriptions}
-                    </ul>
-                    <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
-                    <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
-                    <div className={styles.recommend}>
-                        <Recommend name={mbtiResult.name} products={products} />
-                    </div>
-
-                    {!isChat && <div className={styles.btnWrapper}>
-                        <button className={styles.chatBtn} onClick={openChat}>
-                            {mbtiResult.name}끼리 채팅하기
-                        </button>
-                    </div>}
-                    {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
-                    <Share/>
+            <div className={styles.wrapper}>
+                <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
+                <Image src={mbtiResult.img} />
+                <ul>
+                    {descriptions}
+                </ul>
+                <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
+                <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
+                <div className={styles.recommend}>
+                    <Recommend name={mbtiResult.name} products={products} />
                 </div>
-            </Layout>
-        </div>
+
+                {!isChat && <div className={styles.btnWrapper}>
+                    <button className={styles.chatBtn} onClick={openChat}>
+                        {mbtiResult.name}끼리 채팅하기
+                    </button>
+                </div>}
+                {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
+                <Share/>
+            </div>
+        </Layout>
     );
 }
 
