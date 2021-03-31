@@ -28,6 +28,8 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
 	implementation 'javax.xml.bind:jaxb-api'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

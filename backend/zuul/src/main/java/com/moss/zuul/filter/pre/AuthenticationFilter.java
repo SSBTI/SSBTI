@@ -40,7 +40,8 @@ public class AuthenticationFilter extends ZuulFilter {
 
         if("POST".equals(type) && "/admin/login".equals(path)) return false;
         if("GET".equals(type) && path.contains("/review")) return false;
-
+        if("GET".equals(type) && path.contains("swagger")) return false;
+        if(path.contains("api-docs")) return false;
         return true;
     }
 

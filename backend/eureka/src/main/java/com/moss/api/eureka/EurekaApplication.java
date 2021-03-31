@@ -21,7 +21,7 @@ public class EurekaApplication {
 		this.registerExecutor = registerExecutor;
 	}
 
-	@Scheduled(fixedDelay = 1000*20, initialDelay = 1000)
+	@Scheduled(fixedDelay = 1000*2, initialDelay = 1000)
 	public void serviceRegister(){
 		try{
 			registerExecutor.register();
