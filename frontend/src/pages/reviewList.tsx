@@ -50,8 +50,6 @@ function ReviewList() {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        let token = localStorage.getItem("access-token");
-        console.log(token);
         axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/page`)
         .then((res) => {
             setTotal(Math.ceil(res.data.pageTotal/5));
