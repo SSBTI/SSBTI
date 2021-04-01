@@ -16,7 +16,7 @@ function Menu(props) {
                                 <CloseIcon />
                             </button>
                             <button className={styles.menuBtn} onClick={() => Router.push('/')}>홈</button>
-                            <button className={styles.menuBtn} onClick={openLogin}>리뷰 작성</button>
+                            <button className={styles.menuBtn} onClick={() => Router.push('/reviewBoard')}>리뷰 작성</button>
                         </div>
                     </div>
                 </div>
