@@ -109,10 +109,11 @@ function Chat(props) {
                     onChange={onChange} type="text"
                     onKeyPress={handleEnterPress}>
                 </input>
+                <button className={styles.commentBtn} onClick={sendChat}>
+                    <SendIcon />
+                </button>
             </div>
-            <button className={styles.commentBtn} onClick={sendChat}>
-                <SendIcon />
-            </button>
+            
         </div>
     )
 };

@@ -26,7 +26,7 @@ function Menu(props) {
     
     const closeLogin = () => {
         setLogin(false);
-        // Router.push('/reviewBoard');
+        Router.push('/reviewBoard');
     }
     
     return (

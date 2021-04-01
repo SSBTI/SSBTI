@@ -7,11 +7,11 @@ import Pair from '../components/result/Pair';
 import Recommend from '../components/result/Recommend';
 import Header from '../components/Header';
 import Image from '../components/Image';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axios from 'axios';
 import Chat from '../components/result/Chat';
 import Share from '../components/Share';
-import Router from 'next/router';
+import Loader from '../components/loader';
 
 type mbtiResult = {
     type: string,
@@ -53,6 +53,7 @@ function result() {
     }, [])
 
     const router = useRouter();
+    const [isLoading,setIsLoading] = useState(true);
     const [constructorHasRun, setConstructorHasRun] = useState(false);
     let MBTI = router.query;
     
@@ -109,6 +110,7 @@ function result() {
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
+        console.log(score)
         axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/test`, {
             params: {
                 IE: score[0],
@@ -127,12 +129,14 @@ function result() {
             res.data.forEach(element => {
                 setProd(products => [...products, element]);
             });
+            setIsLoading(false);
         })
         .catch((err) => console.log(err));
         setConstructorHasRun(true);
     };
     if((Object.keys(MBTI).length > 0))
         constructor();
+        
 
     //  유형에 맞는 설명 split
     const description = mbtiResult.desc.split("|");
@@ -150,9 +154,13 @@ function result() {
     };
 
     return (
-        <div>
+        <Layout pageTitle="Result">
+            {  
+                function() {
+                    if(isLoading) return <Loader/>
+                }()
+            }
             <Header />
-            <Layout pageTitle="Result">
                 <div className={styles.wrapper}>
                     <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
                     <Image src={mbtiResult.img} />
@@ -179,10 +187,9 @@ function result() {
                         })}>
                             삼성 제품 리뷰 보러가기
                         </button>
-                    </div>
                 </div>
-            </Layout>
-        </div>
+            </div>
+        </Layout>
     );
 }
 

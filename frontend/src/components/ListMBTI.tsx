@@ -15,7 +15,7 @@ function ListMBTI(props) {
     </div>);
 
     return (
-        <div style={{ marginBottom: '50px'}}>
+        <div className={styles.mbtiList}>
             {list}
         </div>
     );

@@ -24,6 +24,7 @@ function TuiEditor() {
             return;
         }
 
+        console.log(htmlContext);
         axios.post(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}`, {
             params: {
                 title: title,
