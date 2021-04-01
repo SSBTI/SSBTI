@@ -36,8 +36,9 @@ public class ReviewServiceImpl implements ReviewService{
 	private final ImageRepository imageRepository;
 	
 	private final String splitString = "%!rn!qns!wk!%";
-	private final String outerRegexString = "!\\[(.*?)\\]\\((.*?)\\)"; //![]()
-	private final String innerRegexString = "\\((.*?)\\)"; // ()안의 주소만 가져오기
+	private final String outerRegexString = "<img(.*?)>"; //<img> 문자열 찾기
+	private final String innerRegexString = "src=\"(.*?)\""; // src="" 문자열 찾기
+
 	
 	private final Pattern outerPattern = Pattern.compile(outerRegexString);
 	private final Pattern innerPattern = Pattern.compile(innerRegexString);
@@ -133,7 +134,7 @@ public class ReviewServiceImpl implements ReviewService{
 			Matcher innerMatcher = innerPattern.matcher(totalFilePath);
 			
 			if(innerMatcher.find()) {
-				arr.add(totalFilePath.substring(innerMatcher.start(0)+1, innerMatcher.end(0)-1));
+				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-1));
 			}
 		}
 		return arr.toArray(new String[0]);
