@@ -3,7 +3,7 @@
   border-radius: 5px;
   background-color: rgb(231, 231, 231);
   width: 95%;
-  margin:auto;
+  margin: auto;
 }
 
 .header {
@@ -30,10 +30,10 @@
   margin-left: 10px;
   height: 238px;
   width: 100%;
-  max-width:500px;
+  max-width: 500px;
   overflow-y: auto;
-  overflow-wrap:break-word;
-  text-align:left;
+  overflow-wrap: break-word;
+  text-align: left;
 }
 
 .body::-webkit-scrollbar {
@@ -71,8 +71,8 @@
   outline: none;
   background-color: #00ff0000;
   cursor: pointer;
-  height:100%;
-  line-height:100%;
+  height: 100%;
+  line-height: 100%;
 }
 
 .chat {
@@ -81,6 +81,12 @@
 
 .nickname {
   font-weight: bold;
+  display: inline-block;
+}
+
+.myname {
+  font-weight: bold;
+  color: blue;
   display: inline-block;
 }
 

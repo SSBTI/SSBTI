@@ -1,14 +1,14 @@
 .shareTitle {
-  margin-top:20px;
-  text-align:center;
+  margin-top: 20px;
+  text-align: center;
   font-size: 22px;
   font-weight: bold;
 }
 
 .shareButtons {
-  margin-top:10px;
-  margin-bottom:20px;
-  display:flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
   justify-content: center;
 }
 
@@ -17,9 +17,10 @@
   background: none;
   border: none;
   transition: all 250ms ease-in;
-  width:65px;
-  height:65px;
+  width: 65px;
+  height: 65px;
   margin: 10px;
+  cursor: pointer;
 }
 
 .shareButton:hover {
@@ -27,6 +28,6 @@
 }
 
 .shareButtonImg {
-  width:65px;
-  height:65px;
+  width: 45px;
+  height: 45px;
 }

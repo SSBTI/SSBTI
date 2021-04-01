@@ -1,15 +1,15 @@
 .wrapper {
-  box-sizing:border-box;
+  box-sizing: border-box;
   max-width: 500px;
   width: 95%;
   margin: auto;
   margin-top: 2vh;
   padding: 1vh;
-  position:relative;
+  position: relative;
   text-align: center;
   background-color: white;
   border: 3px solid #f23363;
-  border-radius:15px;
+  border-radius: 15px;
 }
 
 .linkBtn {
@@ -44,7 +44,7 @@
 }
 
 .mbtiList {
-  margin-bottom:3vh;
+  margin-bottom: 3vh;
 }
 
 .title {
@@ -56,8 +56,8 @@
 
 .li {
   font-size: 18px;
-  text-align:left;
-  margin-bottom:2vh;
+  text-align: left;
+  margin-bottom: 2vh;
 }
 
 .pairTitle {
@@ -92,7 +92,7 @@
   padding: 5px;
   border-radius: 5px;
   background-color: #f23363;
-  font-size:18px;
+  font-size: 18px;
   font-family: 'CookieRun-Regular';
   color: white;
   cursor: pointer;
@@ -116,6 +116,24 @@
   margin: 16px auto;
 }
 
+.imgBtn {
+  outline: none;
+  border: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+}
+
+.startButton {
+  font-size: 14px;
+  font-weight: bold;
+  background-color: grey;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  margin-bottom: 20px;
+}
 /* 젤 긴 폰 */
 @media (width <= 540px) and (700px <= height <= 830px) {
   .mbtiDiv__img {
@@ -124,7 +142,7 @@
 }
 
 /* 중간 긴 폰 */
-@media (width <= 540px) and ( 570px <= height <= 700px) {
+@media (width <= 540px) and (570px <= height <= 700px) {
   .mbtiDiv__img {
     width: 50px;
   }

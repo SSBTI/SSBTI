@@ -82,8 +82,8 @@ function Share() {
         <button id="naver-link-btn" className={styles.shareButton} onClick={()=>NaverShare()}>
           <img src="/icons/Naverlink_btn.png" alt="" className={styles.shareButtonImg}/>
         </button>
-        <button id="copy-url-btn" className={styles.shareButton} onClick={()=>CopyLink()}>
-          <img src="/icons/copyURL_btn.png" alt="" className={styles.shareButtonImg}/>
+        <button id="copy-url-btn" className={styles.shareButton} onClick={() => CopyLink()}>
+          <img src="/icons/share-symbol.png" alt="" className={styles.shareButtonImg}/>
         </button>
       </div>
     </div>

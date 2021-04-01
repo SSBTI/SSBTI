@@ -6,16 +6,59 @@ import axios from 'axios';
 
 function Main() {
   type mbtiAll = {
-      type: '',
-      percent: '',
-      img: ''
+      type: string,
+      percent: string,
   }
 
   const [mbti, setMBTI] = useState<Array<mbtiAll>>([{
-      type: '',
+      type: 'INTJ',
       percent: '',
-      img: ''
-  }]);
+  },{
+    type: 'INTP',
+    percent: '',
+},{
+  type: 'ENTJ',
+  percent: '',
+},{
+  type: 'ENTP',
+  percent: '',
+},{
+  type: 'INFJ',
+  percent: '',
+},{
+  type: 'INFP',
+  percent: '',
+},{
+  type: 'ISTJ',
+  percent: '',
+},{
+  type: 'ISFJ',
+  percent: '',
+},{
+  type: 'ESTJ',
+  percent: '',
+},{
+  type: 'ESFJ',
+  percent: '',
+},{
+  type: 'ENFJ',
+  percent: '',
+},{
+  type: 'ENFP',
+  percent: '',
+},{
+  type: 'ISTP',
+  percent: '',
+},{
+  type: 'ISFP',
+  percent: '',
+},{
+  type: 'ESTP',
+  percent: '',
+},{
+  type: 'ESFP',
+  percent: '',
+}]);
 
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [total, setTotal] = useState(0);
@@ -44,14 +87,6 @@ function Main() {
         테스트로 알아보기
         <div className={styles.total}>지금까지 {total} 명이 참여했어요.</div>
       </button>
-      <div>
-        {/* <button className={styles.startButton} onClick={()=>Router.push({
-          pathname: '/reviewList',
-          query: { page: 1 }
-        })}>
-          삼성 제품 리뷰 보러가기
-        </button> */}
-      </div>
     </div>
   );
 };

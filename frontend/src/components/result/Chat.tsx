@@ -36,25 +36,30 @@ function Chat(props) {
 
         ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
         ws.onopen = (e) => {
-            console.log(e);
+            // console.log(e);
             ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
             axios.get(`${process.env.NEXT_PUBLIC_NICKNAME_API}/language_generator`)
                 .then(res => setNickname(res.data))
                 .catch(err => console.log(err))
         };
         ws.onmessage = (e) => {
-            console.log(JSON.parse(e.data));
+            // console.log(JSON.parse(e.data));
             updateChat(JSON.parse(e.data));
         };
         ws.onclose = (e) => {
-            console.log(e);
+            // console.log(e);
         };
         setConstructorHasRun(true);
     }
     constructor();
 
     const sendChat = () => {
-        ws.send(`{ "action": "sendmessage", "data": "${comment}", "roomId": "${props.type}", "nickname":"${nickname}" }`)
+        if (comment.length == 0)
+            return;
+        const c1 = comment.replaceAll('\\', '\\\\');
+        const c2 = c1.replaceAll('"', '\\"');
+        if (c2 != null)
+            ws.send(`{ "action": "sendmessage", "data": "${c2}", "roomId": "${props.type}", "nickname":"${nickname}" }`)
         setComment('');
     };
 
@@ -74,7 +79,7 @@ function Chat(props) {
 
     const chatArea = chat.map((str, idx) =>
         <div key={idx} className={styles.chat}>
-            <div className={styles.nickname}>[{str.nickname}]</div> {str.msg}
+            <div className={str.nickname === nickname ? styles.myname : styles.nickname}>[{str.nickname}]</div> {str.msg}
         </div>
     );
 

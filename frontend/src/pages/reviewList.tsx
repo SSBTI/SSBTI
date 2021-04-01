@@ -6,6 +6,8 @@ import Layout from '../components/Layout';
 import Router, { useRouter } from 'next/router';
 import Menu from '../components/review/List/Menu';
 import Pagination from '../components/review/List/Pagination';
+import Login from '../components/review/List/Login';
+
 
 function ReviewList() {
     type review = {
@@ -27,7 +29,7 @@ function ReviewList() {
     }]);
 
     const getPageData = (page) => {
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/${page}`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/${page}`)
             .then((res) => {
                 res.data.forEach(el => {
                     el.content = el.content.replaceAll(process.env.NEXT_PUBLIC_SEPARATOR, '');
@@ -42,17 +44,19 @@ function ReviewList() {
     const [total, setTotal] = useState<number>(0);
 
     useEffect(() => {
-        getPageData(page);
+        if(router.isReady)
+            getPageData(page);
     }, [page]);
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/page`)
+        let token = localStorage.getItem("access-token");
+        console.log(token);
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/page`)
         .then((res) => {
             setTotal(Math.ceil(res.data.pageTotal/5));
         })
         .catch((err) => { console.log(err) });
-        getPageData(page);
         setConstructorHasRun(true);
     }
     constructor();
@@ -78,8 +82,11 @@ function ReviewList() {
                             <div dangerouslySetInnerHTML={{ __html: li.content }}
                                 className={styles.listText}></div>
                         </div>
-                        <img src={li.img[0]} width="100" height="100" alt=""
-                            className={styles.listImg} />
+                        {li.img.length > 0 ?
+                            <img src={li.img[0]} width="100" height="100" alt=""
+                            className={styles.listImg} /> :
+                            <img src='icons/image_icon.png' width="100" height="100" alt=""
+                            className={styles.listImg} /> }
                     </div>
                 </div>
             </a>
@@ -123,6 +130,16 @@ function ReviewList() {
         }
     }
 
+    const [isLogin, setLogin] = useState<Boolean>(false);
+    const openLogin = () => {
+        setLogin(true);
+    }
+    
+    const closeLogin = () => {
+        setLogin(false);
+        // Router.push('/reviewBoard');
+    }
+
     return (
         <div className={styles.wrapper}>
             <Layout pageTitle="List">
@@ -142,6 +159,7 @@ function ReviewList() {
             </Layout>
 
             <Menu isOpen={isMenu} close={closeMenu}/>
+            <Login isOpen={isLogin} close={closeLogin}/>
         </div>
     );
 }
