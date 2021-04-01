@@ -47,7 +47,7 @@ function TuiEditor() {
             return;
         }
 
-        axios.put(`${process.env.NEXT_PUBLIC_REVIEW_API}/detail/${no}`, null, {
+        axios.put(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`, null, {
             params: {
                 title: reviewUpdate.title,
                 content: htmlContext
@@ -66,7 +66,7 @@ function TuiEditor() {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/detail/${no}`)
+        axios.get(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`)
         .then((res) => {
             setUpdate(res.data);
 

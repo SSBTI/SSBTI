@@ -1,17 +1,15 @@
-
-
 .wrapper {
   max-width: 500px;
   width: 95%;
-  height:875px;
+  height: 875px;
   margin: auto;
   margin-top: 1vh;
   padding-top: 3vh;
   text-align: center;
   position: relative;
   background-color: white;
-  border: 3px solid #f23363;
-  border-radius:15px;
+  border: 3px solid #1428a0;
+  border-radius: 15px;
 }
 
 .title {
@@ -31,15 +29,15 @@
   /* font-weight: bold; */
   font-family: CookieRun-Regular;
   width: 66%;
-  background-color: #f23363;
+  background-color: #1428a0;
   outline: none;
   border: none;
   border-radius: 10px;
   color: white;
   padding: 4% 8% 4% 8%;
-  
+
   position: absolute;
-  bottom:3vh;
+  bottom: 3vh;
   right: 17%;
 }
 
@@ -54,18 +52,17 @@
 
 @media (max-width: 550px) {
   .wrapper {
-    height:86vh;
+    height: 86vh;
   }
   .title {
-    font-size:20px;
-    margin-bottom:1vh;
+    font-size: 20px;
+    margin-bottom: 1vh;
   }
   .description {
-    font-size:14px;
-    margin-bottom:2vh;
+    font-size: 14px;
+    margin-bottom: 2vh;
   }
   .startButton {
-    font-size:2vh;
-    
+    font-size: 2vh;
   }
 }

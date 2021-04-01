@@ -5,7 +5,6 @@ import Desc from '../components/result/Desc';
 import Title from '../components/result/Title';
 import Pair from '../components/result/Pair';
 import Recommend from '../components/result/Recommend';
-import Header from '../components/Header';
 import Image from '../components/Image';
 import Router, { useRouter } from 'next/router';
 import axios from 'axios';
@@ -125,33 +124,35 @@ function result() {
                     if(isLoading) return <Loader/>
                 }()
             }
-            <Header />
-                <div className={styles.wrapper}>
-                    <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
-                    <Image src={mbtiResult.img} />
-                    <ul>
-                        {descriptions}
-                    </ul>
-                    <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
-                    <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
-                    <div className={styles.recommend}>
-                        <Recommend name={mbtiResult.name} products={products} />
-                    </div>
+            <div className={styles.wrapper}>
+                <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
+                <Image src={mbtiResult.img} />
+                <ul>
+                    {descriptions}
+                </ul>
+                <Pair type="환상" name={mbtiResult.lovers[0].name} src={mbtiResult.lovers[0].img} />
+                <Pair type="환장" name={mbtiResult.haters[0].name} src={mbtiResult.haters[0].img} />
+                <div className={styles.recommend}>
+                    <Recommend name={mbtiResult.name} products={products} />
+                </div>
 
-                    {!isChat && <div className={styles.btnWrapper}>
-                        <button className={styles.chatBtn} onClick={openChat}>
-                            {mbtiResult.name}끼리 채팅하기
-                        </button>
-                    </div>}
-                    {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
-                    <Share imgUrl={mbtiResult.img}/>
-                    <div className={styles.btnWrapper}>
-                        <button className={styles.startButton} onClick={()=>Router.push({
-                            pathname: '/reviewList',
-                            query: { page: 1 }
-                        })}>
-                            삼성 제품 리뷰 보러가기
-                        </button>
+                {!isChat && <div className={styles.btnWrapper}>
+                    <button className={styles.chatBtn} onClick={openChat}>
+                        {mbtiResult.name}끼리 채팅하기
+                    </button>
+                </div>}
+                {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
+                <Share imgUrl={mbtiResult.img}/>
+                <div className={styles.btnWrapper}>
+                    <button className={styles.routeBtn} onClick={()=>Router.push({
+                        pathname: '/reviewList',
+                        query: { page: 1 }
+                    })}>
+                        삼성 제품 리뷰 보러가기
+                    </button>
+                </div>
+                <div className={styles.btnWrapper}>
+                    <button className={styles.routeBtn} onClick={() => Router.push('/')}>SSBTI 검사하기</button>
                 </div>
             </div>
         </Layout>

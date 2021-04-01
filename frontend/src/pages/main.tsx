@@ -12,52 +12,52 @@ function Main() {
 
   const [mbti, setMBTI] = useState<Array<mbtiAll>>([{
       type: 'INTJ',
-      percent: '',
+      percent: '0.00%',
   },{
     type: 'INTP',
-    percent: '',
+    percent: '0.00%',
 },{
   type: 'ENTJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ENTP',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'INFJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'INFP',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ISTJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ISFJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ESTJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ESFJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ENFJ',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ENFP',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ISTP',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ISFP',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ESTP',
-  percent: '',
+  percent: '0.00%',
 },{
   type: 'ESFP',
-  percent: '',
+  percent: '0.00%',
 }]);
 
   const [constructorHasRun, setConstructorHasRun] = useState(false);
