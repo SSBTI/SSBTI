@@ -2,6 +2,7 @@ import Router from 'next/router';
 import React, {  useState } from 'react';
 import styles from '../styles/survey.module.css';
 import Layout from '../components/Layout';
+import axios from 'axios';
 
 type Question = {
   question: string;
@@ -77,6 +78,16 @@ function Survey() {
       } else {
         MBTI += 'P'
       }
+
+      axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/update`, {
+          params: {
+              type: MBTI
+          }
+      })
+      .then((res) => {
+      })
+      .catch((err) => { console.log(err) });
+
       Router.push(
         '/result',
         `/result/${MBTI}`,
@@ -84,8 +95,7 @@ function Survey() {
       );
       // 얘를 결과창으로 보내주자
     }
-    
-    
+
   };
   return (
     <Layout pageTitle="Survey">

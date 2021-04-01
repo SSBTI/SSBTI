@@ -55,39 +55,8 @@ function result() {
     const router = useRouter();
     const [isLoading,setIsLoading] = useState(true);
     const [constructorHasRun, setConstructorHasRun] = useState(false);
-    let MBTI = router.query;
-    
     const mbtiname = router.asPath.slice(8,12);
     
-    if(Object.keys(MBTI).length == 0) {
-        MBTI = {IE:'0',SN:'0',TF:'0',JP:'0'};
-        if(mbtiname[0] == 'I') {
-            MBTI["IE"] = '1';
-        } else {
-            MBTI["IE"] = '-1';
-        }
-        if(mbtiname[1] == 'S') {
-            MBTI["SN"] = '1';
-        } else {
-            MBTI["SN"] = '-1';
-        }
-        if(mbtiname[2] == 'T') {
-            MBTI["TF"] = '1';
-        } else {
-            MBTI["TF"] = '-1';
-        }
-        if(mbtiname[3] == 'J') {
-            MBTI["JP"] = '1';
-        } else {
-            MBTI["JP"] = '-1';
-        }
-    }
-    const score = [];
-    let i = 0;
-    for(const [key, value] of Object.entries(MBTI)) {
-        score[i++] = Number(value);
-    }
-
     const [mbtiResult, setMBTI] = useState<mbtiResult>({
         type: '',
         desc: '',
@@ -110,13 +79,9 @@ function result() {
     //  survey에서 보낸 mbti 일치하는 유형 받아옴
     const constructor = () => {
         if (constructorHasRun) return;
-        console.log(score)
         axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/test`, {
             params: {
-                IE: score[0],
-                SN: score[1],
-                TF: score[2],
-                JP: score[3],
+                type: mbtiname
             }
         })
         .then((res) => {
@@ -134,7 +99,7 @@ function result() {
         .catch((err) => console.log(err));
         setConstructorHasRun(true);
     };
-    if((Object.keys(MBTI).length > 0))
+    if(mbtiname.length > 0)
         constructor();
         
 
