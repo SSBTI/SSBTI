@@ -6,6 +6,8 @@ import Layout from '../components/Layout';
 import Router, { useRouter } from 'next/router';
 import Menu from '../components/review/List/Menu';
 import Pagination from '../components/review/List/Pagination';
+import Login from '../components/review/List/Login';
+
 
 function ReviewList() {
     type review = {
@@ -27,7 +29,7 @@ function ReviewList() {
     }]);
 
     const getPageData = (page) => {
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}/${page}`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/${page}`)
             .then((res) => {
                 res.data.forEach(el => {
                     el.content = el.content.replaceAll(process.env.NEXT_PUBLIC_SEPARATOR, '');
@@ -48,7 +50,9 @@ function ReviewList() {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}/page`)
+        let token = localStorage.getItem("access-token");
+        console.log(token);
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/page`)
         .then((res) => {
             setTotal(Math.ceil(res.data.pageTotal/5));
         })
@@ -126,6 +130,16 @@ function ReviewList() {
         }
     }
 
+    const [isLogin, setLogin] = useState<Boolean>(false);
+    const openLogin = () => {
+        setLogin(true);
+    }
+    
+    const closeLogin = () => {
+        setLogin(false);
+        // Router.push('/reviewBoard');
+    }
+
     return (
         <div className={styles.wrapper}>
             <Layout pageTitle="List">
@@ -145,6 +159,7 @@ function ReviewList() {
             </Layout>
 
             <Menu isOpen={isMenu} close={closeMenu}/>
+            <Login isOpen={isLogin} close={closeLogin}/>
         </div>
     );
 }

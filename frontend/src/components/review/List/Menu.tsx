@@ -3,33 +3,10 @@ import React, { useState } from 'react';
 import styles from '../../../styles/reviewList.module.css';
 import CloseIcon from 'mdi-react/CloseIcon';
 import axios from 'axios';
-import Login from '../List/Login';
 
 function Menu(props) {
 
-    const [constructorHasRun, setConstructorHasRun] = useState(false);
-    const constructor = () => {
-        if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_API}/admin/authentication`)
-        .then((res) => {
-            console.log(res.data);
-        })
-        .catch((err) => { console.log(err) });
-        setConstructorHasRun(true);
-      };
-      constructor();
-
-    const [isLogin, setLogin] = useState<Boolean>(false);
-    const openLogin = () => {
-        setLogin(true);
-    }
-    
-    const closeLogin = () => {
-        setLogin(false);
-        Router.push('/reviewBoard');
-    }
-    
-    return (
+      return (
         <>
             {props.isOpen ? (
                 <div className={styles.menuWrapper}>
@@ -44,8 +21,6 @@ function Menu(props) {
                     </div>
                 </div>
             ) : null}
-
-            <Login isOpen={isLogin} close={closeLogin}/>
         </>
     );
 }
