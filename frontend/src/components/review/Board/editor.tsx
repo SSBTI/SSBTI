@@ -23,9 +23,8 @@ function TuiEditor() {
             setEmptyAlert(true);
             return;
         }
-        console.log(htmlContext);
 
-        axios.post(`${process.env.NEXT_PUBLIC_REVIEW_API}/review`, null, {
+        axios.post(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}`, {
             params: {
                 title: title,
                 content: htmlContext

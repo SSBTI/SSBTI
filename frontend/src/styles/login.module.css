@@ -10,27 +10,27 @@
 
 .modal {
   position: relative;
-  width: 200px;
-  height: 80px;
+  width: 300px;
+  height: 200px;
   box-sizing: border-box;
-  margin: 40% auto;
+  margin: 30% auto;
   padding: 10px;
   background-color: white;
   border-radius: 5px;
 }
 
-.content {
+.title {
+  margin: 5px 0 0 5px;
+  font-weight: bold;
   font-size: 15px;
 }
 
 .alertBtn {
   padding: 5px;
-  color: white;
-  background-color: black;
+  background-color: #00ff0000;
   border: none;
   outline: none;
   border-radius: 5px;
   float: right;
-  margin-top: 10px;
   cursor: pointer;
 }

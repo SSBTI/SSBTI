@@ -27,7 +27,7 @@ function ReviewList() {
     }]);
 
     const getPageData = (page) => {
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/${page}`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}/${page}`)
             .then((res) => {
                 res.data.forEach(el => {
                     el.content = el.content.replaceAll(process.env.NEXT_PUBLIC_SEPARATOR, '');
@@ -42,17 +42,17 @@ function ReviewList() {
     const [total, setTotal] = useState<number>(0);
 
     useEffect(() => {
-        getPageData(page);
+        if(router.isReady)
+            getPageData(page);
     }, [page]);
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/page`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}/page`)
         .then((res) => {
             setTotal(Math.ceil(res.data.pageTotal/5));
         })
         .catch((err) => { console.log(err) });
-        getPageData(page);
         setConstructorHasRun(true);
     }
     constructor();
@@ -78,8 +78,11 @@ function ReviewList() {
                             <div dangerouslySetInnerHTML={{ __html: li.content }}
                                 className={styles.listText}></div>
                         </div>
-                        <img src={li.img[0]} width="100" height="100" alt=""
-                            className={styles.listImg} />
+                        {li.img.length > 0 ?
+                            <img src={li.img[0]} width="100" height="100" alt=""
+                            className={styles.listImg} /> :
+                            <img src='icons/image_icon.png' width="100" height="100" alt=""
+                            className={styles.listImg} /> }
                     </div>
                 </div>
             </a>

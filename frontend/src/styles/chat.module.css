@@ -29,6 +29,7 @@
   height: 238px;
   width: 475px;
   overflow-y: auto;
+  word-break: break-all;
 }
 
 .body::-webkit-scrollbar {
@@ -75,6 +76,12 @@
 
 .nickname {
   font-weight: bold;
+  display: inline-block;
+}
+
+.myname {
+  font-weight: bold;
+  color: blue;
   display: inline-block;
 }
 

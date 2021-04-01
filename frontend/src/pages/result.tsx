@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Chat from '../components/result/Chat';
 import Share from '../components/Share';
+import Router from 'next/router';
 
 type mbtiResult = {
     type: string,
@@ -170,7 +171,15 @@ function result() {
                         </button>
                     </div>}
                     {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
-                    <Share/>
+                    <Share />
+                    <div className={styles.btnWrapper}>
+                        <button className={styles.startButton} onClick={()=>Router.push({
+                            pathname: '/reviewList',
+                            query: { page: 1 }
+                        })}>
+                            삼성 제품 리뷰 보러가기
+                        </button>
+                    </div>
                 </div>
             </Layout>
         </div>

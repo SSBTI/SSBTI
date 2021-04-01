@@ -93,3 +93,22 @@
 .p {
   margin: 16px auto;
 }
+
+.imgBtn {
+  outline: none;
+  border: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+}
+
+.startButton {
+  font-size: 14px;
+  font-weight: bold;
+  background-color: grey;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  margin-bottom: 20px;
+}

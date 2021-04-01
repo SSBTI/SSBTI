@@ -36,8 +36,9 @@ function reviewDetail() {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${no}`)
+        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}/detail/${no}`)
         .then((res) => {
+            console.log(res.data);
             let data = res.data;
             data.content = data.content.split(process.env.NEXT_PUBLIC_SEPARATOR);
             setDetail(data);
@@ -74,7 +75,7 @@ function reviewDetail() {
     }
 
     const deleteReview = () => {
-        axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_API}/review/detail/${no}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_LOCAL}/detail/${no}`)
         .then((res) => {
             setAlert(true);
         })
