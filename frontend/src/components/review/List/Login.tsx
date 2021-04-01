@@ -21,8 +21,7 @@ function Login(props) {
         })
         .then((res) => {
             localStorage.setItem('token', res.data.accessToken);
-            console.log(localStorage.getItem('token'));
-            props.close();
+            close();
         })
         .catch((err) => {
             console.log(err);

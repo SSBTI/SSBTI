@@ -47,10 +47,11 @@ function ReviewList() {
     useEffect(() => {
         if(router.isReady)
             getPageData(page);
-        
-        setToken(localStorage.getItem('token'));
-        console.log(token);
     }, [page]);
+
+    useEffect(() => {
+        setToken(localStorage.getItem('token'));
+    })
 
     const constructor = () => {
         if (constructorHasRun) return;
