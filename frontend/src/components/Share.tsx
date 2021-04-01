@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/share.module.css';
 import Swal from 'sweetalert2';
 
-function Share() {
+function Share(props) {
   // useEffect(() => {
   //   createKakaoButton()
   // }, [])
@@ -47,16 +47,11 @@ function Share() {
         content: {
           title: 'SSBTI 결과',
           description: '#MBTI #삼성',
-          imageUrl: 'IMAGE_URL', // i.e. process.env.FETCH_URL + '/logo.png'
+          imageUrl: `${props.imgUrl}`, 
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href,
           },
-        },
-        social: {
-          likeCount: 77,
-          commentCount: 55,
-          sharedCount: 333,
         },
         buttons: [
           {
