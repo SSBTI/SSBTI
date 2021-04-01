@@ -56,10 +56,9 @@ function Chat(props) {
     const sendChat = () => {
         if (comment.length == 0)
             return;
-        const c1 = comment.replaceAll('\\', '\\\\');
-        const c2 = c1.replaceAll('"', '\\"');
-        if (c2 != null)
-            ws.send(`{ "action": "sendmessage", "data": "${c2}", "roomId": "${props.type}", "nickname":"${nickname}" }`)
+        const modified = comment.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+        if (modified != null)
+            ws.send(`{ "action": "sendmessage", "data": "${modified}", "roomId": "${props.type}", "nickname":"${nickname}" }`)
         setComment('');
     };
 
