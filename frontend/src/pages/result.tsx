@@ -151,6 +151,9 @@ function result() {
                         삼성 제품 리뷰 보러가기
                     </button>
                 </div>
+                <div className={styles.btnWrapper}>
+                    <button className={styles.routeBtn} onClick={() => Router.push('/')}>SSBTI 검사하기</button>
+                </div>
             </div>
         </Layout>
     );
