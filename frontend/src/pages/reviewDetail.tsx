@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import axios from 'axios';
 import MenuIcon from 'mdi-react/MenuIcon';
@@ -36,7 +36,7 @@ function reviewDetail() {
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/detail/${no}`)
+        axios.get(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`)
         .then((res) => {
             console.log(res.data);
             let data = res.data;
@@ -75,7 +75,7 @@ function reviewDetail() {
     }
 
     const deleteReview = () => {
-        axios.delete(`${process.env.NEXT_PUBLIC_REVIEW_API}/detail/${no}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`)
         .then((res) => {
             setAlert(true);
         })
@@ -91,6 +91,12 @@ function reviewDetail() {
     const showMenu = () => {
         setMenu(true);
     };
+
+    const [token, setToken] = useState<string>('');
+    useEffect(() => {
+        setToken(localStorage.getItem('token'));
+    });
+    const isToken = token != null ? true : false;
 
     return (
         <div className={styles.wrapper}>
@@ -112,21 +118,23 @@ function reviewDetail() {
                     <hr className={styles.hr}/>
                     {content}
                     <hr className={styles.hr}/>
-                    <button className={styles.detailBtn} onClick={deleteReview}>
-                        <DeleteIcon size='20'/>
-                    </button>
-                    <button className={styles.detailBtn} onClick={() => Router.push({
-                        pathname: '/reviewUpdate',
-                        query: {
-                            no: no
-                        }
-                    })}>
-                        <UpdateIcon size='20'/>
-                    </button>
+                    {isToken && <div>
+                        <button className={styles.detailBtn} onClick={deleteReview}>
+                            <DeleteIcon size='20'/>
+                        </button>
+                        <button className={styles.detailBtn} onClick={() => Router.push({
+                            pathname: '/reviewUpdate',
+                            query: {
+                                no: no
+                            }
+                        })}>
+                            <UpdateIcon size='20'/>
+                        </button>
+                    </div>}
                 </div>
 
-                <ListCmt />
-                <WriteCmt />
+                <ListCmt no={no}/>
+                <WriteCmt no={no}/>
                 <hr className={styles.bottomLine}/>
                 <button className={styles.listBtn} onClick={moveToList}>목록</button>
             </Layout>

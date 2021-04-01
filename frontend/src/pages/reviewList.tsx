@@ -29,7 +29,7 @@ function ReviewList() {
     }]);
 
     const getPageData = (page) => {
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/${page}`)
+        axios.get(`${process.env.NEXT_PUBLIC_API}/review/${page}`)
             .then((res) => {
                 res.data.forEach(el => {
                     el.content = el.content.replaceAll(process.env.NEXT_PUBLIC_SEPARATOR, '');
@@ -42,15 +42,19 @@ function ReviewList() {
     const router = useRouter();
     const page = router.query.page;
     const [total, setTotal] = useState<number>(0);
+    const [token, setToken] = useState<string>('');
 
     useEffect(() => {
         if(router.isReady)
             getPageData(page);
+        
+        setToken(localStorage.getItem('token'));
+        console.log(token);
     }, [page]);
 
     const constructor = () => {
         if (constructorHasRun) return;
-        axios.get(`${process.env.NEXT_PUBLIC_REVIEW_API}/page`)
+        axios.get(`${process.env.NEXT_PUBLIC_API}/review/page`)
         .then((res) => {
             setTotal(Math.ceil(res.data.pageTotal/5));
         })
@@ -156,7 +160,7 @@ function ReviewList() {
                 <Pagination now={page} total={total} moveToLeft={moveToLeft} moveToRight={moveToRight}/>
             </Layout>
 
-            <Menu isOpen={isMenu} close={closeMenu}/>
+            <Menu isOpen={isMenu} close={closeMenu} token={token} openLogin={openLogin}/>
             <Login isOpen={isLogin} close={closeLogin}/>
         </div>
     );

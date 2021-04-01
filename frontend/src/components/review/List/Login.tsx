@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/login.module.css';
-import CloseIcon from 'mdi-react/CloseIcon';
+import axios from 'axios';
 
 function Login(props) {
 
@@ -13,26 +13,51 @@ function Login(props) {
     const onChangePW = (e: any) => {
         setPW(e.target.value);
     }
+
+    const login = () => {
+        axios.post(`${process.env.NEXT_PUBLIC_API}/admin/login`, {
+            'password': pw,
+            'userId': id
+        })
+        .then((res) => {
+            localStorage.setItem('token', res.data.accessToken);
+            console.log(localStorage.getItem('token'));
+            props.close();
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    const close = () => {
+        setId('');
+        setPW('');
+        props.close();
+    }
+
     return (
         <>
             {props.isOpen ? (
                 <div className={styles.background}>
-                    <div onClick={props.close}>
+                    <div>
                         <div className={styles.modal}>
-                            <button className={styles.alertBtn} onClick={props.close}>
-                                <CloseIcon size='16'/>
-                            </button>
                             <div className={styles.title}>
                                 관리자 로그인
                             </div>
-                            <label className={styles.label}>아이디 </label>
                             <div className={styles.inputWrapper}>
-                                <input type="text" className={styles.titleInput} value={id} onChange={onChangeId}></input>
+                                <label className={styles.label}>아이디 </label>
+                                <input type="text" className={styles.input} value={id} onChange={onChangeId}></input>
                             </div>
-                            <label className={styles.label}>비밀번호 </label>
                             <div className={styles.inputWrapper}>
-                                <input type="password" className={styles.titleInput} value={pw} onChange={onChangePW}></input>
+                                <label className={styles.label}>비밀번호 </label>
+                                <input type="password" className={styles.input} value={pw} onChange={onChangePW}></input>
                             </div>
+                            <button className={styles.alertBtn} onClick={login}>
+                                로그인
+                            </button>
+                            <button className={styles.alertBtn} onClick={close}>
+                                닫기
+                            </button>
                         </div>
                     </div>
                 </div>

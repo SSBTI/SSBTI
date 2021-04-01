@@ -8,7 +8,7 @@
   position: relative;
   text-align: center;
   background-color: white;
-  border: 3px solid #f23363;
+  border: 3px solid #1428a0;
   border-radius: 15px;
 }
 
@@ -91,7 +91,7 @@
   border: none;
   padding: 5px;
   border-radius: 5px;
-  background-color: #f23363;
+  background-color: #1428a0;
   font-size: 18px;
   font-family: 'CookieRun-Regular';
   color: white;
@@ -123,17 +123,19 @@
   cursor: pointer;
 }
 
-.startButton {
-  font-size: 14px;
-  font-weight: bold;
-  background-color: grey;
+.routeBtn {
   outline: none;
   border: none;
+  padding: 10px;
   border-radius: 5px;
+  background-color: #1428a0;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: 'CookieRun-Regular';
   color: white;
-  padding: 10px 20px 10px 20px;
-  margin-bottom: 20px;
+  cursor: pointer;
 }
+
 /* 젤 긴 폰 */
 @media (width <= 540px) and (700px <= height <= 830px) {
   .mbtiDiv__img {
