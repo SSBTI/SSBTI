@@ -10,7 +10,9 @@ app.prepare()
     const server = express();
     server.get('/result/:mbti', (req,res) => {
       const page = '/result';
+      const main = '/';
       const mbti = req.params.mbti;
+      if(mbti.length != 4) return handle(req, res);
       const IE = mbti[0];
       const SN = mbti[1];
       const TF = mbti[2];
@@ -19,26 +21,34 @@ app.prepare()
       let IEscore,SNscore,TFscore,JPscore;
       if(IE == 'I') {
         IEscore = 1;    
-      } else {
+      } else if(IE =='E'){
         IEscore = -1;
+      } else {
+        return handle(req, res);
       }
       // SN
       if(SN == 'S') {
         SNscore = 1;
-      } else {
+      } else if(SN =='N'){
         SNscore = -1;
+      } else {
+        return handle(req, res);
       }
       // TF
       if(TF == 'T') {
         TFscore = 1;
-      } else {
+      } else if(TF =='F'){
         TFscore = -1;
+      } else {
+        return handle(req, res);
       }
       // JP
       if(JP == 'J') {
         JPscore = 1;
-      } else {
+      } else if(JP =='P') {
         JPscore = -1;
+      } else {
+        return handle(req, res);
       }
       const query = {IE: IEscore, SN: SNscore, TF:TFscore, JP:JPscore};
       
