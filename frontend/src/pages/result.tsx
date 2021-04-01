@@ -144,7 +144,7 @@ function result() {
                         </button>
                     </div>}
                     {isChat && <Chat close={closeChat} type={mbtiResult.type} name={mbtiResult.name}/>}
-                    <Share />
+                    <Share imgUrl={mbtiResult.img}/>
                     <div className={styles.btnWrapper}>
                         <button className={styles.startButton} onClick={()=>Router.push({
                             pathname: '/reviewList',
