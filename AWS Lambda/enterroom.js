@@ -6,8 +6,7 @@ exports.handler = (event, context, callback) => {
     const connectionId = event.requestContext.connectionId;
     const roomId = JSON.parse(event.body).data;
 
-    console.log("EnterRoom", connectionId, roomId);
-
+    // console.log("EnterRoom", connectionId, roomId);
     const params = {
         TableName: process.env.TABLE_NAME,
         Item: {
@@ -18,10 +17,8 @@ exports.handler = (event, context, callback) => {
 
     docClient.put(params, function(err) {
         if (err) {
-            console.error("Error", err);
+            // console.error("Error", err);
             callback(new Error("Error"));
-        } else {
-            console.log("Sucess");
         }
     });
 

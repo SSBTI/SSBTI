@@ -11,6 +11,27 @@ exports.handler = async event => {  // api gateway로 요청이 들어오면 실
     return { statusCode: 500, body: e.stack };
   }
   
+  const parsedBody = JSON.parse(event.body);
+  const putParams = {
+    TableName: process.env.TABLE_NAME3,  // lambda 환경변수에 추가
+    Item: {
+      requestId: event.requestContext.requestId,
+      roomId: parsedBody.roomId,
+      connectionId: event.requestContext.connectionId,
+      msg: parsedBody.data,
+      nickname: parsedBody.nickname,
+      requestTime: event.requestContext.requestTime,
+      requestTimeEpoch: event.requestContext.requestTimeEpoch,
+    }
+  };
+  
+  try {
+    // db에 connectionId 
+    await ddb.put(putParams).promise();
+  } catch (err) {
+    return { statusCode: 500, body: 'Failed to connect: ' + JSON.stringify(err) };
+  }
+  
   // API Gateway 부분
   const apigwManagementApi = new AWS.ApiGatewayManagementApi({
     apiVersion: '2018-11-29',
