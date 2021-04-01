@@ -4,7 +4,8 @@
   position: fixed;
 	width: 100vw;
 	height: 100vh;
-  background: rgb(0,0,0,0.95);
+  /* background: rgb(0,0,0,0.95); */
+  background: url('../../public/backgrounds/appliances_background3.png') repeat;
   text-align:center;
   z-index: 999;
 }
@@ -19,7 +20,8 @@
 
 .loader__title {
   margin-top:10vh;
-  color:white;
+  /* color:white; */
+  color:black;
   font-family: 'CookieRun-Regular';
   font-size:35px;
   text-align:center;
