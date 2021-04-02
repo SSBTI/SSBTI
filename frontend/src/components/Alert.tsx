@@ -6,7 +6,7 @@ function Alert(props) {
         <>
             {props.isOpen ? (
                 <div className={styles.background}>
-                    <div onClick={props.close}>
+                    <div>
                         <div className={styles.modal}>
                             <div className={styles.content}>
                                 {props.content}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/commentList.module.css';
+import axios from 'axios';
 
-function commentList() {
+function commentList(props) {
     type comment = {
         author: string,
         time: string,
@@ -9,23 +10,20 @@ function commentList() {
     }
 
     const [constructorHasRun, setConstructorHasRun] = useState(false);
-    const [commentList, setList] = useState<Array<comment>>([
-        {
-            author: '익명1',
-            time: '21-03-24 17:18',
-            content: '예시입니다.'
-        },
-        {
-            author: '익명2',
-            time: '21-03-24 17:19',
-            content: '예시2입니다.'
-        }
-    ]);
+    const [commentList, setList] = useState<Array<comment>>([]);
 
     const constructor = () => {
         if (constructorHasRun) return;
+        axios.get(`${process.env.NEXT_PUBLIC_COMMENT_API}`, {
+            params: {
+                review_id: props.no
+            }
+        }).then((res) => {
+            console.log(res.data);
+        }).catch((err)=> { console.log(err) });
         setConstructorHasRun(true);
     }
+    constructor();
 
     const list = commentList.map((cmt, idx) => 
         <div key={idx} className={styles.cmtWrapper}>
