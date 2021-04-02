@@ -83,6 +83,8 @@ function Chat(props) {
     );
 
     const scrollToBottom = () => {
+        if (bodyRef == null)
+            return;
         bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
     };
 

@@ -8,8 +8,8 @@ import DeleteIcon from 'mdi-react/TrashCanOutlineIcon';
 import UpdateIcon from 'mdi-react/EditOutlineIcon';
 import Alert from '../components/Alert';
 import Menu from '../components/review/List/Menu';
-import WriteCmt from '../components/review/Comment/commentWrite';
-import ListCmt from '../components/review/Comment/commentList';
+import Cmt from '../components/review/Detail/comment';
+import Login from '../components/review/List/Login';
 
 function reviewDetail() {
     const router = useRouter();
@@ -92,10 +92,21 @@ function reviewDetail() {
         setMenu(true);
     };
 
+    const [isLogin, setLogin] = useState<Boolean>(false);
+    const openLogin = () => {
+        setLogin(true);
+    }
+    
+    const closeLogin = () => {
+        setLogin(false);
+    }
+    
     const [token, setToken] = useState<string>('');
+    
     useEffect(() => {
         setToken(localStorage.getItem('token'));
     });
+    
     const isToken = token != null ? true : false;
 
     return (
@@ -133,13 +144,13 @@ function reviewDetail() {
                     </div>}
                 </div>
 
-                <ListCmt no={no}/>
-                <WriteCmt no={no}/>
+                <Cmt no={no}/>
                 <hr className={styles.bottomLine}/>
                 <button className={styles.listBtn} onClick={moveToList}>목록</button>
             </Layout>
             <Alert content="삭제가 완료되었습니다." isOpen={isAlert} close={closeAlert}/>
-            <Menu isOpen={isMenu} close={closeMenu}/>
+            <Menu isOpen={isMenu} close={closeMenu} token={token} openLogin={openLogin} />
+            <Login isOpen={isLogin} close={closeLogin}/>
         </div>
     )
 }

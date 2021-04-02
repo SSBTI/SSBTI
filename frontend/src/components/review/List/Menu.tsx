@@ -8,8 +8,12 @@ function Menu(props) {
     const isToken = props.token != null ? true : false;
 
     const goToSSBTI = () => {
-        localStorage.removeItem('token');
+        logout();
         Router.push('/');
+    }
+    
+    const logout = () => {
+        localStorage.removeItem('token');
     }
 
     return (
@@ -22,7 +26,10 @@ function Menu(props) {
                             <CloseIcon />
                         </button>
                         <button className={styles.menuBtn} onClick={goToSSBTI}>ssbti 검사하기</button>
-                        {isToken ? <button className={styles.menuBtn} onClick={() => Router.push('/reviewBoard')}>리뷰 작성하기</button>
+                            {isToken ? <div>
+                                    <button className={styles.menuBtn} onClick={() => Router.push('/reviewBoard')}>리뷰 작성하기</button>
+                                    <button className={styles.menuBtn} onClick={logout}>로그아웃</button>
+                                </div>
                         : <button className={styles.menuBtn} onClick={props.openLogin}>관리자 로그인</button>}
                     </div>
                 </div>

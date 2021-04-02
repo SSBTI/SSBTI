@@ -1,0 +1,24 @@
+.wrapper {
+  text-align: center;
+}
+
+/* 젤 긴 폰 */
+@media (width <= 540px) and (700px <= height <= 830px) {
+  .mbtiDiv__img {
+    width: 62px;
+  }
+}
+
+/* 중간 긴 폰 */
+@media (width <= 540px) and (570px <= height <= 700px) {
+  .mbtiDiv__img {
+    width: 50px;
+  }
+}
+
+/* 젤 짧은 폰 */
+@media (width <= 540px) and (height <= 570px) {
+  .mbtiDiv__img {
+    width: 10vw;
+  }
+}

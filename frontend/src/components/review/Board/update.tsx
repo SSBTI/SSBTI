@@ -47,16 +47,26 @@ function TuiEditor() {
             return;
         }
 
-        axios.put(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`, null, {
-            params: {
+        console.log(htmlContext);
+        const token = localStorage.getItem('token');
+        console.log(token);
+
+        axios.put(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`, {
                 title: reviewUpdate.title,
                 content: htmlContext
-            }
+            },{
+                headers: {
+                    Authorization: token
+                }
         })
         .then((res) => {
             setAlert(true);
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => {
+            console.log(err.response);
+            console.log(err.request);
+            console.log(err.message);
+         })
     };
 
     const [constructorHasRun, setConstructorHasRun] = useState(false);

@@ -49,6 +49,15 @@ function ReviewList() {
             getPageData(page);
     }, [page]);
 
+    const [isLogin, setLogin] = useState<Boolean>(false);
+    const openLogin = () => {
+        setLogin(true);
+    }
+    
+    const closeLogin = () => {
+        setLogin(false);
+    }
+
     useEffect(() => {
         setToken(localStorage.getItem('token'));
     })
@@ -131,16 +140,6 @@ function ReviewList() {
                 query: { page: int }
             })
         }
-    }
-
-    const [isLogin, setLogin] = useState<Boolean>(false);
-    const openLogin = () => {
-        setLogin(true);
-    }
-    
-    const closeLogin = () => {
-        setLogin(false);
-        // Router.push('/reviewBoard');
     }
 
     return (
