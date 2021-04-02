@@ -25,14 +25,25 @@ function TuiEditor() {
         }
 
         console.log(htmlContext);
+        const token = localStorage.getItem('token');
+        console.log(token);
+        
         axios.post(`${process.env.NEXT_PUBLIC_API}/review`, {
             title: title,
             content: htmlContext
+        }, {
+            headers: {
+                Authorization: token
+            }
         })
         .then((res) => {
             setAlert(true);
         })
-        .catch((err) => { console.log(err) })
+            .catch((err) => {
+                console.log(err.response);
+                console.log(err.request);
+                console.log(err.message);
+            })
     };
 
     const [isAlert, setAlert] = useState<Boolean>(false);
