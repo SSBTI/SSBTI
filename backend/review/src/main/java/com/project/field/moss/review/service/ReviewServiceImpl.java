@@ -37,7 +37,7 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	private final String splitString = "%!rn!qns!wk!%";
 	private final String outerRegexString = "<img(.*?)>"; //<img> 문자열 찾기
-	private final String innerRegexString = "src=\"(.*?)\""; // src="" 문자열 찾기
+	private final String innerRegexString = "src=(.*?)>"; // src="" 문자열 찾기
 
 	
 	private final Pattern outerPattern = Pattern.compile(outerRegexString);
@@ -52,7 +52,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 		Date date = java.util.Calendar.getInstance().getTime();
 		review.setCreateDate(date);
-
+		System.out.println("야옹잉");
 		String[] filePath = getImageFilePath(reviewDto.getContent());
 		
 		for(int i=0; i<filePath.length; ++i) {
@@ -134,9 +134,13 @@ public class ReviewServiceImpl implements ReviewService{
 			Matcher innerMatcher = innerPattern.matcher(totalFilePath);
 			
 			if(innerMatcher.find()) {
-				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-1));
+//				System.out.println();
+				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-2));
+//				System.out.println(arr.get(arr.size()-1)+"냐옹");
 			}
 		}
+		System.out.println("캬엉");
+		System.out.println(arr.toString());
 		return arr.toArray(new String[0]);
 	}
 
