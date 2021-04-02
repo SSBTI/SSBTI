@@ -3,14 +3,11 @@ package com.project.field.moss.review.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	private final String splitString = "%!rn!qns!wk!%";
 	private final String outerRegexString = "<img(.*?)>"; //<img> 문자열 찾기
-	private final String innerRegexString = "src=(.*?)>"; // src="" 문자열 찾기
+	private final String innerRegexString = "src=(.*?) alt"; // src="" 문자열 찾기
 
 	
 	private final Pattern outerPattern = Pattern.compile(outerRegexString);
@@ -52,7 +49,6 @@ public class ReviewServiceImpl implements ReviewService{
 
 		Date date = java.util.Calendar.getInstance().getTime();
 		review.setCreateDate(date);
-		System.out.println("야옹잉");
 		String[] filePath = getImageFilePath(reviewDto.getContent());
 		
 		for(int i=0; i<filePath.length; ++i) {
@@ -134,13 +130,9 @@ public class ReviewServiceImpl implements ReviewService{
 			Matcher innerMatcher = innerPattern.matcher(totalFilePath);
 			
 			if(innerMatcher.find()) {
-//				System.out.println();
-				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-2));
-//				System.out.println(arr.get(arr.size()-1)+"냐옹");
+				arr.add(totalFilePath.substring(innerMatcher.start(0)+5, innerMatcher.end(0)-5));
 			}
 		}
-		System.out.println("캬엉");
-		System.out.println(arr.toString());
 		return arr.toArray(new String[0]);
 	}
 
