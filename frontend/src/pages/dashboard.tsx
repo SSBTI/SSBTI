@@ -6,6 +6,10 @@ import axios from "axios";
 import Router from 'next/router';
 
 export default function dashboard() {
+  type mbtiAll = {
+    type: string,
+    percent: string,
+  }
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [mbticloudwatch, setMbticloudwatch] = useState('');
   const [chatmetricvisualizer,setChatmetricvisualizer] = useState('');
