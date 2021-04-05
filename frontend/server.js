@@ -8,6 +8,10 @@ const handle = app.getRequestHandler();
 app.prepare()
 .then(()=>{
     const server = express();
+    server.get('/result', (req,res) => {
+      const page = '/asdasd';
+      return app.render(req,res,page);
+    })
     server.get('/result/:mbti', (req,res) => {
       const page = '/result';
       const main = '/';
