@@ -13,7 +13,7 @@ export default function dashboard() {
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [mbticloudwatch, setMbticloudwatch] = useState('');
   const [chatmetricvisualizer,setChatmetricvisualizer] = useState('');
-  const [chatvisualizer,setChatvisualizer] = useState('');  
+  const [chatvisualizer,setChatvisualizer] = useState([]);  
   const [total,setTotal] = useState(0);
   const [mbti, setMBTI] = useState<Array<mbtiAll>>([{
       type: 'INTJ',
@@ -77,8 +77,16 @@ export default function dashboard() {
     setChatmetricvisualizer(chat_metric_visualizerURL);
 
     //chat log 
-    // const chat_log = await axios.get(`${process.env.NEXT_PUBLIC_NICKNAME_API}/visualizer`);
-    // setChatvisualizer(chat_log);
+    const chat_log_res = await axios.get(`${process.env.NEXT_PUBLIC_NICKNAME_API}/visualizer`);
+    const chat_log = (chat_log_res.data.results);
+    const chat_visual = [];
+    chat_log.forEach((msg) => {
+      let temp = '';
+      temp += msg[0].value + " " + msg[1].value;
+      chat_visual.push(temp);
+    })
+    // console.log(chat_visual);
+    setChatvisualizer(chat_visual);
     //total
     const landInfo = await axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/land`);
     // console.log(landInfo.data.slice(16));
@@ -93,6 +101,8 @@ export default function dashboard() {
     }
     
   };
+  
+
   const goReview = () => {
     Router.push('/reviewList');
   };
@@ -135,10 +145,6 @@ export default function dashboard() {
             <div className={styles.graph__frame}>
               <img className={styles.chat__graph} src= {chatmetricvisualizer}/>
             </div>
-            {/* <div className={styles.chat__title}>채팅 서버 로그</div>
-            <div className={styles.graph__frame}>
-              {chatvisualizer}
-            </div> */}
           </div>
           
           
@@ -146,6 +152,16 @@ export default function dashboard() {
             <div className={styles.typeInfo__title}>성향 정보</div>
             <div className={styles.typeInfo__info}>
               <List mbti={mbti}/>
+            </div>
+          </div>
+        </div>
+        <div className={styles.log}>
+          <div className={styles.chat__title}>채팅 서버 로그</div>
+          <div className={styles.graph__frame}>
+            <div>
+              {chatvisualizer.map((each,idx) => {
+                return <div key={idx}>{each}</div>
+              })}
             </div>
           </div>
         </div>

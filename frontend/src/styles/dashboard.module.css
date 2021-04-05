@@ -27,12 +27,23 @@
 
 
 
-.visits, .infos {
+.visits, .infos, .log {
   width: 95%;
   margin: auto;
   display:flex;
   justify-content: space-between;
   margin-bottom:2%;
+}
+
+.log {
+  width: 93%;
+  background: white;
+  border: 2px solid #1428a0;
+  border-radius: 15px;
+  overflow-y: auto;
+  padding:1%;
+  display:flex;
+  flex-direction: column;
 }
 
 .totalVisit, .todayVisit {
@@ -59,13 +70,13 @@
   margin-bottom:2%;
 } */
 
-.subtitle, .typeInfo__title {
+.subtitle, .typeInfo__title, .chat__title {
   font-size:24px;
   margin-bottom:1%;
 }
 
-.mbti__title, 
-.chat__title {
+.mbti__title 
+{
   font-size:18px;
   margin-bottom:0.5%;
 }
