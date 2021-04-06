@@ -1,5 +1,10 @@
 .wrapper {
-  margin: 50px 10px;
+  margin: 0 10px 50px 10px;
+}
+
+.hr {
+  border: none;
+  border-top: 1px solid lightgrey;
 }
 
 .readonly {
@@ -37,21 +42,71 @@
 .author {
   font-size: 14px;
   font-weight: bold;
-}
-
-.time {
-  font-size: 12px;
-  color: grey;
+  font-family: 'Malgun Gothic';
+  color: rgb(82, 82, 82);
 }
 
 .content {
-  max-width: 300px;
+  font-family: 'Malgun Gothic';
+  width: 300px;
   padding: 5px;
   font-size: 14px;
-  background-color: #99b3ff;
   border-radius: 5px;
+  color: rgb(82, 82, 82);
 }
 
 .writeArea {
   margin-left: 10px;
+}
+
+@media (width < 300px) {
+  .textArea {
+    width: 190px;
+  }
+
+  .readonly {
+    width: 80px;
+  }
+
+  .content {
+    width: 180px;
+  }
+}
+
+@media (300px <= width < 350px) {
+  .textArea {
+    width: 220px;
+  }
+
+  .readonly {
+    width: 100px;
+  }
+
+  .content {
+    width: 200px;
+  }
+}
+
+@media (350px <= width < 400px) {
+  .textArea {
+    width: 250px;
+  }
+
+  .readonly {
+    width: 100px;
+  }
+
+  .content {
+    width: 200px;
+  }
+}
+
+@media (400px <= width < 450px) {
+  .textArea {
+    width: 300px;
+  }
+
+  .content {
+    width: 250px;
+  }
 }

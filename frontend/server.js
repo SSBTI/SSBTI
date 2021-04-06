@@ -56,7 +56,7 @@ app.prepare()
       }
       const query = {IE: IEscore, SN: SNscore, TF:TFscore, JP:JPscore};
       
-      console.log('query:', query);
+      // console.log('query:', query);
       return app.render(req,res,page,query);
     })
     server.get('*', (req, res) => {
@@ -65,7 +65,7 @@ app.prepare()
 
     server.listen(3000, (err) => {
         if(err) throw err;
-        console.log("> Ready on Server Port: 3000")
+        // console.log("> Ready on Server Port: 3000")
     })
 })
 .catch((ex) => {

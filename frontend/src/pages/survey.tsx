@@ -56,7 +56,7 @@ function Survey() {
       const GaugeCirclePos = (Step+2)*8;
       GaugeCircle.style.left = `${GaugeCirclePos}%`;
     } else {
-      console.log(changedMBTIscore);
+      // console.log(changedMBTIscore);
       let MBTI = '';
       if(changedMBTIscore['IE'] > 0) {
         MBTI += 'I'

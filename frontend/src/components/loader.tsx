@@ -6,7 +6,7 @@ function Loader() {
     <div className={styles.loader__title}>
       정보를 받아오고 있습니다..
     </div>
-    <img className={styles.loader__img} src="Loader/random_veryfast.gif"/>
+    <img className={styles.loader__img} src="/result/Loader/random_veryfast.gif"/>
   </div>
   
   );
