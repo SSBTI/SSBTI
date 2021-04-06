@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
 import Loader from '../components/loader';
 import Information from '../components/review/Board/information';
-import CheckIsMobile from '../hooks/CheckIsMobile';
+import CheckIsMobile from '../hooks/checkIsMobile';
 
 const Editor = dynamic(
   () => import('../components/review/Board/update'),

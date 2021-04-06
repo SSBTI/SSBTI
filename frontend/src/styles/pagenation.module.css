@@ -21,6 +21,7 @@
   color: white;
   cursor: pointer;
   margin: 0 1px;
+  border-radius: 2px;
 }
 
 .btnClicked {
@@ -30,6 +31,7 @@
   color: white;
   cursor: pointer;
   margin: 0 1px;
+  border-radius: 2px;
 }
 
 .disabled {

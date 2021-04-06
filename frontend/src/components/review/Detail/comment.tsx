@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/comment.module.css';
 import axios from 'axios';
-import Pwd from './password';
 import Alert from '../../Alert';
 
 function Comment(props) {
@@ -55,23 +54,17 @@ function Comment(props) {
             setName('');
             setPW('');
             setContent('');
+            openAlert('작성되었습니다.');
             getCmtList();
-        }).catch((err) => { console.log(err) });
+        }).catch((err) => {
+            console.log(err);
+            openAlert('작성에 실패했습니다.');
+        });
 
     };
 
-    const [isModal, setModal] = useState<boolean>(false);
-    const [pwd, setPwd] = useState<string>('');
     const [isOpen, setOpen] = useState<boolean>(false);
     const [alertContent, setAlert] = useState<string>('');
-
-    const openModal = () => {
-        setModal(true);
-    }
-
-    const closeModal = () => {
-        setModal(false);
-    }
 
     const openAlert = (str: string) => {
         setAlert(str);
@@ -82,54 +75,6 @@ function Comment(props) {
         setOpen(false);
     }
 
-    const updateCmt = () => {
-        openModal();
-        updateAxios();
-    }
-
-    const deleteCmt = () => {
-        openModal();
-        deleteAxios();
-    }
-
-    const updateAxios = () => {
-        axios.put(`${process.env.NEXT_PUBLIC_COMMENT_API}`, {
-            "review_id": props.no,
-            "content": content,
-            "nickname": name,
-            "password": pwd
-        }).then((res) => {
-            // console.log(res);
-            setName('');
-            setPW('');
-            setContent('');
-            getCmtList();
-            openAlert('수정되었습니다.');
-        }).catch((err) => {
-            console.log(err);
-            openAlert('수정에 실패했습니다.');
-        });
-    }
-
-    const deleteAxios = () => {
-        axios.delete(`${process.env.NEXT_PUBLIC_COMMENT_API}`, {
-            params: {
-                "review_id": props.no,
-                "password": pwd
-            }
-        }).then((res) => {
-            // console.log(res);
-            setName('');
-            setPW('');
-            setContent('');
-            getCmtList();
-            openAlert('삭제되었습니다.');
-        }).catch((err) => {
-            console.log(err);
-            openAlert('삭제에 실패했습니다.');
-        });
-    }
-
     const list = commentList.map((cmt, idx) => 
         <div key={idx} className={styles.cmtWrapper}>
             <div className={styles.author}>
@@ -138,8 +83,6 @@ function Comment(props) {
             <div className={styles.content}>
                 {cmt.content}
             </div>
-            <button onClick={updateCmt}>수정</button>
-            <button onClick={deleteCmt}>삭제</button>
             <hr className={styles.hr} />
         </div>
     );
@@ -156,7 +99,6 @@ function Comment(props) {
                 placeholder="댓글을 작성해주세요." value={content} onChange={onContentChange}></textarea>
                 <button className={styles.writeBtn} onClick={writeCmt}>작성</button>
             </div>
-            <Pwd close={closeModal} setPwd={setPwd} isOpen={isModal} />
             <Alert close={closeAlert} isOpen={isOpen} content={alertContent}/>
         </div>
     )
