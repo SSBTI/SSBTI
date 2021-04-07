@@ -1,7 +1,7 @@
 .wrapper {
   max-width: 500px;
   width: 95%;
-  height: 875px;
+  /* height: 875px; */
   margin: auto;
   margin-top: 1vh;
   padding-top: 3vh;
@@ -10,6 +10,7 @@
   background-color: white;
   border: 3px solid #1428a0;
   border-radius: 15px;
+  padding-bottom: 3vh;
 }
 
 .title {
@@ -35,9 +36,9 @@
   border-radius: 10px;
   color: white;
   padding: 4% 8% 4% 8%;
-
-  position: absolute;
-  bottom: 3vh;
+  /* margin-top: 5vh; */
+  /* position: absolute; */
+  /* bottom: 3vh; */
   right: 17%;
 }
 
@@ -51,9 +52,9 @@
 }
 
 @media (max-width: 550px) {
-  .wrapper {
+  /* .wrapper {
     height: 86vh;
-  }
+  } */
   .title {
     font-size: 20px;
     margin-bottom: 1vh;

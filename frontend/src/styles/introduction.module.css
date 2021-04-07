@@ -1,9 +1,11 @@
 .intro {
   background-color: white;
+  width: 95%;
+  margin:auto;
   max-width: 500px;
   margin: 10px auto;
   font-family: 'Franklin Gothic Medium';
-  border-radius: 15px;
+  border-radius: 10px;
   border: 3px solid #1428a0;
 }
 
