@@ -49,24 +49,25 @@ function ReviewList() {
 
     useEffect(() => {
         if (router.isReady) {
-            let num = parseInt(page[0]);
-            if(total>num+2)
-            setEnd(num+2);
-            else
-            setEnd(total);
-            
-            if(1<num-2)
-            setStart(num-2);
-            else
-            setStart(1);
-            getPageData(page);
-
-        }
-        if(page === undefined){
-            Router.push({
-                pathname: '/reviewList',
-                query: { page: 1 }
-            })
+            if(page === undefined){
+                Router.push({
+                    pathname: '/reviewList',
+                    query: { page: 1 }
+                })
+            }
+            else {
+                let num = parseInt(page[0]);
+                if(total>num+2)
+                    setEnd(num+2);
+                else
+                    setEnd(total);
+                
+                if(1<num-2)
+                    setStart(num-2);
+                else
+                    setStart(1);
+                getPageData(page);
+            }
         }
     }, [page, total]);
 
