@@ -47,9 +47,9 @@ function TuiEditor() {
             return;
         }
 
-        console.log(htmlContext);
+        // console.log(htmlContext);
         const token = localStorage.getItem('token');
-        console.log(token);
+        // console.log(token);
 
         axios.put(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`, {
                 title: reviewUpdate.title,

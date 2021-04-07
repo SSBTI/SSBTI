@@ -38,7 +38,7 @@ function reviewDetail() {
         if (constructorHasRun) return;
         axios.get(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             let data = res.data;
             data.content = data.content.split(process.env.NEXT_PUBLIC_SEPARATOR);
             setDetail(data);
@@ -60,6 +60,11 @@ function reviewDetail() {
         </div>
     )
 
+    const showAlert = (str: string) => {
+        setContent(str);
+        setAlert(true);
+    }
+
     const [isAlert, setAlert] = useState<Boolean>(false);
 
     const closeAlert = () => {
@@ -77,7 +82,7 @@ function reviewDetail() {
     const deleteReview = () => {
         axios.delete(`${process.env.NEXT_PUBLIC_API}/review/detail/${no}`)
         .then((res) => {
-            setAlert(true);
+            showAlert('삭제가 완료되었습니다.');
         })
         .catch((err) => { console.log(err) });
     };
@@ -92,15 +97,21 @@ function reviewDetail() {
         setMenu(true);
     };
 
+    const [mdContent, setContent] = useState<string>('');
     const [isLogin, setLogin] = useState<Boolean>(false);
     const openLogin = () => {
         setLogin(true);
     }
     
-    const closeLogin = () => {
+    const closeLogin = (str: string) => {
+        setLogin(false);
+        showAlert(str);
+    }
+
+    const justCloseLogin = () => {
         setLogin(false);
     }
-    
+   
     const [token, setToken] = useState<string>('');
     
     useEffect(() => {
@@ -110,8 +121,8 @@ function reviewDetail() {
     const isToken = token != null ? true : false;
 
     return (
-        <div className={styles.wrapper}>
-            <Layout pageTitle="Detail">
+        <Layout pageTitle="Detail">
+            <div className={styles.wrapper}>
                 <button className={styles.menuIcon} onClick={showMenu}>
                     <MenuIcon />
                 </button>
@@ -147,11 +158,11 @@ function reviewDetail() {
                 <Cmt no={no}/>
                 <hr className={styles.bottomLine}/>
                 <button className={styles.listBtn} onClick={moveToList}>목록</button>
-            </Layout>
-            <Alert content="삭제가 완료되었습니다." isOpen={isAlert} close={closeAlert}/>
-            <Menu isOpen={isMenu} close={closeMenu} token={token} openLogin={openLogin} />
-            <Login isOpen={isLogin} close={closeLogin}/>
-        </div>
+                <Alert content={mdContent} isOpen={isAlert} close={closeAlert}/>
+                <Menu isOpen={isMenu} close={closeMenu} token={token} openLogin={openLogin} openAlert={showAlert}/>
+                <Login isOpen={isLogin} close={closeLogin} justclose={justCloseLogin}/>
+            </div>
+        </Layout>
     )
 }
 

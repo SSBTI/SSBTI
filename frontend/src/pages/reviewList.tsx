@@ -7,6 +7,7 @@ import Router, { useRouter } from 'next/router';
 import Menu from '../components/review/List/Menu';
 import Pagination from '../components/review/List/Pagination';
 import Login from '../components/review/List/Login';
+import Alert from '../components/Alert';
 
 
 function ReviewList() {
@@ -41,20 +42,45 @@ function ReviewList() {
 
     const router = useRouter();
     const page = router.query.page;
-    const [total, setTotal] = useState<number>(0);
+    const [total, setTotal] = useState<number>(1);
     const [token, setToken] = useState<string>('');
+    const [start, setStart] = useState<number>(1);
+    const [end, setEnd] = useState<number>(1);
 
     useEffect(() => {
-        if(router.isReady)
+        if (router.isReady) {
+            let num = parseInt(page[0]);
+            if(total>num+2)
+            setEnd(num+2);
+            else
+            setEnd(total);
+            
+            if(1<num-2)
+            setStart(num-2);
+            else
+            setStart(1);
             getPageData(page);
-    }, [page]);
+
+        }
+        if(page === undefined){
+            Router.push({
+                pathname: '/reviewList',
+                query: { page: 1 }
+            })
+        }
+    }, [page, total]);
 
     const [isLogin, setLogin] = useState<Boolean>(false);
     const openLogin = () => {
         setLogin(true);
     }
     
-    const closeLogin = () => {
+    const closeLogin = (str: string) => {
+        setLogin(false);
+        showModal(str);
+    }
+
+    const justCloseLogin = () => {
         setLogin(false);
     }
 
@@ -95,9 +121,9 @@ function ReviewList() {
                                 className={styles.listText}></div>
                         </div>
                         {li.img.length > 0 ?
-                            <img src={li.img[0]} width="100" height="100" alt=""
+                            <img src={li.img[0]} alt=""
                             className={styles.listImg} /> :
-                            <img src='icons/image_icon.png' width="100" height="100" alt=""
+                            <img src='icons/image_icon.png' alt=""
                             className={styles.listImg} /> }
                     </div>
                 </div>
@@ -142,9 +168,31 @@ function ReviewList() {
         }
     }
 
+    const movePage = (num: string) => {
+        let int = parseInt(num);
+        Router.push({
+            pathname: '/reviewList',
+            query: { page: int }
+        })
+    }
+
+    const [isModal, setModal] = useState<Boolean>(false);
+
+    const closeModal = () => {
+        setModal(false);
+    };
+    
+    const [content, setContent] = useState<string>('');
+
+    const showModal = (str: string) => {
+        setContent(str);
+        setModal(true);
+    };
+
+
     return (
-        <div className={styles.wrapper}>
-            <Layout pageTitle="List">
+        <Layout pageTitle="List">
+            <div className={styles.wrapper}>
                 <button className={styles.menuIcon} onClick={showMenu}>
                     <MenuIcon />
                 </button>
@@ -157,12 +205,14 @@ function ReviewList() {
                     </div>
                     {list}
                 </div>
-                <Pagination now={page} total={total} moveToLeft={moveToLeft} moveToRight={moveToRight}/>
-            </Layout>
+                <Pagination now={page} total={total} end={end} start={start}
+                moveToLeft={moveToLeft} moveToRight={moveToRight} btnClick={movePage}/>
 
-            <Menu isOpen={isMenu} close={closeMenu} token={token} openLogin={openLogin}/>
-            <Login isOpen={isLogin} close={closeLogin}/>
-        </div>
+                <Menu isOpen={isMenu} close={closeMenu} token={token} openLogin={openLogin} openAlert={showModal}/>
+                <Login isOpen={isLogin} close={closeLogin} justclose={justCloseLogin}/>
+                <Alert isOpen={isModal} close={closeModal} content={content}/>
+            </div>
+        </Layout>
     );
 }
 

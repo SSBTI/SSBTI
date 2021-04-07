@@ -1,20 +1,32 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
+import Loader from '../components/loader';
+import Information from '../components/review/Board/information';
+import CheckIsMobile from '../hooks/checkIsMobile';
 
 const Editor = dynamic(
   () => import('../components/review/Board/update'),
-  { ssr: false }
+  { 
+    loading: () => (
+      <div>
+        <Loader />
+      </div>
+    ),
+    ssr: false 
+  }
 )
 
-function reviewBoard() {
+function reviewUpdate() {
+  const isMobile = CheckIsMobile();
+  
   return (
-    <div>
-      <Layout pageTitle="Board">
-        <Editor />
-      </Layout>
-    </div>
+    <Layout pageTitle="Update">
+      {isMobile ? 
+        <Information /> :
+        <Editor />}
+    </Layout>
   )
 }
 
-export default reviewBoard;
+export default reviewUpdate;

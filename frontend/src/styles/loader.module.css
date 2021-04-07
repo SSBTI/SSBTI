@@ -11,11 +11,44 @@
 }
 
 .loader__img {
-  width: 80%;
   /* margin:auto; */
-  height: 80vh;
   max-width: 500px;
-  max-height:500px;
+  max-height: 500px;
+}
+
+@media (450px <= width <= 500px) {
+  .loader__img {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (400px <= width < 450px) {
+  .loader__img {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (350px <= width < 400px) {
+  .loader__img {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (300px <= width < 350px) {
+  .loader__img {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (width < 300px) {
+  .loader__img {
+    width: 250px;
+    height: 250px;
+  }
 }
 
 .loader__title {

@@ -1,5 +1,5 @@
 .wrapper {
-  width: 500px;
+  max-width: 500px;
   margin: auto;
   padding: 10px;
   background-color: white;
@@ -54,7 +54,7 @@
 }
 
 .img {
-  margin: 20px;
+  margin: auto;
 }
 
 .detailBtn {

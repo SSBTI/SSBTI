@@ -84,7 +84,7 @@ function result() {
             }
         })
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setMBTI(res.data);
         })
         .catch((err) => { console.log(err) });
@@ -126,7 +126,7 @@ function result() {
             }
             <div className={styles.wrapper}>
                 <Title name={mbtiResult.name} count={mbtiResult.count} ratio={ratio}/>
-                <Image src={mbtiResult.img} />
+                <Image src={mbtiResult.img}/>
                 <ul>
                     {descriptions}
                 </ul>

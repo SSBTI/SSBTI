@@ -9,9 +9,29 @@
   cursor: pointer;
 }
 
-.pageNum {
+.btnWrapper {
   vertical-align: top;
   display: inline-block;
+}
+
+.btnNotClicked {
+  border: none;
+  outline: none;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  margin: 0 1px;
+  border-radius: 2px;
+}
+
+.btnClicked {
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  margin: 0 1px;
+  border-radius: 2px;
 }
 
 .disabled {

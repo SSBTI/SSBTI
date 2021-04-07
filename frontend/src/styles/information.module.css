@@ -1,0 +1,36 @@
+.wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    background-color: white;
+    border: 3px solid #1428a0;
+    border-radius: 15px;
+}
+
+.text {
+    font-size: 17px;
+}
+
+.img {
+    width: 200px;
+}
+
+@media (width < 300px) {
+    .img {
+        width: 100px;
+    }
+}
+
+@media (width < 350px) {
+    .text {
+        font-size: 11px;
+    }
+}
+
+@media (350px <= width < 400px) {
+    .text {
+        font-size: 14px;
+    }
+}

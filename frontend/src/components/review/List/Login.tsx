@@ -21,17 +21,27 @@ function Login(props) {
         })
         .then((res) => {
             localStorage.setItem('token', res.data.accessToken);
-            close();
+            close('로그인 되었습니다.');
         })
         .catch((err) => {
             console.log(err);
+            close('로그인 실패했습니다.');
         });
     }
 
-    const close = () => {
+    const reset = () => {
         setId('');
         setPW('');
-        props.close();
+    }
+
+    const close = (str: string) => {
+        reset();
+        props.close(str);
+    }
+
+    const justclose = () => {
+        reset();
+        props.justclose();
     }
 
     return (
@@ -54,7 +64,7 @@ function Login(props) {
                             <button className={styles.alertBtn} onClick={login}>
                                 로그인
                             </button>
-                            <button className={styles.alertBtn} onClick={close}>
+                            <button className={styles.alertBtn} onClick={justclose}>
                                 닫기
                             </button>
                         </div>

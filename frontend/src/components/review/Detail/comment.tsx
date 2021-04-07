@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/comment.module.css';
 import axios from 'axios';
+import Alert from '../../Alert';
 
-function commentWrite(props) {
+function Comment(props) {
     type comment = {
         id: number,
         content: string,
@@ -53,10 +54,26 @@ function commentWrite(props) {
             setName('');
             setPW('');
             setContent('');
+            openAlert('작성되었습니다.');
             getCmtList();
-        }).catch((err) => { console.log(err) });
+        }).catch((err) => {
+            console.log(err);
+            openAlert('작성에 실패했습니다.');
+        });
 
     };
+
+    const [isOpen, setOpen] = useState<boolean>(false);
+    const [alertContent, setAlert] = useState<string>('');
+
+    const openAlert = (str: string) => {
+        setAlert(str);
+        setOpen(true);
+    }
+
+    const closeAlert = () => {
+        setOpen(false);
+    }
 
     const list = commentList.map((cmt, idx) => 
         <div key={idx} className={styles.cmtWrapper}>
@@ -66,11 +83,14 @@ function commentWrite(props) {
             <div className={styles.content}>
                 {cmt.content}
             </div>
+            <hr className={styles.hr} />
         </div>
     );
 
     return(
         <div className={styles.wrapper}>
+            댓글
+            <hr className={styles.hr}/>
             {list}
             <div className={styles.writeArea}>
                 <input type="text" className={styles.readonly} placeholder='닉네임' value={name} onChange={onNameChange}></input>
@@ -79,8 +99,9 @@ function commentWrite(props) {
                 placeholder="댓글을 작성해주세요." value={content} onChange={onContentChange}></textarea>
                 <button className={styles.writeBtn} onClick={writeCmt}>작성</button>
             </div>
+            <Alert close={closeAlert} isOpen={isOpen} content={alertContent}/>
         </div>
     )
 }
 
-export default commentWrite;
+export default Comment;
