@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: eureka   # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: eureka
+spec:
+  replicas: 1                 # No. of replicas/pods to run in this deployment
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: eureka
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: eureka
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: eureka
+        image: jhw2621/eureka:latest
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8181 # The port that the container exposes
+        env:
+        - name: APISERVER
+          value: "https://kubernetes.default.svc"
+        - name: SERVICEACCOUNT
+          value: "/var/run/secrets/kubernetes.io/serviceaccount"
+        - name: NAMESPACE
+          value: "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
+        - name: TOKEN
+          value: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+        - name: CACERT
+          value: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+---
+apiVersion: v1                # API version
+kind: Service                 # Type of the kubernetes resource
+metadata:
+  name: eureka    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: eureka
+spec:
+  selector:
+    app: eureka   # The service exposes Pods with label `app=polling-app-server`
+  ports:                      # Forward incoming connections on port 20001 to the target port 20001
+    - port: 8181
+      protocol: TCP

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  review-db:
+    image: mysql:latest
+    container_name: review-db
+    environment:
+      MYSQL_ROOT_PASSWORD: f103ssbti
+      MYSQL_DATABASE: ex0228
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf

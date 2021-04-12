@@ -1,0 +1,112 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+          #nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: ssbti-v1
+              port:
+                number: 3000
+        - path: /review/(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: review
+              port:
+                number: 8080
+        - path: /api/(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: zuul
+              port:
+                number: 8182
+        - path: /eureka/(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: eureka
+              port:
+                number: 8181
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssbti-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ssbti
+      tier: app
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: ssbti
+        tier: app
+        version: v1
+    spec:
+      containers:
+        - name: ssbti
+          image: jhw2621/ssbti:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
+      imagePullSecrets:
+        - name: dockersecret
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssbti-v1
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    app: ssbti
+    tier: app
+    version: v1
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ssbti-v1
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ssbti-v1
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 20
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi
+
+
