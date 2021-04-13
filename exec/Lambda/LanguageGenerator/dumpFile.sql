@@ -1,5 +1,5 @@
 CREATE SCHEMA `lang` DEFAULT CHARACTER SET utf8mb4 ;
-desc nouns;
+use lang;
 
 create table nouns (
         id bigint not null auto_increment,
