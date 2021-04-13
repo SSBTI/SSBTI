@@ -64,42 +64,41 @@ function Parent() {
 	// 자식 모달 창 여는 method
 	const openModal = () => { // function openModal() {} 와 같은 형태
 		if (content == '')
-	    return;
+	        return;
 
 		setModal(true);
-	}
+	};
 
 	// 자식 모달 창 닫는 method
 	const closeModal = () => {
 		setContent('');
-    setModal(false);
-  };
+        setModal(false);
+    };
 
 	// input의 value를 변경하는 method
 	const onChange = (e: any) => {
-    setContent(e.target.value);
-  };
+        setContent(e.target.value);
+    };
 
 	// enter key 눌렸을 때 실행할 method
-  const handleEnterPress = (e: any) => {
-    if (e.key === 'Enter')
-      openModal();
-  };
-
+    const handleEnterPress = (e: any) => {
+        if (e.key === 'Enter')
+            openModal();
+    };
+    
 	// parameter가 있는 method의 경우
 	const log = (str: string) => {
-    if (str == '')
-      return;
+        if (str == '')
+            return;
     
-    console.log(str);
-  }
+        console.log(str);
+    }
 
 	// 화면에 보여질 html
 	return( // 전체 코드를 감싸는 태그 필요 
 		<div>
 			전달할 값 : 
 			<Child isModal={isModal} close={closeModal} content={content}/> // <자식컴포넌트 사용할 변수 이름={부모 컴포넌트의 변수/함수 이름}/>
-			{!isModal && // 뒤에 오는 태그는 isModal 값에 따라 실제로 제거되고 생성됨(vue의 v-if). 감싸는 태그 필요
 			<input value={content} onChange={onChange} type="text" onKeyPress={handleEnterPress}>
 			</input>
 			<button onClick={() => log(content)}>콘솔</button>
@@ -119,10 +118,10 @@ import styles from '../styles/child.module.css'; // css 파일 경로
 function Child(props) { // 자식 컴포넌트. 부모에서 받아옿 props
     return (
         <>
-						// 부모에서 받아온 데이터는 props.변수/함수 이름으로 접근
-						// 변수 ? ( <></> : <></> )의 삼항연산자 형태로 변수 값에 따라 생성/제거 될 태그 설정
+			// 부모에서 받아온 데이터는 props.변수/함수 이름으로 접근
+			// 변수 ? ( <></> : <></> )의 삼항연산자 형태로 변수 값에 따라 생성/제거 될 태그 설정
             {props.isModal ? (
-								// className={css파일 import한 이름.css파일에서 쓸 이름}
+				// className={css파일 import한 이름.css파일에서 쓸 이름}
                 <div className={styles.background}>
                     <div>
                         <div className={styles.modal}>
@@ -194,8 +193,8 @@ import React, { useEffect } from 'react';
 useEffect(()=>{
 	// 실행할 코드
 }, []); // [] 생략 시 컴포넌트 리렌더링 될 때마다 호출
-				// []가 비어있으면 컴포넌트가 처음 나타날 때만 호출
-				// [] 안에 값이 있으면 해당 값이 업데이트 될 때마다 호출
+		// []가 비어있으면 컴포넌트가 처음 나타날 때만 호출
+		// [] 안에 값이 있으면 해당 값이 업데이트 될 때마다 호출
 ```
 
 routing할 때
@@ -209,7 +208,7 @@ const param = router.변수이름;
 const moveToHome = () => {
 	// '/' 경로로 이동
 	Router.push('/');
-}
+};
 
 const moveToPage = () => {
 	// '/list?page=1' 경로로 이동
@@ -217,7 +216,7 @@ const moveToPage = () => {
 		pathname: '/list',
 		query: { page: 1 }
 	})
-}
+};
 ```
 
 정적 경로 접근할 때
@@ -247,8 +246,8 @@ function 컴포넌트(){
 
 	// 스크롤 하단 고정 method. 원하는 상황에 맞게 호출해 사용
 	const scrollToBottom = () => {
-    bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
-  };
+        bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    };
 	
 	return(
 		<div>
