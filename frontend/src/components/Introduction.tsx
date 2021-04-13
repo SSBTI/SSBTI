@@ -15,7 +15,7 @@ function Introduction() {
         setOpen(false);
     }
     return (
-        <div className={styles.intro}>
+        <div className={isOpen?styles.introDown:styles.introUp}>
             <div className={isOpen?styles.title:styles.closeTitle}>
                 <div className={styles.text}>ABOUT US</div>
                 {isOpen ? <button className={isOpen?styles.icon:styles.closeIcon} onClick={close}><UpIcon /></button>

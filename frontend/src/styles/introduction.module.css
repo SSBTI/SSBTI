@@ -1,7 +1,18 @@
-.intro {
+.introUp {
+  background-color: #1428a0;
+  width: 95%;
+  margin: auto;
+  max-width: 500px;
+  margin: 10px auto;
+  font-family: 'Franklin Gothic Medium';
+  border-radius: 10px;
+  border: 3px solid #1428a0;
+}
+
+.introDown {
   background-color: white;
   width: 95%;
-  margin:auto;
+  margin: auto;
   max-width: 500px;
   margin: 10px auto;
   font-family: 'Franklin Gothic Medium';

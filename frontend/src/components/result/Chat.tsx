@@ -18,6 +18,24 @@ function Chat(props) {
     const [chat, setChat] = useState<chatData[]>([]);
     const bodyRef = useRef(null);
 
+    const connect = () => {
+        ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
+        ws.onopen = (e) => {
+            // console.log(e);
+            ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
+            axios.get(`${process.env.NEXT_PUBLIC_NICKNAME_API}/language_generator`)
+                .then(res => setNickname(res.data))
+                .catch(err => console.log(err))
+        };
+        ws.onmessage = (e) => {
+            // console.log(JSON.parse(e.data));
+            updateChat(JSON.parse(e.data));
+        };
+        ws.onclose = (e) => {
+            // console.log(e);
+        };
+    };
+
     const constructor = () => {
         if (constructorHasRun) return;
         axios.get(`${process.env.NEXT_PUBLIC_MBTI_API}/chatlog`, {
@@ -34,21 +52,7 @@ function Chat(props) {
         })
         .catch((err) => console.log(err));
 
-        ws = new WebSocket(process.env.NEXT_PUBLIC_CHAT);
-        ws.onopen = (e) => {
-            // console.log(e);
-            ws.send(`{ "action": "enterroom", "data": "${props.type}" }`);
-            axios.get(`${process.env.NEXT_PUBLIC_NICKNAME_API}/language_generator`)
-                .then(res => setNickname(res.data))
-                .catch(err => console.log(err))
-        };
-        ws.onmessage = (e) => {
-            // console.log(JSON.parse(e.data));
-            updateChat(JSON.parse(e.data));
-        };
-        ws.onclose = (e) => {
-            // console.log(e);
-        };
+        connect();
         setConstructorHasRun(true);
     }
     constructor();
@@ -83,7 +87,7 @@ function Chat(props) {
     );
 
     const scrollToBottom = () => {
-        if (bodyRef == null)
+        if (bodyRef == null || bodyRef.current == undefined)
             return;
         bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
     };
@@ -102,7 +106,7 @@ function Chat(props) {
                 </button>
             </div>
             <div className={styles.body}
-                ref={bodyRef}>
+                ref={el => { bodyRef.current = el; }}>
                 {chatArea}
             </div>
             <div className={styles.inputWrapper}>
