@@ -241,13 +241,13 @@ const descriptions = description.map((str, idx) =>
 ```jsx
 import React, { useRef } from 'react';
 
-function 컴포넌트(){
+function Home(){
 	const bodyRef = useRef(null);
 
 	// 스크롤 하단 고정 method. 원하는 상황에 맞게 호출해 사용
 	const scrollToBottom = () => {
-        bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
-    };
+    bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+  };
 	
 	return(
 		<div>
@@ -257,7 +257,33 @@ function 컴포넌트(){
 	);
 }
 
-export default 컴포넌트;
+export default Home;
+```
+
+Dynamic Import with custom loading component, no SSR
+
+```jsx
+import dynamic from 'next/dynamic'
+
+const DynamicComponent = dynamic(
+  () => import('../components/dComponent'),
+  { 
+		loading: () => (
+			<div>로딩중...</div>
+		),
+		ssr: false
+	}
+)
+
+function Home() {
+  return (
+    <div>
+      <DynamicComponent />
+    </div>
+  )
+}
+
+export default Home;
 ```
 
 ### 아이콘
