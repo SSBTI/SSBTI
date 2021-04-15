@@ -1,0 +1,31 @@
+server:
+  port: 8183
+  # ssl:
+  #    enable: true
+  #  key-store: classpath:keystore.jks
+  #  key-store-password: ssbti003
+  #  key-password: ssbti003
+  # http2:
+  #   enabled: true
+spring:
+  application:
+    name: admin
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: DB 주소
+    username: DB 사용자
+    password: DB 비밀번호
+
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: update
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+jwt:
+  secret: hellomynameisjs
+
