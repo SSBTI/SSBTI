@@ -61,7 +61,7 @@
 
 ![architecture_1](./README.assets/architecture2.png)
 
-## :sparkles:주요 기능
+## :sparkles: 주요 기능
 
 * SSBTI 테스트 기능
 * 결과 조회, 제품 추천 및 공유 기능
