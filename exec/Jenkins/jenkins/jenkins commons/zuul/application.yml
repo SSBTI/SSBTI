@@ -1,0 +1,58 @@
+server:
+  port: 8182
+
+spring:
+  application:
+    name: ZUUL
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    enabled: false
+
+zuul:
+  sensitiveHeaders: Cookie, Set-Cookie
+  ignoredHeaders: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  ribbonIsolationStrategy: THREAD
+  threadPool:
+    useSeperateThreadPools: true # 각 서비스 별로 ThreadPool 분리 
+    threadPoolKeyPrefix: zuul-
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.49.2/eureka/eureka/ # 유레카 서버의 주소
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 50
+      maximumSize: 200
+      allowMaximumSizeToDivergeFromCoreSize: true
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000 #요청 대기 시간
+            
+#Routing Config
+ribbon:
+  retryable: true
+  MaxAutoRtries: 2
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperation: true
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
+
+jwt:
+  secret: hellomynameisjs

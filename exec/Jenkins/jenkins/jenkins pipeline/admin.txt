@@ -1,0 +1,27 @@
+node {
+    stage('Clone') {
+        git branch: 'develop', changelog: false, credentialsId: 'gitlab', poll: false, url: 'https://lab.ssafy.com/s04-field/field-team3.git'
+    }
+    stage('Build Admin') {
+        sh """
+            mkdir -p /var/jenkins_home/workspace/admin/backend/admin/src/main/resources
+            cp /var/jenkins_home/common/admin/application.yml /var/jenkins_home/workspace/admin/backend/admin/src/main/resources
+            cp /var/jenkins_home/common/keystore.jks /var/jenkins_home/workspace/admin/backend/admin/src/main/resources
+            cd /var/jenkins_home/workspace/admin/backend/admin/
+            chmod +x ./gradlew
+            ./gradlew clean
+            ./gradlew build
+        """
+    }
+    stage("SSH deploy") {
+        withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ubuntu-server', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+            def remote = [:]
+            remote.name = "ubuntu"
+            remote.host = "j4f003.p.ssafy.io"
+            remote.allowAnyHosts = true
+            remote.user = "ubuntu"
+            remote.identityFile = identity
+            sshCommand remote: remote, command: 'sh /home/ubuntu/CICD/deploy-admin.sh'
+        }
+    }
+}
