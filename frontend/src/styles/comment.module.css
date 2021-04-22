@@ -1,0 +1,112 @@
+.wrapper {
+  margin: 50px 10px;
+}
+
+.hr {
+  border: none;
+  border-top: 1px solid lightgrey;
+}
+
+.readonly {
+  display: inline-block;
+  outline: none;
+  width: 150px;
+  border: solid 1px lightgrey;
+  height: 20px;
+  margin: 10px 10px 10px 0px;
+}
+
+.textArea {
+  border: solid 1px lightgrey;
+  width: 350px;
+  height: 100px;
+  display: block;
+  margin: 10px 0;
+}
+
+.writeBtn {
+  float: right;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.cmtWrapper {
+  margin: 10px;
+}
+
+.author {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Malgun Gothic';
+  color: rgb(82, 82, 82);
+}
+
+.content {
+  font-family: 'Malgun Gothic';
+  width: 300px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: rgb(82, 82, 82);
+}
+
+.writeArea {
+  margin-left: 10px;
+}
+
+@media (width < 300px) {
+  .textArea {
+    width: 190px;
+  }
+
+  .readonly {
+    width: 80px;
+  }
+
+  .content {
+    width: 180px;
+  }
+}
+
+@media (300px <= width < 350px) {
+  .textArea {
+    width: 220px;
+  }
+
+  .readonly {
+    width: 100px;
+  }
+
+  .content {
+    width: 200px;
+  }
+}
+
+@media (350px <= width < 400px) {
+  .textArea {
+    width: 250px;
+  }
+
+  .readonly {
+    width: 100px;
+  }
+
+  .content {
+    width: 200px;
+  }
+}
+
+@media (400px <= width < 450px) {
+  .textArea {
+    width: 300px;
+  }
+
+  .content {
+    width: 250px;
+  }
+}

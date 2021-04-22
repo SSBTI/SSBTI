@@ -1,0 +1,95 @@
+.wrapper {
+  /* height: 300px; */
+  border-radius: 5px;
+  background-color: rgb(231, 231, 231);
+  width: 95%;
+  margin: auto;
+}
+
+.header {
+  height: 20px;
+  padding: 5px;
+}
+
+.notice {
+  font-size: 14px;
+  padding: 5px;
+  display: inline-block;
+}
+
+.closeBtn {
+  margin-top: 3px;
+  float: right;
+  border: none;
+  outline: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+}
+
+.body {
+  margin-left: 10px;
+  height: 238px;
+  width: 95%;
+  max-width: 500px;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+.body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+  background-color: transparent;
+}
+
+.body::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.inputWrapper {
+  padding: 5px;
+  display: flex;
+}
+
+.input {
+  width: 90%;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 5px;
+  outline: none;
+}
+
+.commentBtn {
+  border: none;
+  outline: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+  height: 100%;
+  line-height: 100%;
+}
+
+.chat {
+  font-size: 14px;
+}
+
+.nickname {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.myname {
+  font-weight: bold;
+  color: blue;
+  display: inline-block;
+}
+
+.none {
+  display: none;
+}

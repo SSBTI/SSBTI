@@ -1,0 +1,25 @@
+server:
+  port: 8181
+  # ssl:
+   # enable: true
+   # key-store: classpath:keystore.jks
+   # key-store-password: ssbti003
+   # key-password: ssbti003
+   #  http2:
+   # enabled: true
+
+prefixEureka: ingress에서 erueka 서버 IP/eureka #ex)http://192.168.49.2/eureka
+eurekaPath: ${prefixEureka}/apps/ # ex) http://192.168.49.2/eureka/eureka/apps/
+kubeConfigPath: ~/.kube/config
+
+eureka:
+  instance:
+    hostname: 192.168.49.2 #ingress에서 erueka 서버 IP
+  client:
+    serviceUrl:
+            #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+            defaultZone: ${prefixEureka}/eureka
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    enableSelfPreservation: true

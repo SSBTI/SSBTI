@@ -1,0 +1,159 @@
+.wrapper {
+  box-sizing: border-box;
+  max-width: 500px;
+  width: 95%;
+  margin: auto;
+  margin-top: 2vh;
+  padding: 1vh;
+  position: relative;
+  text-align: center;
+  background-color: white;
+  border: 3px solid #1428a0;
+  border-radius: 15px;
+}
+
+.linkBtn {
+  padding: 10px 20px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 10px;
+  color: black;
+  outline: none;
+  border: none;
+  display: block;
+  margin: 10px auto;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 2vh;
+  text-align: center;
+  width: 100%;
+}
+
+.mbtiDiv {
+  width: 20%;
+  display: inline-block;
+  margin: 5px;
+  margin-bottom: 10px;
+}
+
+.mbtiDiv__img {
+  width: 95px;
+}
+
+.mbtiList {
+  margin-bottom: 3vh;
+}
+
+.title {
+  font-size: 28px;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.li {
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 2vh;
+}
+
+.pairTitle {
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+.goodsDesc {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.headerIcon {
+  border: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+}
+
+.recommend {
+  margin-bottom: 10vh;
+}
+
+.btnWrapper {
+  text-align: center;
+}
+
+.chatBtn {
+  outline: none;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #1428a0;
+  font-size: 18px;
+  font-family: 'CookieRun-Regular';
+  color: white;
+  cursor: pointer;
+}
+
+.statistics {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.bold {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.none {
+  display: none;
+}
+
+.p {
+  margin: 16px auto;
+}
+
+.imgBtn {
+  outline: none;
+  border: none;
+  background-color: #00ff0000;
+  cursor: pointer;
+}
+
+.routeBtn {
+  outline: none;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #1428a0;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: 'CookieRun-Regular';
+  color: white;
+  cursor: pointer;
+  width: 60%;
+}
+
+/* 젤 긴 폰 */
+@media (width <= 540px) and (700px <= height <= 830px) {
+  .mbtiDiv__img {
+    width: 62px;
+  }
+}
+
+/* 중간 긴 폰 */
+@media (width <= 540px) and (570px <= height <= 700px) {
+  .mbtiDiv__img {
+    width: 50px;
+  }
+}
+
+/* 젤 짧은 폰 */
+@media (width <= 540px) and (height <= 570px) {
+  .mbtiDiv__img {
+    width: 10vw;
+  }
+}

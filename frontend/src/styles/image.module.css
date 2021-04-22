@@ -1,0 +1,21 @@
+.img {
+  display: 'inline';
+  width: 300px;
+  height: 300px;
+}
+
+/* 중간 화면 */
+@media (300px < width <= 450px) {
+  .img {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+/* 좁은 화면 */
+@media (width <= 300px) {
+  .img {
+    width: 200px;
+    height: 200px;
+  }
+}

@@ -1,0 +1,68 @@
+.loader {
+  left:0;
+  top:0;
+  position: fixed;
+	width: 100vw;
+	height: 100vh;
+  /* background: rgb(0,0,0,0.95); */
+  background: url('../../public/backgrounds/appliances_background3.png') repeat;
+  text-align:center;
+  z-index: 999;
+}
+
+.loader__img {
+  /* margin:auto; */
+  max-width: 500px;
+  max-height: 500px;
+}
+
+@media (450px <= width <= 500px) {
+  .loader__img {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (400px <= width < 450px) {
+  .loader__img {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (350px <= width < 400px) {
+  .loader__img {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (300px <= width < 350px) {
+  .loader__img {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (width < 300px) {
+  .loader__img {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+.loader__title {
+  margin-top:10vh;
+  /* color:white; */
+  color:black;
+  font-family: 'CookieRun-Regular';
+  font-size:35px;
+  text-align:center;
+  width:100%;
+}
+
+@media (width <= 560px) {
+  .loader__title {
+    font-size:25px;
+  }
+}

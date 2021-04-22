@@ -1,0 +1,55 @@
+.background {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.modal {
+  position: relative;
+  width: 300px;
+  height: 160px;
+  box-sizing: border-box;
+  margin: 30% auto;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.title {
+  margin: 5px 0 20px 5px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.alertBtn {
+  padding: 5px;
+  margin: 15px 0 0 5px;
+  color: white;
+  background-color: black;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input {
+  border: solid 1px grey;
+  float: right;
+  outline: none;
+  margin-right: 30px;
+}
+
+.inputWrapper {
+  margin: 10px 0 0 15px;
+}

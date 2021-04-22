@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: zuul   # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: zuul
+spec:
+  replicas: 2                # No. of replicas/pods to run in this deployment
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: zuul
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: zuul
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: zuul
+        image: jhw2621/zuul:latest
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8182 # The port that the container expose
+        resources:
+          requests:
+            cpu: "250m"
+          limits:
+            cpu: "500m"
+---
+apiVersion: v1                # API version
+kind: Service                 # Type of the kubernetes resource
+metadata:
+  name: zuul    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: zuul
+spec:
+  selector:
+    app: zuul   # The service exposes Pods with label `app=polling-app-server`
+  ports:                      # Forward incoming connections on port 20001 to the target port 20001
+    - port: 8182
+      protocol: TCP
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: zuul
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: zuul
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi
+                                              

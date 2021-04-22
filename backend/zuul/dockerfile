@@ -1,0 +1,6 @@
+FROM adoptopenjdk/openjdk11:latest
+COPY build/libs/*.jar zuul.jar
+
+EXPOSE 8182
+
+ENTRYPOINT ["java", "-jar", "zuul.jar"]

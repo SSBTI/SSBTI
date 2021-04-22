@@ -1,0 +1,173 @@
+.wrapper {
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
+  background-color: white;
+  border: 3px solid #1428a0;
+  border-radius: 15px;
+}
+
+.menuIcon {
+  float: right;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: #00ff0000;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.listArea {
+  max-width: 400px;
+  min-height: 650px;
+  margin: 10px auto;
+}
+
+.total {
+  font-size: 14px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.listTitle {
+  font-weight: bold;
+  font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  vertical-align: top;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  max-width: 280px;
+}
+
+.listItem {
+  height: 100px;
+}
+
+.listText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  vertical-align: top;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  color: grey;
+  font-size: 14px;
+  height: 70px;
+  width: 280px;
+}
+
+.textDisplay {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.listImg {
+  margin-top: -20px;
+  width: 100px;
+  height: 100px;
+}
+
+.hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid lightgrey;
+}
+
+.a {
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.a:visited {
+  color: black;
+}
+
+.menuWrapper {
+  max-width: 525px;
+  margin: auto;
+  margin-top: 8px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.modal {
+  animation-duration: 0.3s;
+  animation-name: slidein;
+  float: right;
+  position: relative;
+  width: 250px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: black;
+  border-radius: 15px;
+}
+
+@keyframes slidein {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 250px;
+  }
+}
+
+.menuBtn {
+  font-weight: bold;
+  color: white;
+  background-color: #00ff0000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+}
+
+.closeBtn {
+  color: white;
+  background-color: #00ff0000;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  float: right;
+}
+
+@media (width < 500px) {
+  .listImg {
+    margin-top: 0;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (width < 300px) {
+  .listText {
+    width: 150px;
+  }
+}
+
+@media (300px <= width < 350px) {
+  .listText {
+    width: 180px;
+  }
+}
+
+@media (350px <= width < 400px) {
+  .listText {
+    width: 220px;
+  }
+}
